@@ -88,7 +88,7 @@ const FAQ_KEYS = [
   ["faq.q4", "faq.a.priv"], ["faq.q5", "faq.a.src"], ["faq.q6", "faq.a.trial"],
   ["faq.q7", "faq.a.legal"], ["faq.q8", "faq.a.upd"],
   ["faq.q_ar", "faq.a_ar"], ["faq.q_pt", "faq.a_pt"],
-  ["faq.q_rlm", "faq.a_rlm"]
+  ["faq.q_rlm", "faq.a_rlm"], ["faq.q_audit", "faq.a_audit"]
 ];
 
 /* Council roles — index order is meaningful, roles.0 = proposer, 1 = advocate… */
@@ -1317,12 +1317,6 @@ function chatRender(out) {
   });
 }
 
-/* --- GUI theme switcher --- */
-function setTheme(name) {
-  const fig = $("#cusShot");
-  if (fig) fig.dataset.theme = name;
-  $$(".theme-btn").forEach(b => b.classList.toggle("on", b.dataset.theme === name));
-}
 
 /* ============================================================
    10. LEGAL
@@ -1345,23 +1339,7 @@ const LEGAL = {
     ja: ["販売条件","STORM-LX はデジタルダウンロードとして販売し、支払い後まもなく納品されます。<br><br>あなたは、購入したデバイス数に対して、1 ユーザー分の個人・非独占・譲渡不可のライセンスを取得します。製品には完全かつ制限のない Python ソースコードが含まれます。製品（オリジナルまたは改変品）の再配布、再販売、デコンパイル、再パッケージングは固���禁止されています。<br><br>本製品は現状のまま提供され、保証はありません。法律が許容する範囲の最大において、作者は、データの損失や利益の損失を含む、ソフトウェアの使用に起因する間接的または結果的損害について責任を負いません。<br><br>購入により、本ソフトウェアを自分が所有するシステム、または書面の許可を得たシステムでのみ使用することを確認したものとみなされます。"],
     ko: ["판매 조건","STORM-LX는 디지털 다운로드로 판매되며 결제 후 즉시 제공됩니다.<br><br>귀하는 개인적이고 독점적이지 않으며 양도할 수 없는 라이선스를 한 사용자에게, 구매한 기기 수에 한해 제공받습니다. 제품에는 완전하고 제한 없는 Python 소스 코드가 포함됩니다. 제품의 재배포, 재판매, 디컴파일 또는 재패키징 — 원본 또는 수정본 모두 — 은 엄격히 금지됩니다.<br><br>제품은 있는 그대로 제공되며 보증은 없습니다. 법률이 허용하는 최대 범위에서 작성자는 소프트웨어 사용으로 인해 발생한 간접적 또는 결과적 손해, 데이터 손실이나 이익 손실을 포함하여 책임지지 않습니다.<br><br>구매를 통해 귀하는 본 소프트웨어를 자신이 소유한 시스템 또는 서면으로 허가를 받은 시스템에서만 사용함을 확인합니다."]
   },
-  refund: {
-    en: ["Refund policy","Send one email from the address used for the purchase. Approved refunds are returned to the original payment method within 5 business days. Platform fees already charged to the seller may not be recoverable.<br><br>Because the product is a compiled digital download, the sale is normally final once the download has been accessed."],
-    fr: ["Politique de remboursement","Envoyez un e-mail depuis l'adresse utilisée pour l'achat. Les remboursements approuvés sont reversés sur le moyen de paiement d'origine sous 5 jours ouvrés. Les frais de plateforme déjà débités au vendeur peuvent ne pas être récupérables.<br><br>Le produit étant un téléchargement numérique incluant le code source, la vente est normalement définitive une fois le fichier consulté."],
-    es: ["Política de reembolso","Envía un correo desde la dirección usada en la compra. Los reembolsos aprobados se devuelven al método de pago original en 5 días laborables. Las comisiones de plataforma ya cobradas al vendedor pueden no ser recuperables.<br><br>Al ser el producto una descarga digital compilada, la venta es normalmente firme una vez accedido al archivo."],
-    de: ["Rückerstattungsrichtlinie","Senden Sie eine E-Mail von der beim Kauf genutzten Adresse. Genehmigte Rückerstattungen werden innerhalb von 5 Werktagen auf das ursprüngliche Zahlungsmittel zurückgebucht. Bereits dem Verkäufer belastete Plattformgebühren sind unter Umständen nicht erstattungsfähig.<br><br>Da es sich um einen kompilierten digitalen Download handelt, ist der Kauf mit dem Zugriff auf die Datei normalerweise abgeschlossen."],
-    it: ["Informativa sui rimborsi","Invia un'email dall'indirizzo usato per l'acquisto. I rimborsi approvati vengono restituiti sul metodo di pagamento originale entro 5 giorni lavorativi. Le commissioni della piattaforma già addebitate al venditore potrebbero non essere recuperabili.<br><br>Poiché il prodotto è un download digitale compilato, la vendita è normalmente definitiva una volta scaricato il file."],
-    pt: ["Política de reembolso","Envie um e-mail a partir do endereço usado na compra. Os reembolsos aprovados são devolvidos ao método de pagamento original em 5 dias úteis. As comissões de plataforma já cobradas ao vendedor podem não ser recuperáveis.<br><br>Sendo o produto um download digital que inclui o código-fonte, a venda é normalmente final depois de aceder ao ficheiro."],
-    nl: ["Terugbetalingsbeleid","Stuur één e-mail vanaf het adres dat bij de aankoop is gebruikt. Goedgekeurde terugbetalingen worden binnen 5 werkdagen teruggestort op de oorspronkelijke betaalmethode. Platformkosten die al aan de verkoper zijn doorberekend, kunnen niet terugvorderbaar zijn.<br><br>Omdat het product een gecompileerde digitale download is, is de verkoop normaal definitief zodra het bestand is gedownload."],
-    ar: ["سياسة الاسترداد","أرسل بريداً إلكترونياً من العنوان المستخدم في الشراء. تُعاد المبالغ المعتمدة إلى وسيلة الدفع الأصلية خلال 5 أيام عمل. قد لا يكون بالإمكان استرداد رسوم المنصة التي خُصمت من البائع.<br><br>ولأن المنتج تنزيل رقمي يتضمن شيفرة المصدر، فإن البيع يصبح نهائياً عادةً بمجرد الوصول إلى الملف."],
-    he: ["מדיניות החזרים","שלח דוא\"ל אחד מהכתובת ששימשה לרכישה. החזרים מאושרים מוחזרים לאמצעי התשלום המקורי תוך 5 ימי עסקים. דמי פלטפורמה שכבר חויבו בערך המוכר עשויים שלא להיות ניתנים לשיבוש.<br><br>מכיוון שהמוצר הוא הורדה דיגיטלית הכוללת קוד מקור, המכירה היא סופית בדרך כלל עם הגישה לקובץ."],
-    hi: ["रिफंड नीति","खरीद के समय उपयोग किए गए पते से एक ईमेल भेजें। स्वीकृत रिफंड 5 कार्यदिवसों के भीतर मूल भुगतान विधि में वापस कर दिए जाते हैं। विक्रेता से पहले ही कटौती गई प्लेटफ़ॉर्म शुल्क वापस नहीं मिल सकते।<br><br>चूँकि उत्पाद स्रोत कोड सहित एक डिजिटल डाउनलोड है, इसलिए फ़ाइल तक पहुँचने के बाद बिक्री सामान्यतः अंतिम मानी जाती है।"],
-    id: ["Kebijakan pengembalian dana","Kirim satu email dari alamat yang digunakan untuk pembelian. Pengembalian yang disetujui dikembalikan ke metode pembayaran asli dalam 5 hari kerja. Biaya platform yang sudah dibebankan kepada penjual mungkin tidak dapat dikembalikan.<br><br>Karena produk ini adalah unduhan digital yang menyertakan kode sumber, penjualan umumnya bersifat final setelah berkas diunduh."],
-    ru: ["Политика возврата","Отправьте одно письмо с адреса, использованного при покупке. Одобренные возвраты перечисляются на исходный способ оплаты в течение 5 рабочих дней. Комиссии платформы, уже удержанные с продавца, могут быть невозвратимы.<br><br>Поскольку продукт представляет собой скомпилированную цифровую загрузку, продажа считается окончательной после доступа к файлу."],
-    zh: ["退款政策","请使用购买时所用的邮箱发送一封邮件。获批的退款将在 5 个工作日内原路退回。已向卖家收取的平台手续费可能无法退还。<br><br>由于本产品为已编译的数字下载，一旦访问下载文件，销售通常即视为完成。"],
-    ja: ["返金ポリシー","購入時に使用したアドレスからメールを 1 通送信してください。承認された返金は、5 営業日以内に元のお支払い方法へ返金されます。販売者に既に課されたプラットフォーム手数料は返金されない場合があります。<br><br>本製品はソースコードを含むデジタルダウンロードのため、ファイルの取得時点で販売は原則として完了となります。"],
-    ko: ["환불 정책","구매 시 사용한 주소에서 이메일 한 통을 보내주십시오. 승인된 환불은 영업일 기준 5일 이내에 원래 결제 수단으로 반환됩니다. 판매자에게 이미 부과된 플랫폼 수수료는 환불되지 않을 수 있습니다.<br><br>본 제품은 소스 코드를 포함한 디지털 다운로드이므로 파일에 접근하는 순간 판매가 원칙적으로 완료됩니다."]
-  },
+
   use: {
     en: ["Authorised use only","STORM-LX is a productivity and automation platform. It ships with modules that interact with your operating system, your files and the network.<br><br>You must only use it on systems that you own, or on systems for which you hold explicit written authorisation from the system owner. Using it against third-party systems without authorisation may be illegal under computer-misuse and data-protection laws in your country, and may expose you to civil and criminal liability.<br><br>The security suite generates EICAR test vectors for validating your own defences. The EICAR string contains no malicious code and exists specifically to be safe — but even so, deploy it only where you are authorised to test."],
     fr: ["Usage autorisé uniquement","STORM-LX est une plateforme de productivité et d'automatisation. Elle contient des modules qui interagissent avec votre système d'exploitation, vos fichiers et le réseau.<br><br>Vous ne devez l'utiliser que sur des systèmes que vous possédez, ou pour lesquels vous détenez une autorisation écrite explicite du propriétaire. L'utiliser contre des systèmes tiers sans autorisation peut être illégal selon la législation sur la cybercriminalité et la protection des données, et vous exposer à une responsabilité civile et pénale.<br><br>La suite de sécurité génère des vecteurs EICAR pour valider vos propres défenses. La chaîne EICAR ne contient aucun code malveillant et existe précisément pour être sûre — mais même ainsi, ne la déployez que là où vous êtes autorisé à tester."],
@@ -1507,7 +1485,6 @@ function wire() {
   const cs = $("#codeSample"); if (cs) cs.addEventListener("click", loadCodeSample);
   const pm = $("#pentestMode"); if (pm) pm.addEventListener("change", toggleRag);
   const rf = $("#ragFile"); if (rf) rf.addEventListener("change", readRagFile);
-  $$(".theme-btn").forEach(b => b.addEventListener("click", () => setTheme(b.dataset.theme)));
 
   $("#faqList").addEventListener("click", e => {
     const q = e.target.closest(".faq-q"); if (!q) return;
