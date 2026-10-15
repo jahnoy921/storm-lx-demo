@@ -1,19 +1,19 @@
-/* ============================================================
+﻿/* ============================================================
    Storm-LX demo — language registry
    9 shipped in the web demo. The desktop product ships 14;
    add the missing blocks here to extend the demo.
    Missing: ja, ko, ar, he, hi, id
    ============================================================ */
 window.LANG_META = {
-  en: { name: "English", "langs.kicker":"Storm-LX speaks your language","langs.title":"14 interface languages — yours is one of them","langs.sub":"Every interface string is natively translated. No machine translation, no leftovers."    short: "EN", flag: "🇬🇧", speech: "en-GB", dir: "ltr" },
-  fr: { name: "Français", "langs.kicker":"Storm-LX parle votre langue","langs.title":"14 langues d'interface — la vôtre en fait partie","langs.sub":"Chaque chaîne d'interface est traduite nativement. Pas de traduction automatique, aucun reste."   short: "FR", flag: "🇫🇷", speech: "fr-FR", dir: "ltr" },
-  es: { name: "Español", "langs.kicker":"Storm-LX habla su idioma","langs.title":"14 idiomas de interfaz — el suyo es uno de ellos","langs.sub":"Cada cadena de interfaz está traducida de forma nativa. Sin traducción automática, sin restos."    short: "ES", flag: "🇪🇸", speech: "es-ES", dir: "ltr" },
-  de: { name: "Deutsch", "langs.kicker":"Storm-LX spricht Ihre Sprache","langs.title":"14 Oberflächensprachen — Ihre ist eine davon","langs.sub":"Jede Oberflächenzeile ist nativ übersetzt. Keine maschinelle Übersetzung, keine Reste."    short: "DE", flag: "🇩🇪", speech: "de-DE", dir: "ltr" },
-  it: { name: "Italiano", "langs.kicker":"Storm-LX parla la tua lingua","langs.title":"14 lingue di interfaccia — la tua è una di queste","langs.sub":"Ogni stringa di interfaccia è tradotta niente. Niente traduzione automatica, niente residui."   short: "IT", flag: "🇮🇹", speech: "it-IT", dir: "ltr" },
-  pt: { name: "Português", "langs.kicker":"Storm-LX fala a sua língua","langs.title":"14 línguas de interface — a sua é uma delas","langs.sub":"Cada string de interface é traduzida nativamente. Sem tradução automática, sem restos."  short: "PT", flag: "🇵🇹", speech: "pt-BR", dir: "ltr" },
-  nl: { name: "Nederlands", "langs.kicker":"Storm-LX spreekt uw taal","langs.title":"14 interface-talen — de uwe is er een van","langs.sub":"Elke interface-string is vertaald. Geen machinevertaling, geen resten." short: "NL", flag: "🇳🇱", speech: "nl-NL", dir: "ltr" },
-  ru: { name: "Русский", "langs.kicker":"Storm-LX говорит на вашем языке","langs.title":"14 языков интерфейса — ваш один из них","langs.sub":"Каждая строка интерфейса переведена нативно. Никаких машинных переводов, никаких остатков."    short: "RU", flag: "🇷🇺", speech: "ru-RU", dir: "ltr" },
-  zh: { name: "中文", "langs.kicker":"Storm-LX 说您的语言","langs.title":"14 种界面语言 — 您的语言就在其中","langs.sub":"每个界面字符串都经过原生翻译。没有机器翻译，没有残留。"        short: "ZH", flag: "🇨🇳", speech: "zh-CN", dir: "ltr" }
+  en: { name: "English",    short: "EN", flag: "🇬🇧", speech: "en-GB", dir: "ltr" },
+  fr: { name: "Français",   short: "FR", flag: "🇫🇷", speech: "fr-FR", dir: "ltr" },
+  es: { name: "Español",    short: "ES", flag: "🇪🇸", speech: "es-ES", dir: "ltr" },
+  de: { name: "Deutsch",    short: "DE", flag: "🇩🇪", speech: "de-DE", dir: "ltr" },
+  it: { name: "Italiano",   short: "IT", flag: "🇮🇹", speech: "it-IT", dir: "ltr" },
+  pt: { name: "Português",  short: "PT", flag: "🇵🇹", speech: "pt-BR", dir: "ltr" },
+  nl: { name: "Nederlands", short: "NL", flag: "🇳🇱", speech: "nl-NL", dir: "ltr" },
+  ru: { name: "Русский",    short: "RU", flag: "🇷🇺", speech: "ru-RU", dir: "ltr" },
+  zh: { name: "中文",        short: "ZH", flag: "🇨🇳", speech: "zh-CN", dir: "ltr" }
 };
 
 /* ============================================================
