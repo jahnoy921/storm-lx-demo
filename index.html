@@ -21,7 +21,7 @@
   "@context": "https://schema.org",
   "@type": "Product",
   "name": "Storm-LX — Autonomous AI Agent Platform",
-  "description": "An autonomous AI orchestrator that researches, deliberates, forges tools, transcribes and audits media. 14 interface languages. Multi-agent modes Solo/Swarm/Hybrid. Plugin API.",
+  "description": "An autonomous AI orchestrator that researches, deliberates, forges tools, transcribes and audits media. 14 interface languages. Multi-agent modes Solo/Swarm/Hybrid. Plugin system.",
   "brand": { "@type": "Brand", "name": "Storm-LX" },
   "offers": {
     "@type": "Offer",
@@ -410,9 +410,9 @@
             <div class="way"><strong data-i18n="pt.w1t">1 — Make a skill with the research campaign</strong><span data-i18n="pt.w1d">Run a Deep Research campaign: the agent forges a reusable skill from live sources.</span></div>
             <div class="way"><strong data-i18n="pt.w2t">2 — Drop your own file into the RAG</strong><span data-i18n="pt.w2d">Paste notes or drop a .txt / .md file below: the trainer generates exercises from your content.</span></div>
           </div>
-          <p class="muted">Drills run against your own sandbox. No live targeting.</p>
+          <p class="muted" data-i18n="pt.safe">Every exercise stays on your own systems, your own sites or machines you are authorised to test. No live targeting.</p>
           <label class="field">
-            <span data-i18n="pt.label">Drill</span>
+            <span data-i18n="pt.label">Topic</span>
             <select id="pentestSelect">
               <option value="recon" data-i18n="pt.o1">Reconnaissance on your own network</option>
               <option value="web" data-i18n="pt.o2">Web app scanning (DVWA-style)</option>
@@ -422,7 +422,7 @@
           <label class="field">
             <span data-i18n="pt.mode">Mode</span>
             <select id="pentestMode">
-              <option value="drill" data-i18n="pt.m_drill">Guided drill</option>
+              <option value="drill" data-i18n="pt.m_drill">Guided exercises</option>
               <option value="custom" data-i18n="pt.m_custom">My own subject (RAG)</option>
             </select>
           </label>
@@ -431,14 +431,14 @@
             <textarea id="ragInput" rows="6" spellcheck="false" placeholder="Paste course notes, a man page, a CVE write-up..."></textarea>
           </label>
           <label class="file-btn" id="ragFileBtn" style="display:none"><span data-i18n="pt.fileBtn">Drop a file instead</span><input type="file" id="ragFile" accept=".txt,.md,.markdown,.log" hidden></label>
-          <button class="btn btn-primary btn-block" id="runPentest" data-i18n="pt.run">Start drill</button>
+          <button class="btn btn-primary btn-block" id="runPentest" data-i18n="pt.run">Start exercises</button>
           <div class="note note-info">
             <strong data-i18n="pt.fine">The LLM trains itself — then tests itself — on your subject</strong>
             <span data-i18n="pt.fineNote">Two ways in: forge a skill with a research campaign, or paste / drop your own file above — the trainer generates exercises from your content.</span>
           </div>
           <div class="note note-safe">
             <strong data-i18n="pt.noteTitle">Authorised use only</strong>
-            <span data-i18n="pt.note">Drills run against a sandbox. Test only what you own or are authorised to test.</span>
+            <span data-i18n="pt.note">Every exercise stays on your own systems, your own sites or machines you are authorised to test.</span>
           </div>
         </div>
         <div class="panel-main">
@@ -460,7 +460,7 @@
           <button class="btn btn-primary btn-block" id="runChat" data-i18n="chat.run">Elucidate</button>
           <div class="note note-info">
             <strong data-i18n="chat.noteTitle">Real local reasoning</strong>
-            <span data-i18n="chat.note">No network, no API key: the recursive breakdown runs entirely in this page.</span>
+            <span data-i18n="chat.note">Nothing is sent anywhere: the recursive breakdown runs entirely in this page.</span>
           </div>
         </div>
         <div class="panel-main">
@@ -522,17 +522,43 @@
     </header>
 
     <div class="cus-grid">
-      <div class="theme-row">
-        <span data-i18n="cus.theme">Interface theme:</span>
-        <button class="theme-btn on" data-theme="light" data-i18n="cus.t_light">Light</button>
-        <button class="theme-btn" data-theme="dark" data-i18n="cus.t_dark">Dark</button>
-        <button class="theme-btn" data-theme="matrix" data-i18n="cus.t_matrix">Matrix</button>
-      </div>
-      <figure class="cus-shot" id="cusShot" data-theme="light">
-        <img src="assets/img/storm-cowork.png" alt="STORM Cowork GUI — official plugin example" width="1600" height="900">
+      <figure class="cus-shot" id="cusShot" data-theme="cyber">
+        <img src="assets/img/storm-cowork.png" alt="STORM Cowork GUI — plugin interface example" width="1600" height="900">
+        <div class="gui-overlay" aria-hidden="true">
+          <div class="gui-titlebar">
+            <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+            <span class="gui-tab is-active">Dashboard</span>
+            <span class="gui-tab">Research</span>
+            <span class="gui-tab">Council</span>
+            <span class="gui-tab">Files</span>
+            <span class="gui-tab">Terminal</span>
+          </div>
+          <div class="gui-body">
+            <div class="gui-rail">
+              <span class="rail-ico is-on">⌂</span>
+              <span class="rail-ico">◎</span>
+              <span class="rail-ico">⌬</span>
+              <span class="rail-ico">⚙</span>
+              <span class="rail-ico">?</span>
+            </div>
+            <div class="gui-main">
+              <div class="gui-cards">
+                <div class="gcard"><b>Agents</b><span class="gbar" style="--w:78%"></span><em>12 running</em></div>
+                <div class="gcard"><b>Memory</b><span class="gbar" style="--w:54%"></span><em>4.2 GB</em></div>
+                <div class="gcard"><b>Plugins</b><span class="gbar" style="--w:31%"></span><em>7 loaded</em></div>
+              </div>
+              <div class="gui-chart">
+                <svg viewBox="0 0 320 70" preserveAspectRatio="none" aria-hidden="true">
+                  <polyline points="0,58 40,44 80,50 120,28 160,34 200,16 240,24 280,8 320,14"/>
+                </svg>
+              </div>
+              <div class="gui-log"><span class="gl-ok">ok</span> plugin loaded · <span class="gl-ok">ok</span> council round 2 · <span class="gl-wn">warn</span> rate limit</div>
+            </div>
+          </div>
+        </div>
         <figcaption>
           <strong data-i18n="cus.shot.t">STORM Cowork GUI</strong>
-          <span data-i18n="cus.cap">The official plugin example. A demo interface — not every option is wired up yet.</span>
+          <span data-i18n="cus.cap">Built as a plugin on top of the engine — panels, rails, charts, logs: your own interface, your own workflow.</span>
         </figcaption>
       </figure>
 
@@ -594,7 +620,7 @@
       </div>
     </div>
 
-    <p class="center-note" data-i18n="lic.note">Both licences include the plugin API and the interface builder, plus lifetime access to core updates.</p>
+    <p class="center-note" data-i18n="lic.note">Both licences include the plugin system and the interface builder, plus lifetime access to core updates.</p>
   </div>
 </section>
 
@@ -618,7 +644,7 @@
       <a class="btn btn-primary btn-lg" href="https://fdxcube.gumroad.com/l/zqgijq" target="_blank" rel="noopener">Windows — €400</a>
       <a class="btn btn-ghost btn-lg" href="https://fdxcube.gumroad.com/l/dtcjyf" target="_blank" rel="noopener">Linux / Android — €400</a>
     </div>
-    <p class="micro" data-i18n="cta.micro">Secure payment via Gumroad · Instant download · Plugin API and interface builder included</p>
+    <p class="micro" data-i18n="cta.micro">Secure payment via Gumroad · Instant download · Plugin system and interface builder included</p>
   </div>
 </section>
 
@@ -638,7 +664,7 @@
     <div class="footer-col">
       <h4 data-i18n="foot.legal">Legal</h4>
       <a href="#" data-legal="terms" data-i18n="foot.terms">Terms of sale</a>
-      <a href="#" data-legal="refund" data-i18n="foot.refund">Refund policy</a>
+      
       <a href="#" data-legal="use" data-i18n="foot.use">Authorised use</a>
     </div>
   </div>
