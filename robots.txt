@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jahnoy921.github.io/storm-lx-demo/sitemap.xml
+
+# Ne pas indexer les artefacts de demo streaming lourds s'il y en a
+User-agent: *
+Disallow: /promo/

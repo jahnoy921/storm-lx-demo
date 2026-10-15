@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Storm-LX — Autonomous AI Agent Platform | Live Web Demo</title>
+<meta name="description" content="Try Storm-LX in your browser: AI Council debates, deep research, transcript analysis and AV validation. 14 interface languages. One-time licence, Windows, Linux and Android.">
+<meta name="theme-color" content="#070b14">
+<link rel="canonical" href="https://jahnoy921.github.io/storm-lx-demo/">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Storm-LX — Autonomous AI Agent Platform">
+<meta property="og:description" content="An autonomous AI orchestrator that researches, forges its own tools, transcribes and audits. 14 languages. Try the live web demo.">
+<meta property="og:url" content="https://jahnoy921.github.io/storm-lx-demo/">
+<meta property="og:image" content="https://jahnoy921.github.io/storm-lx-demo/assets/img/og.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://jahnoy921.github.io/storm-lx-demo/assets/img/og.svg">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "Storm-LX — Autonomous AI Agent Platform",
+  "description": "An autonomous AI orchestrator that researches, deliberates, forges tools, transcribes and audits media. 14 interface languages. Multi-agent modes Solo/Swarm/Hybrid. Plugin API.",
+  "brand": { "@type": "Brand", "name": "Storm-LX" },
+  "offers": {
+    "@type": "Offer",
+    "price": "400.00",
+    "priceCurrency": "EUR",
+    "availability": "https://schema.org/InStock",
+    "url": "https://fdxcube.gumroad.com/l/zqgijq"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5",
+    "reviewCount": "1"
+  }
+}
+</script>
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Storm-LX",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Windows, Linux, Android (Termux)",
+  "description": "Autonomous AI agent platform: deep research, AI Council, tool forge, multimedia transcription and authorised security auditing.",
+  "offers": { "@type": "Offer", "price": "400", "priceCurrency": "EUR" }
+}
+</script>
+</head>
+<body>
+
+<a class="skip" href="#demo">Skip to demo</a>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header" id="top">
+  <div class="wrap header-inner">
+    <a class="brand" href="#top">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" width="28" height="28"><path d="M16 2 4 8v9c0 7 5 12 12 13 7-1 12-6 12-13V8L16 2Z" fill="url(#g)"/><path d="M11 17.5 14.5 21 22 13" stroke="#04121f" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5eead4"/><stop offset="1" stop-color="#38bdf8"/></linearGradient></defs></svg>
+      </span>
+      <span class="brand-text">Storm<b>LX</b></span>
+    </a>
+
+    <nav class="nav" id="nav">
+      <a href="#demo" data-i18n="nav.demo">Demo</a>
+      <a href="#modules" data-i18n="nav.modules">Modules</a>
+      <a href="#council" data-i18n="nav.council">Council</a>
+      <a href="#pricing" data-i18n="nav.pricing">Pricing</a>
+      <a href="#faq" data-i18n="nav.faq">FAQ</a>
+    </nav>
+
+    <div class="header-actions">
+      <!-- 14 languages: compact dropdown so it never overflows -->
+      <div class="langdd" id="langDD">
+        <button type="button" class="langdd-btn" id="langBtn" aria-haspopup="true" aria-expanded="false">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 2.5 15.3 0 18M12 3c-2.5 2.7-2.5 15.3 0 18"/></svg>
+          <span id="langNow">EN</span>
+          <svg class="chev" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+        <div class="langdd-menu" id="langMenu" role="menu" hidden></div>
+      </div>
+      <a class="btn btn-primary btn-sm" href="#pricing" data-i18n="nav.buy">Get lifetime access</a>
+    </div>
+
+    <button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero-glow" aria-hidden="true"></div>
+  <div class="hero-grid" aria-hidden="true"></div>
+  <div class="wrap hero-inner">
+    <div class="hero-copy">
+      <span class="pill"><span class="dot"></span> <span data-i18n="hero.badge">Live demo — runs in your browser</span></span>
+      <h1>
+        <span data-i18n="hero.title1">An entire intelligence agency,</span>
+        <span class="grad" data-i18n="hero.title2">advisory board and workshop.</span>
+      </h1>
+      <p class="lede" data-i18n="hero.lede">Storm-LX is an autonomous AI orchestrator. It runs deep research in 17+ languages, convenes a council of specialists that debate before deciding, forges its own tools on the fly, and transcribes your media locally — on your own hardware.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary btn-lg" href="#demo" data-i18n="hero.cta1">Try the live demo</a>
+        <a class="btn btn-ghost btn-lg" href="https://fdxcube.gumroad.com/l/zqgijq" target="_blank" rel="noopener">Windows — €400</a>
+        <a class="btn btn-ghost btn-lg" href="https://fdxcube.gumroad.com/l/dtcjyf" target="_blank" rel="noopener">Linux / Android — €400</a>
+      </div>
+      <ul class="hero-badges">
+        <li data-i18n="hero.b1">One-time payment</li>
+        <li data-i18n="hero.b2">14 interface languages</li>
+        <li data-i18n="hero.b3">No subscription</li>
+        <li data-i18n="hero.b4">Run models fully offline</li>
+      </ul>
+    </div>
+
+    <div class="hero-term" aria-hidden="true">
+      <div class="term-window">
+        <div class="term-bar">
+          <span class="tb-dots"><i></i><i></i><i></i></span>
+          <span class="tb-title">storm-lx — council</span>
+        </div>
+        <div class="term-body" id="heroTerm"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TRUST BAR ============ -->
+<section class="trust">
+  <div class="wrap trust-inner">
+    <div class="trust-item"><strong>14</strong><span data-i18n="trust.langs">interface languages</span></div>
+    <div class="trust-item"><strong>17+</strong><span data-i18n="trust.query">research query languages</span></div>
+    <div class="trust-item"><strong>5</strong><span data-i18n="trust.mods">autonomous modules</span></div>
+    <div class="trust-item"><strong>4</strong><span data-i18n="trust.os">Windows · Linux · Android</span></div>
+  </div>
+</section>
+
+<!-- ============ LIVE DEMO ============ -->
+<section class="section" id="demo">
+  <div class="wrap">
+    <header class="section-head">
+      <span class="kicker" data-i18n="demo.kicker">Interactive</span>
+      <h2 data-i18n="demo.title">Try Storm-LX right now — nothing to install</h2>
+      <p data-i18n="demo.sub">Five modules running entirely in your browser. The same engine and the same reasoning loop, with zero risk to your machine.</p>
+    </header>
+
+    <div class="tabs" role="tablist" id="demoTabs">
+      <button class="tab active" role="tab" data-tab="council" data-i18n="demo.tab1">AI Council</button>
+      <button class="tab" role="tab" data-tab="research" data-i18n="demo.tab2">Deep research</button>
+      <button class="tab" role="tab" data-tab="media" data-i18n="demo.tab3">Media analysis</button>
+      <button class="tab" role="tab" data-tab="forge" data-i18n="demo.tab4">Tool forge</button>
+      <button class="tab" role="tab" data-tab="security" data-i18n="demo.tab5">Security suite</button>
+    </div>
+
+    <!-- ---- AI COUNCIL ---- -->
+    <div class="panel active" id="panel-council">
+      <div class="panel-grid">
+        <div class="panel-side">
+          <h3 data-i18n="council.h3">Give it an objective</h3>
+          <p class="muted" data-i18n="council.p">Three dialectical rounds: the specialists propose, the devil's advocates attack, then an executive coordinator arbitrates into one prioritised roadmap. This is the real loop.</p>
+          <label class="field">
+            <span data-i18n="council.label">Objective</span>
+            <select id="councilSelect">
+              <option value="research" data-i18n="council.o1">Research a market and write a dossier</option>
+              <option value="audit" data-i18n="council.o2">Audit a system and rank the risks</option>
+              <option value="media" data-i18n="council.o3">Analyse a recording and prepare a brief</option>
+              <option value="spend" data-i18n="council.o4">Decide on a budget allocation</option>
+            </select>
+          </label>
+          <button class="btn btn-primary btn-block" id="runCouncil" data-i18n="council.run">Open the council</button>
+          <div class="note note-info">
+            <strong data-i18n="council.noteTitle">Simulation</strong>
+            <span data-i18n="council.note">No network calls, no files written. The log below is generated locally to show the real execution format.</span>
+          </div>
+        </div>
+        <div class="panel-main">
+          <div class="round-strip" id="roundStrip"></div>
+          <div class="council" id="councilCards"></div>
+          <div class="log-window">
+            <div class="log-bar"><span class="tb-dots"><i></i><i></i><i></i></span><span class="tb-title">council.log</span><span class="log-count" id="logCount">0</span></div>
+            <div class="log-body" id="councilLog" aria-live="polite"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---- DEEP RESEARCH ---- -->
+    <div class="panel" id="panel-research">
+      <div class="panel-grid">
+        <div class="panel-side">
+          <h3 data-i18n="research.h3">Research that never loops</h3>
+          <p class="muted" data-i18n="research.p">Storm-LX classifies the domain, expands your question into 10–15 specialised queries, translates them into 17+ languages, crawls recursively, then scores authority and strips duplicates.</p>
+          <label class="field">
+            <span data-i18n="research.label">Topic or domain</span>
+            <input type="text" id="researchTarget" value="renewable energy subsidies" spellcheck="false">
+          </label>
+          <button class="btn btn-primary btn-block" id="runResearch" data-i18n="research.run">Start research</button>
+          <div class="note note-warn">
+            <strong data-i18n="research.noteTitle">Fictional data</strong>
+            <span data-i18n="research.note">Results below are randomly generated placeholders so the demo stays offline and lawful. The desktop version queries live sources.</span>
+          </div>
+        </div>
+        <div class="panel-main">
+          <div class="pipeline" id="pipeline"></div>
+          <div class="osint-out" id="researchOut"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---- MEDIA ---- -->
+    <div class="panel" id="panel-media">
+      <div class="panel-grid">
+        <div class="panel-side">
+          <h3 data-i18n="media.h3">Real transcript analysis</h3>
+          <p class="muted" data-i18n="media.p">Paste any transcript and the statistics below are computed for real in your browser. In the desktop build this is where you drop an audio or video file and Whisper transcribes it locally.</p>
+          <label class="field">
+            <span data-i18n="media.label">Transcript</span>
+            <textarea id="mediaInput" rows="9" spellcheck="false"></textarea>
+          </label>
+          <button class="btn btn-primary btn-block" id="runMedia" data-i18n="media.run">Analyse transcript</button>
+          <button class="btn btn-ghost btn-block" id="speakMedia" data-i18n="media.speak">▶ Read it aloud</button>
+          <button class="btn btn-ghost btn-block" id="stopMedia" disabled data-i18n="media.stop">■ Stop</button>
+          <button class="btn btn-ghost btn-block" id="mediaSample" data-i18n="media.sample">Load sample</button>
+        </div>
+        <div class="panel-main">
+          <div class="media-stats" id="mediaStats"></div>
+          <div class="script-box"><div class="log-bar"><span class="tb-title">analysis</span></div><div id="mediaReport" class="script"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---- TOOL FORGE ---- -->
+    <div class="panel" id="panel-forge">
+      <div class="panel-grid">
+        <div class="panel-side">
+          <h3 data-i18n="forge.h3">It builds its own tools</h3>
+          <p class="muted" data-i18n="forge.p">Need a parser or an automation script that does not exist? Storm-LX writes it, runs it against real input, reads the failure output, and iterates until it works — then registers it.</p>
+          <label class="field">
+            <span data-i18n="forge.label">Tool you need</span>
+            <input type="text" id="forgeTarget" value="parse a bank statement PDF into CSV" spellcheck="false">
+          </label>
+          <button class="btn btn-primary btn-block" id="runForge" data-i18n="forge.run">Forge the tool</button>
+          <div class="note note-info">
+            <strong data-i18n="forge.noteTitle">Simulation</strong>
+            <span data-i18n="forge.note">Nothing is compiled or executed here. The log shows the real write / test / repair / register sequence.</span>
+          </div>
+        </div>
+        <div class="panel-main">
+          <div class="forge-stage" id="forgeStage"></div>
+          <div class="log-window">
+            <div class="log-bar"><span class="tb-dots"><i></i><i></i><i></i></span><span class="tb-title">forge.log</span></div>
+            <div class="log-body" id="forgeLog" aria-live="polite"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---- SECURITY ---- -->
+    <div class="panel" id="panel-security">
+      <div class="panel-grid">
+        <div class="panel-side">
+          <h3 data-i18n="sec.h3">Prove your defences react</h3>
+          <p class="muted" data-i18n="sec.p">The suite ships an EICAR generator: the 68-byte industry-standard string every compliant antivirus must detect. The hash below is computed live, in this page, right now.</p>
+          <button class="btn btn-primary btn-block" id="runEicar" data-i18n="sec.run">Compute test vector</button>
+          <div class="note note-safe">
+            <strong data-i18n="sec.noteTitle">100% harmless</strong>
+            <span data-i18n="sec.note">The EICAR string contains no malicious code. It exists precisely so it is safe to handle. Deploy it only on systems you are authorised to test.</span>
+          </div>
+          <div class="sec-split"></div>
+          <h3 data-i18n="sec.h4">Static audit</h3>
+          <p class="muted" data-i18n="sec.p4">Paste any snippet for a real pattern-based audit. Nothing is uploaded.</p>
+          <label class="field">
+            <span data-i18n="sec.label">Your code</span>
+            <textarea id="auditInput" rows="7" spellcheck="false"></textarea>
+          </label>
+          <button class="btn btn-ghost btn-block" id="runAudit" data-i18n="sec.audit">Audit snippet</button>
+        </div>
+        <div class="panel-main">
+          <div class="eicar-out" id="eicarOut"></div>
+          <div class="audit-out" id="auditOut"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ MODULES ============ -->
+<section class="section section-alt" id="modules">
+  <div class="wrap">
+    <header class="section-head">
+      <span class="kicker" data-i18n="mod.kicker">What's inside</span>
+      <h2 data-i18n="mod.title">Five autonomous modules, one licence</h2>
+      <p data-i18n="mod.sub">Every module ships complete. Bring your own plugins and build your own interface.</p>
+    </header>
+    <div class="mod-grid" id="modGrid"></div>
+  </div>
+</section>
+
+<!-- ============ HOW THE COUNCIL WORKS ============ -->
+<section class="section" id="council">
+  <div class="wrap">
+    <header class="section-head">
+      <span class="kicker" data-i18n="how.kicker">The AI Council</span>
+      <h2 data-i18n="how.title">Three rounds before a single decision</h2>
+      <p data-i18n="how.sub">Large companies consult a board before committing. This is the same idea, running while you work.</p>
+    </header>
+    <div class="steps">
+      <div class="step">
+        <div class="step-n">1</div>
+        <h3 data-i18n="how.s1h">Round 1 — Proposals</h3>
+        <p data-i18n="how.s1p">Domain specialists are generated for your specific subject and each pitches an independent action plan.</p>
+      </div>
+      <div class="step">
+        <div class="step-n">2</div>
+        <h3 data-i18n="how.s2h">Round 2 — Cross-examination</h3>
+        <p data-i18n="how.s2p">Devil's advocates and risk analysts attack the proposals: hidden costs, failure modes, blind spots. Two full rounds of exchange.</p>
+      </div>
+      <div class="step">
+        <div class="step-n">3</div>
+        <h3 data-i18n="how.s3h">Round 3 — Arbitration</h3>
+        <p data-i18n="how.s3p">An executive coordinator synthesises everything into one concrete, prioritised roadmap. You can step in at any moment to add a constraint.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PERSONNALISATION ============ -->
+<section class="section" id="custom">
+  <div class="wrap">
+    <header class="section-head">
+      <span class="kicker" data-i18n="cus.kicker">Fully customisable</span>
+      <h2 data-i18n="cus.title">Make it yours — down to the interface</h2>
+      <p data-i18n="cus.sub">Storm-LX ships as an engine. A plugin can give it any face you want: your own panels, your own layout, your own workflow.</p>
+    </header>
+
+    <div class="cus-grid">
+      <figure class="cus-shot">
+        <img src="assets/img/storm-cowork.png" alt="STORM Cowork GUI — official plugin example" width="1600" height="900">
+        <figcaption>
+          <strong data-i18n="cus.shot.t">STORM Cowork GUI</strong>
+          <span data-i18n="cus.cap">The official plugin example. A demo interface — not every option is wired up yet.</span>
+        </figcaption>
+      </figure>
+
+      <div class="cus-side">
+        <h3 data-i18n="cus.modes">Autonomous agent modes</h3>
+        <div class="mode-list">
+          <div class="mode">
+            <span class="mode-ico">👤</span>
+            <div>
+              <div class="mode-n" data-i18n="cus.m1">Solo</div>
+              <div class="mode-d" data-i18n="cus.m1d">One agent, one objective, full depth on a single line of work.</div>
+            </div>
+          </div>
+          <div class="mode">
+            <span class="mode-ico">🐝</span>
+            <div>
+              <div class="mode-n" data-i18n="cus.m2">Swarm</div>
+              <div class="mode-d" data-i18n="cus.m2d">A whole hive works the same problem in parallel, then merges what it found.</div>
+            </div>
+          </div>
+          <div class="mode">
+            <span class="mode-ico">⚡</span>
+            <div>
+              <div class="mode-n" data-i18n="cus.m3">Hybrid</div>
+              <div class="mode-d" data-i18n="cus.m3d">One lead agent directs the swarm and decides what reaches you.</div>
+            </div>
+          </div>
+        </div>
+        <span class="paid-badge" data-i18n="cus.paid">Included with the paid versions</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRICING ============ -->
+<section class="section section-alt" id="pricing">
+  <div class="wrap">
+    <header class="section-head">
+      <span class="kicker" data-i18n="lic.kicker">Licence</span>
+      <h2 data-i18n="lic.title">Buy once. Use forever.</h2>
+      <p data-i18n="lic.sub">One payment for the lifetime of the product. No subscription, no per-token billing, no credits to buy again.</p>
+    </header>
+
+    <div class="lic-grid">
+      <div class="lic-card">
+        <div class="lic-badge" data-i18n="lic.win.b">Windows</div>
+        <div class="lic-price"><span class="cur">€</span>400</div>
+        <p class="muted" data-i18n="lic.win.p">The full Storm-LX platform on Windows.</p>
+        <ul class="ticks" data-i18n="lic.win.ticks"></ul>
+        <a class="btn btn-primary btn-block" href="https://fdxcube.gumroad.com/l/zqgijq" target="_blank" rel="noopener" data-i18n="lic.buy">Buy on Gumroad</a>
+      </div>
+
+      <div class="lic-card lic-card--best">
+        <div class="lic-badge lic-badge--best" data-i18n="lic.and.b">Linux / Android</div>
+        <div class="lic-price"><span class="cur">€</span>400</div>
+        <p class="muted" data-i18n="lic.and.p">The same platform on Linux and Android via Termux.</p>
+        <ul class="ticks" data-i18n="lic.and.ticks"></ul>
+        <a class="btn btn-primary btn-block" href="https://fdxcube.gumroad.com/l/dtcjyf" target="_blank" rel="noopener" data-i18n="lic.buy">Buy on Gumroad</a>
+      </div>
+    </div>
+
+    <p class="center-note" data-i18n="lic.note">Both licences include the plugin API and the interface builder, plus lifetime access to core updates.</p>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="section" id="faq">
+  <div class="wrap narrow">
+    <header class="section-head">
+      <span class="kicker">FAQ</span>
+      <h2 data-i18n="faq.title">Questions buyers ask</h2>
+    </header>
+    <div class="faq" id="faqList"></div>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<section class="section cta-section">
+  <div class="wrap narrow center">
+    <h2 data-i18n="cta.title">You just scrolled the whole page.</h2>
+    <p class="lede" data-i18n="cta.sub">You already know whether it does what you need. One payment, and it is yours.</p>
+    <div class="hero-cta">
+      <a class="btn btn-primary btn-lg" href="https://fdxcube.gumroad.com/l/zqgijq" target="_blank" rel="noopener">Windows — €400</a>
+      <a class="btn btn-ghost btn-lg" href="https://fdxcube.gumroad.com/l/dtcjyf" target="_blank" rel="noopener">Linux / Android — €400</a>
+    </div>
+    <p class="micro" data-i18n="cta.micro">Secure payment via Gumroad · Instant download · Plugin API and interface builder included</p>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <div class="footer-col">
+      <span class="brand-text">Storm<b>LX</b></span>
+      <p class="muted" data-i18n="foot.tag">Autonomous AI agent platform by Naturban Prodject.</p>
+    </div>
+    <div class="footer-col">
+      <h4 data-i18n="foot.prod">Product</h4>
+      <a href="https://fdxcube.gumroad.com/l/zqgijq" target="_blank" rel="noopener">Windows</a>
+      <a href="https://fdxcube.gumroad.com/l/dtcjyf" target="_blank" rel="noopener">Linux / Android</a>
+      <a href="#demo" data-i18n="nav.demo">Live demo</a>
+    </div>
+    <div class="footer-col">
+      <h4 data-i18n="foot.legal">Legal</h4>
+      <a href="#" data-legal="terms" data-i18n="foot.terms">Terms of sale</a>
+      <a href="#" data-legal="refund" data-i18n="foot.refund">Refund policy</a>
+      <a href="#" data-legal="use" data-i18n="foot.use">Authorised use</a>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <p class="muted" data-i18n="foot.rights">© YEAR Naturban Prodject · Storm-LX. All rights reserved.</p>
+    <p class="muted" data-i18n="foot.disc">Independent product. Not affiliated with, endorsed by, or sponsored by any third party mentioned in the documentation.</p>
+  </div>
+</footer>
+
+<!-- ============ LEGAL MODAL ============ -->
+<div class="modal" id="legalModal" hidden>
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+    <h3 id="modalTitle"></h3>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script src="assets/js/i18n.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>
