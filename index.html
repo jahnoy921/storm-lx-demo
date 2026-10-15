@@ -6,15 +6,15 @@
 <title>Storm-LX — Autonomous AI Agent Platform | Live Web Demo</title>
 <meta name="description" content="Try Storm-LX in your browser: AI Council debates, deep research, transcript analysis and AV validation. 14 interface languages. One-time licence, Windows, Linux and Android.">
 <meta name="theme-color" content="#070b14">
-<link rel="canonical" href="https://jahnoy921.github.io/storm-lx-demo/">
+<link rel="canonical" href="https://fdxcube.github.io/storm-lx-demo/">
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="Storm-LX — Autonomous AI Agent Platform">
 <meta property="og:description" content="An autonomous AI orchestrator that researches, forges its own tools, transcribes and audits. 14 languages. Try the live web demo.">
-<meta property="og:url" content="https://jahnoy921.github.io/storm-lx-demo/">
-<meta property="og:image" content="https://jahnoy921.github.io/storm-lx-demo/assets/img/og.svg">
+<meta property="og:url" content="https://fdxcube.github.io/storm-lx-demo/">
+<meta property="og:image" content="https://fdxcube.github.io/storm-lx-demo/assets/img/og.svg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://jahnoy921.github.io/storm-lx-demo/assets/img/og.svg">
+<meta name="twitter:image" content="https://fdxcube.github.io/storm-lx-demo/assets/img/og.svg">
 
 <script type="application/ld+json">
 {
@@ -128,6 +128,7 @@
         <div class="term-body" id="heroTerm"></div>
       </div>
     </div>
+    <p class="lang-list" data-i18n="langs.list">The 14 supported interface languages: English, Français, Español, Deutsch, Italiano, Português, Nederlands, Русский, 中文, 日本語, 한국어, العربية, עברית, हिन्दी.</p>
   </div>
 </section>
 
@@ -136,8 +137,35 @@
   <div class="wrap trust-inner">
     <div class="trust-item"><strong>14</strong><span data-i18n="trust.langs">interface languages</span></div>
     <div class="trust-item"><strong>17+</strong><span data-i18n="trust.query">research query languages</span></div>
-    <div class="trust-item"><strong>5</strong><span data-i18n="trust.mods">autonomous modules</span></div>
+    <div class="trust-item"><strong>9</strong><span data-i18n="trust.mods">demo modules</span></div>
     <div class="trust-item"><strong>4</strong><span data-i18n="trust.os">Windows · Linux · Android</span></div>
+  </div>
+</section>
+
+<!-- ============ LANGUAGES ============ -->
+<section class="section" id="langs">
+  <div class="wrap">
+    <header class="section-head">
+      <span class="kicker" data-i18n="langs.kicker">Storm-LX speaks your language</span>
+      <h2 data-i18n="langs.title">14 interface languages — yours is one of them</h2>
+      <p data-i18n="langs.sub">Every interface string is natively translated. No machine translation, no leftovers.</p>
+    </header>
+    <div class="lang-grid">
+      <div class="lang-card"><span class="lang-flag">🇬🇧</span><span class="lang-native">English</span></div>
+      <div class="lang-card"><span class="lang-flag">🇫🇷</span><span class="lang-native">Français</span></div>
+      <div class="lang-card"><span class="lang-flag">🇪🇸</span><span class="lang-native">Español</span></div>
+      <div class="lang-card"><span class="lang-flag">🇩🇪</span><span class="lang-native">Deutsch</span></div>
+      <div class="lang-card"><span class="lang-flag">🇮🇹</span><span class="lang-native">Italiano</span></div>
+      <div class="lang-card"><span class="lang-flag">🇵🇹</span><span class="lang-native">Português</span></div>
+      <div class="lang-card"><span class="lang-flag">🇳🇱</span><span class="lang-native">Nederlands</span></div>
+      <div class="lang-card"><span class="lang-flag">🇷🇺</span><span class="lang-native">Русский</span></div>
+      <div class="lang-card"><span class="lang-flag">🇨🇳</span><span class="lang-native">中文</span></div>
+      <div class="lang-card"><span class="lang-flag">🇯🇵</span><span class="lang-native">日本語</span></div>
+      <div class="lang-card"><span class="lang-flag">🇰🇷</span><span class="lang-native">한국어</span></div>
+      <div class="lang-card"><span class="lang-flag">🇸🇦</span><span class="lang-native">العربية</span></div>
+      <div class="lang-card"><span class="lang-flag">🇮🇱</span><span class="lang-native">עברית</span></div>
+      <div class="lang-card"><span class="lang-flag">🇮🇳</span><span class="lang-native">हिन्दी</span></div>
+    </div>
   </div>
 </section>
 
@@ -147,15 +175,19 @@
     <header class="section-head">
       <span class="kicker" data-i18n="demo.kicker">Interactive</span>
       <h2 data-i18n="demo.title">Try Storm-LX right now — nothing to install</h2>
-      <p data-i18n="demo.sub">Five modules running entirely in your browser. The same engine and the same reasoning loop, with zero risk to your machine.</p>
+      <p data-i18n="demo.sub">Nine modules running entirely in your browser. The same engine and the same reasoning loop, with zero risk to your machine.</p>
     </header>
 
     <div class="tabs" role="tablist" id="demoTabs">
       <button class="tab active" role="tab" data-tab="council" data-i18n="demo.tab1">AI Council</button>
       <button class="tab" role="tab" data-tab="research" data-i18n="demo.tab2">Deep research</button>
+      <button class="tab" role="tab" data-tab="osint" data-i18n="demo.tab_osint">OSINT tools</button>
       <button class="tab" role="tab" data-tab="media" data-i18n="demo.tab3">Media analysis</button>
       <button class="tab" role="tab" data-tab="forge" data-i18n="demo.tab4">Tool forge</button>
       <button class="tab" role="tab" data-tab="security" data-i18n="demo.tab5">Security suite</button>
+      <button class="tab" role="tab" data-tab="finbot" data-i18n="demo.tab_finbot">FinBot</button>
+      <button class="tab" role="tab" data-tab="autoresearch" data-i18n="demo.tab_autoresearch">AutoResearch</button>
+      <button class="tab" role="tab" data-tab="pentest" data-i18n="demo.tab_pentest">Pentest Trainer</button>
     </div>
 
     <!-- ---- AI COUNCIL ---- -->
@@ -288,6 +320,106 @@
       </div>
     </div>
 
+    <!-- ---- OSINT TOOLS ---- -->
+    <div class="panel" id="panel-osint">
+      <div class="panel-grid">
+        <div class="panel-side">
+          <h3 data-i18n="osint.h3">Map the public surface</h3>
+          <p class="muted" data-i18n="osint.p">Username, domain, email and image footprinting. Storm-LX pivots across data sources, enriches every hit, and links identities the way an investigator does - but ten times faster.</p>
+          <label class="field">
+            <span data-i18n="osint.label">Target (handle, domain or email)</span>
+            <input type="text" id="osintTarget" value="acme-corp.example" spellcheck="false">
+          </label>
+          <button class="btn btn-primary btn-block" id="runOsint" data-i18n="osint.run">Scan public surface</button>
+          <div class="note note-info">
+            <strong data-i18n="osint.noteTitle">Simulation</strong>
+            <span data-i18n="osint.note">No real queries leave this page. The output mirrors the desktop format.</span>
+          </div>
+        </div>
+        <div class="panel-main">
+          <div class="osint-out" id="osintOut"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---- FINBOT ---- -->
+    <div class="panel" id="panel-finbot">
+      <div class="panel-grid">
+        <div class="panel-side">
+          <h3 data-i18n="finbot.h3">Markets, on autopilot, safely</h3>
+          <p class="muted" data-i18n="finbot.p">Paper-trade a strategy, size positions with hard risk limits, detect regime changes and get a full audit trail. Built for research, not for YOLO trading.</p>
+          <label class="field">
+            <span data-i18n="finbot.label">Strategy</span>
+            <select id="finbotSelect">
+              <option value="momentum" data-i18n="finbot.o1">Momentum (20-day breakout)</option>
+              <option value="meanrev" data-i18n="finbot.o2">Mean reversion (RSI)</option>
+              <option value="arbitrage" data-i18n="finbot.o3">Cross-exchange arbitrage</option>
+            </select>
+          </label>
+          <button class="btn btn-primary btn-block" id="runFinbot" data-i18n="finbot.run">Run paper session</button>
+          <div class="note note-warn">
+            <strong data-i18n="finbot.noteTitle">Paper only</strong>
+            <span data-i18n="finbot.note">No real orders are ever sent. Educational research tool.</span>
+          </div>
+        </div>
+        <div class="panel-main">
+          <div class="finbot-out" id="finbotOut"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---- AUTORESEARCH CODE ---- -->
+    <div class="panel" id="panel-autoresearch">
+      <div class="panel-grid">
+        <div class="panel-side">
+          <h3 data-i18n="code.h3">AutoResearch Code — improve any code you can access</h3>
+          <p class="muted" data-i18n="code.p">Like the Karpati auto-improvement idea: point it at any code you have access to — your own software, a library you may modify, a fork you own — and it studies the codebase, proposes better versions, rewrites them and re-tests them. This is still an experimental module, which is exactly why it is offered as its own option.</p>
+          <label class="field">
+            <span data-i18n="code.label">Repository path</span>
+            <input type="text" id="codeTarget" value="storm-lx/" spellcheck="false">
+          </label>
+          <label class="field">
+            <span data-i18n="code.label2">Question</span>
+            <input type="text" id="codeQ" value="Where is the plugin loader?" spellcheck="false">
+          </label>
+          <button class="btn btn-primary btn-block" id="runCode" data-i18n="code.run">Search codebase</button>
+          <div class="note note-info">
+            <strong data-i18n="code.noteTitle">Experimental — local only</strong>
+            <span data-i18n="code.note">Experimental module. Nothing is uploaded: the analysis runs locally, on code you already have the right to read.</span>
+          </div>
+        </div>
+        <div class="panel-main">
+          <div class="code-out" id="codeOut"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---- PENTEST TRAINER ---- -->
+    <div class="panel" id="panel-pentest">
+      <div class="panel-grid">
+        <div class="panel-side">
+          <h3 data-i18n="pt.h3">Train safely, on your own lab</h3>
+          <p class="muted" data-i18n="pt.p">Step-by-step attack and defence drills against a sandbox you own. Scoring, hints and the debrief are pre-configured: no fine-tuning and no dataset to prepare. No live targeting.</p>
+          <label class="field">
+            <span data-i18n="pt.label">Drill</span>
+            <select id="pentestSelect">
+              <option value="recon" data-i18n="pt.o1">Reconnaissance on your own network</option>
+              <option value="web" data-i18n="pt.o2">Web app scanning (DVWA-style)</option>
+              <option value="privesc" data-i18n="pt.o3">Privilege escalation in a VM</option>
+            </select>
+          </label>
+          <button class="btn btn-primary btn-block" id="runPentest" data-i18n="pt.run">Start drill</button>
+          <div class="note note-safe">
+            <strong data-i18n="pt.noteTitle">Authorised use only</strong>
+            <span data-i18n="pt.note">Drills run against a sandbox. Test only what you own or are authorised to test.</span>
+          </div>
+        </div>
+        <div class="panel-main">
+          <div class="pentest-out" id="pentestOut"></div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -296,7 +428,7 @@
   <div class="wrap">
     <header class="section-head">
       <span class="kicker" data-i18n="mod.kicker">What's inside</span>
-      <h2 data-i18n="mod.title">Five autonomous modules, one licence</h2>
+      <h2 data-i18n="mod.title">Nine autonomous modules, one licence</h2>
       <p data-i18n="mod.sub">Every module ships complete. Bring your own plugins and build your own interface.</p>
     </header>
     <div class="mod-grid" id="modGrid"></div>
