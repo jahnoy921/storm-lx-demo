@@ -72,16 +72,21 @@ function setLang(l) {
 /* The five modules exactly as described on the Gumroad listing */
 const MODULES = [
   { ico: "🔍", k: "mod.m1", d: "mod.d1" },
-  { ico: "⚖️", k: "mod.m2", d: "mod.d2" },
-  { ico: "🎬", k: "mod.m3", d: "mod.d3" },
-  { ico: "🔨", k: "mod.m4", d: "mod.d4" },
-  { ico: "🛡️", k: "mod.m5", d: "mod.d5" }
+  { ico: "🏛️", k: "mod.m2", d: "mod.d2" },
+  { ico: "🕵️", k: "mod.m6", d: "mod.d6" },
+  { ico: "🎙️", k: "mod.m3", d: "mod.d3" },
+  { ico: "🛠️", k: "mod.m4", d: "mod.d4" },
+  { ico: "🛡️", k: "mod.m5", d: "mod.d5" },
+  { ico: "💰", k: "mod.m7", d: "mod.d7" },
+  { ico: "💻", k: "mod.m8", d: "mod.d8" },
+  { ico: "🎯", k: "mod.m9", d: "mod.d9" }
 ];
 
 const FAQ_KEYS = [
   ["faq.q1", "faq.a.lic"], ["faq.q2", "faq.a.req"], ["faq.q3", "faq.a.lang"],
   ["faq.q4", "faq.a.priv"], ["faq.q5", "faq.a.src"], ["faq.q6", "faq.a.trial"],
-  ["faq.q7", "faq.a.legal"], ["faq.q8", "faq.a.upd"]
+  ["faq.q7", "faq.a.legal"], ["faq.q8", "faq.a.upd"],
+  ["faq.q_ar", "faq.a_ar"], ["faq.q_pt", "faq.a_pt"]
 ];
 
 /* Council roles — index order is meaningful, roles.0 = proposer, 1 = advocate… */
@@ -753,6 +758,92 @@ function runAudit() {
   });
 }
 
+
+/* --- OSINT tools --- */
+async function runOsint() {
+  const target = ($("#osintTarget") || {}).value || "";
+  const out = $("#osintOut"); if (!out) return;
+  out.innerHTML = '<div class="note note-info">Scanning &hellip;</div>';
+  await sleep(450);
+  const handles = [target, target.replace(/\./g, ""), target + "_official", "the_" + target.split(".")[0]];
+  const emails = ["contact@" + target, "admin@" + target, "press@" + target];
+  const tag = (k, v) => '<span class="k">' + esc(k) + '</span><span class="v">' + esc(v) + "</span>";
+  out.innerHTML =
+    '<div class="kv">' +
+      tag("Target", target) +
+      tag("Usernames found", handles.length + " (LinkedIn, X, GitHub, Reddit)") +
+      tag("Email patterns", emails.join(", ")) +
+      tag("Subdomains", "api." + target + ", blog." + target + ", cdn." + target) +
+      tag("Images linked", "4 (2 re-used on 3 sites)") +
+      tag("Risk score", "Medium") +
+    "</div>" +
+    '<div class="log-window"><div class="log-bar"><span class="tb-title">osint.log</span></div><div class="log-body">' +
+    handles.map((h, i) => '<div class="log-line"><span class="ts">[' + String(i).padStart(2,"0") + ':00]</span><span class="lvl info">info</span><span class="msg">pivot ' + esc(h) + "</span></div>").join("") +
+    '<div class="log-line"><span class="ts">[99:99]</span><span class="lvl ok">ok</span><span class="msg">done - ' + emails.length + ' addresses, ' + handles.length + ' identities</span></div>' +
+    "</div></div>";
+}
+
+/* --- FinBot --- */
+async function runFinbot() {
+  const strat = ($("#finbotSelect") || {}).value || "momentum";
+  const out = $("#finbotOut"); if (!out) return;
+  out.innerHTML = '<div class="note note-warn">Running paper session &hellip;</div>';
+  await sleep(600);
+  const trades = Math.floor(12 + Math.random() * 30);
+  const pnl = (Math.random() * 8 - 2).toFixed(2);
+  const win = (50 + Math.random() * 25).toFixed(1);
+  const dd = (Math.random() * 4).toFixed(2);
+  out.innerHTML =
+    '<div class="kv">' +
+      '<span class="k">Strategy</span><span class="v">' + esc(strat) + '</span>' +
+      '<span class="k">Trades</span><span class="v">' + trades + '</span>' +
+      '<span class="k">Win rate</span><span class="v">' + win + '%</span>' +
+      '<span class="k">Net PnL</span><span class="v" style="color:var(--brand-2)">' + pnl + '%</span>' +
+      '<span class="k">Max drawdown</span><span class="v">' + dd + '%</span>' +
+      '<span class="k">Status</span><span class="v">Paper only - no real orders</span>' +
+    '</div>' +
+    '<div class="log-window"><div class="log-bar"><span class="tb-title">finbot.log</span></div><div class="log-body">' +
+    '<div class="log-line"><span class="ts">[00:00]</span><span class="lvl info">info</span><span class="msg">regime: trending</span></div>' +
+    '<div class="log-line"><span class="ts">[00:01]</span><span class="lvl info">info</span><span class="msg">risk guard: max 2% per trade</span></div>' +
+    '<div class="log-line"><span class="ts">[00:02]</span><span class="lvl ok">ok</span><span class="msg">session complete - full audit trail saved</span></div>' +
+    '</div></div>';
+}
+
+/* --- AutoResearch Code --- */
+async function runCode() {
+  const repo = ($("#codeTarget") || {}).value || "";
+  const q = ($("#codeQ") || {}).value || "";
+  const out = $("#codeOut"); if (!out) return;
+  out.innerHTML = '<div class="note note-info">Searching &hellip;</div>';
+  await sleep(500);
+  out.innerHTML =
+    '<div class="log-window"><div class="log-bar"><span class="tb-title">code.log</span></div><div class="log-body">' +
+    '<div class="log-line"><span class="ts">[00:00]</span><span class="lvl info">info</span><span class="msg">repo: ' + esc(repo) + '</span></div>' +
+    '<div class="log-line"><span class="ts">[00:01]</span><span class="lvl info">info</span><span class="msg">question: ' + esc(q) + '</span></div>' +
+    '<div class="log-line"><span class="ts">[00:02]</span><span class="lvl ok">ok</span><span class="msg">files scanned: 142, matches: 7</span></div>' +
+    '</div></div>' +
+    '<div class="audit-out" style="margin-top:12px">' +
+    '<div class="finding low"><div class="fh"><span class="sev">ANSWER</span><span class="fn2">The plugin loader lives in src/plugin/loader.py and is called from boot() in src/main.py.</span></div><div class="ffix">Citation: loader.py:1-48, main.py:112-130. Suggested patch: register new plugins via plugins.json.</div></div>' +
+    '</div>';
+}
+
+/* --- Pentest Trainer --- */
+async function runPentest() {
+  const drill = ($("#pentestSelect") || {}).value || "recon";
+  const out = $("#pentestOut"); if (!out) return;
+  out.innerHTML = '<div class="note note-safe">Starting drill &hellip;</div>';
+  await sleep(500);
+  const steps = {
+    recon: ["Identify live hosts on your own subnet", "Run a service scan against your own host", "Read the output, no false positives"],
+    web: ["Map forms and parameters", "Test one input for injection safely", "Review the WAF response"],
+    privesc: ["Enumerate sudo and SUID", "Find a writable path", "Get root in the VM, never the host"]
+  }[drill];
+  out.innerHTML = '<div class="log-window"><div class="log-bar"><span class="tb-title">drill.log</span></div><div class="log-body">' +
+    steps.map((s, i) => '<div class="log-line"><span class="ts">[' + String(i).padStart(2,"0") + ':00]</span><span class="lvl info">step</span><span class="msg">' + esc(s) + '</span></div>').join("") +
+    '<div class="log-line"><span class="ts">[99:99]</span><span class="lvl ok">ok</span><span class="msg">score: 3/3 - debrief ready</span></div>' +
+    '</div></div>';
+}
+
 /* ============================================================
    10. LEGAL
    ============================================================ */
@@ -928,6 +1019,10 @@ function wire() {
   $("#runForge").addEventListener("click", runForge);
   $("#runEicar").addEventListener("click", runEicar);
   $("#runAudit").addEventListener("click", runAudit);
+  $("#runOsint").addEventListener("click", runOsint);
+  $("#runFinbot").addEventListener("click", runFinbot);
+  $("#runCode").addEventListener("click", runCode);
+  $("#runPentest").addEventListener("click", runPentest);
 
   $("#faqList").addEventListener("click", e => {
     const q = e.target.closest(".faq-q"); if (!q) return;

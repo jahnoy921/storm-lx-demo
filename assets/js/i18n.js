@@ -1,19 +1,19 @@
-﻿/* ============================================================
+/* ============================================================
    Storm-LX demo — language registry
    9 shipped in the web demo. The desktop product ships 14;
    add the missing blocks here to extend the demo.
    Missing: ja, ko, ar, he, hi, id
    ============================================================ */
 window.LANG_META = {
-  en: { name: "English",    short: "EN", flag: "🇬🇧", speech: "en-GB", dir: "ltr" },
-  fr: { name: "Français",   short: "FR", flag: "🇫🇷", speech: "fr-FR", dir: "ltr" },
-  es: { name: "Español",    short: "ES", flag: "🇪🇸", speech: "es-ES", dir: "ltr" },
-  de: { name: "Deutsch",    short: "DE", flag: "🇩🇪", speech: "de-DE", dir: "ltr" },
-  it: { name: "Italiano",   short: "IT", flag: "🇮🇹", speech: "it-IT", dir: "ltr" },
-  pt: { name: "Português",  short: "PT", flag: "🇵🇹", speech: "pt-BR", dir: "ltr" },
-  nl: { name: "Nederlands", short: "NL", flag: "🇳🇱", speech: "nl-NL", dir: "ltr" },
-  ru: { name: "Русский",    short: "RU", flag: "🇷🇺", speech: "ru-RU", dir: "ltr" },
-  zh: { name: "中文",        short: "ZH", flag: "🇨🇳", speech: "zh-CN", dir: "ltr" }
+  en: { name: "English", "langs.kicker":"Storm-LX speaks your language","langs.title":"14 interface languages — yours is one of them","langs.sub":"Every interface string is natively translated. No machine translation, no leftovers.",    short: "EN", flag: "🇬🇧", speech: "en-GB", dir: "ltr" },
+  fr: { name: "Français", "langs.kicker":"Storm-LX parle votre langue","langs.title":"14 langues d'interface — la vôtre en fait partie","langs.sub":"Chaque chaîne d'interface est traduite nativement. Pas de traduction automatique, aucun reste.",   short: "FR", flag: "🇫🇷", speech: "fr-FR", dir: "ltr" },
+  es: { name: "Español", "langs.kicker":"Storm-LX habla su idioma","langs.title":"14 idiomas de interfaz — el suyo es uno de ellos","langs.sub":"Cada cadena de interfaz está traducida de forma nativa. Sin traducción automática, sin restos.",    short: "ES", flag: "🇪🇸", speech: "es-ES", dir: "ltr" },
+  de: { name: "Deutsch", "langs.kicker":"Storm-LX spricht Ihre Sprache","langs.title":"14 Oberflächensprachen — Ihre ist eine davon","langs.sub":"Jede Oberflächenzeile ist nativ übersetzt. Keine maschinelle Übersetzung, keine Reste.",    short: "DE", flag: "🇩🇪", speech: "de-DE", dir: "ltr" },
+  it: { name: "Italiano", "langs.kicker":"Storm-LX parla la tua lingua","langs.title":"14 lingue di interfaccia — la tua è una di queste","langs.sub":"Ogni stringa di interfaccia è tradotta niente. Niente traduzione automatica, niente residui.",   short: "IT", flag: "🇮🇹", speech: "it-IT", dir: "ltr" },
+  pt: { name: "Português", "langs.kicker":"Storm-LX fala a sua língua","langs.title":"14 línguas de interface — a sua é uma delas","langs.sub":"Cada string de interface é traduzida nativamente. Sem tradução automática, sem restos.",  short: "PT", flag: "🇵🇹", speech: "pt-BR", dir: "ltr" },
+  nl: { name: "Nederlands", "langs.kicker":"Storm-LX spreekt uw taal","langs.title":"14 interface-talen — de uwe is er een van","langs.sub":"Elke interface-string is vertaald. Geen machinevertaling, geen resten.", short: "NL", flag: "🇳🇱", speech: "nl-NL", dir: "ltr" },
+  ru: { name: "Русский", "langs.kicker":"Storm-LX говорит на вашем языке","langs.title":"14 языков интерфейса — ваш один из них","langs.sub":"Каждая строка интерфейса переведена нативно. Никаких машинных переводов, никаких остатков.",    short: "RU", flag: "🇷🇺", speech: "ru-RU", dir: "ltr" },
+  zh: { name: "中文", "langs.kicker":"Storm-LX 说您的语言","langs.title":"14 种界面语言 — 您的语言就在其中","langs.sub":"每个界面字符串都经过原生翻译。没有机器翻译，没有残留。",        short: "ZH", flag: "🇨🇳", speech: "zh-CN", dir: "ltr" }
 };
 
 /* ============================================================
@@ -23,6 +23,25 @@ window.I18N = {
 
 /* ================================ EN ================================ */
 en: {
+  "demo.tab_osint":"OSINT tools",
+"demo.tab_finbot":"FinBot",
+"demo.tab_autoresearch":"AutoResearch Code",
+"demo.tab_pentest":"Pentest Trainer",
+"mod.m6":"OSINT tools","mod.d6":"Usernames, domains, emails and image traces across public sources, cross-referenced into one surface map.",
+"mod.m7":"FinBot","mod.d7":"Paper-trading with hard risk limits, regime detection and a full audit trail. No real order is ever sent.",
+"mod.m8":"AutoResearch Code","mod.d8":"Karpati-style experimental auto-improvement: improve any code of any software you have access to.",
+"mod.m9":"Pentest Trainer","mod.d9":"Attack and defence drills on your own sandbox. No fine-tuning needed.",
+"osint.h3":"Map the public surface","osint.p":"Username, domain, email and image footprinting. Storm-LX pivots across public sources, enriches every hit and links identities the way an investigator does - but ten times faster.","osint.label":"Target (handle, domain or email)","osint.run":"Scan public surface","osint.noteTitle":"Simulation","osint.note":"No real query leaves this page. The output mirrors the desktop format.",
+"finbot.h3":"Markets, on autopilot, safely","finbot.p":"Paper-trade a strategy, size positions with hard risk limits, detect regime changes and keep a full audit trail. Research only - no real order is ever sent.","finbot.label":"Strategy","finbot.o1":"Momentum (20-day breakout)","finbot.o2":"Mean reversion (RSI)","finbot.o3":"Cross-exchange arbitrage","finbot.run":"Run paper session","finbot.noteTitle":"Paper only","finbot.note":"No real orders are ever sent. Educational research tool.",
+"code.h3":"AutoResearch Code - improve any code you have access to","code.p":"Like Karpati's auto-improvement: you can improve any code of any software you have access to - your own application, a library you may modify, a fork you own. Storm-LX studies it, proposes better versions, rewrites them and re-tests them. It is still experimental, which is exactly why it is offered as its own option.","code.label":"Repository path","code.label2":"Question","code.run":"Improve this code","code.noteTitle":"Experimental - local only","code.note":"Experimental module. Nothing is uploaded: the analysis runs locally, on code you already have the right to read.",
+"pt.h3":"Train safely, on your own lab","pt.p":"Step-by-step attack and defence drills against a sandbox you own. No live targeting.","pt.label":"Drill","pt.o1":"Reconnaissance on your own network","pt.o2":"Web app scanning (DVWA-style)","pt.o3":"Privilege escalation in a VM","pt.run":"Start drill","pt.noteTitle":"Authorised use only","pt.note":"Drills run against a sandbox. Test only what you own or are authorised to test.",
+"langs.list":"The 14 supported interface languages: English, Français, Español, Deutsch, Italiano, Português, Nederlands, Русский, 中文, 日本語, 한국어, العربية, עברית, हिन्दी.",
+"pt.fine":"No fine-tuning needed",
+  "pt.fineNote":"Drills, scoring, hints and the debrief are pre-configured: nothing to train, no dataset to prepare.",
+  "faq.q_ar":"What exactly is AutoResearch Code?",
+  "faq.a_ar":"It is the same idea as Karpati-style auto-improvement: you point Storm-LX at any code you have access to - your own application, a library you may modify, a fork you own - and it studies it, rewrites whatever it can improve, then re-tests the result. It is still experimental, which is exactly why it is offered as its own option rather than as a finished feature.",
+  "faq.q_pt":"Does Pentest Trainer need fine-tuning?",
+  "faq.a_pt":"No. Drills, scoring, hints and the debrief are pre-configured - no fine-tuning and no dataset to prepare. Open it, pick a drill on your own sandbox and start. It only ever targets machines you own or are authorised to test.",
   "cus.kicker":"Fully customisable",
   "cus.title":"Make it yours — down to the interface",
   "cus.sub":"Storm-LX ships as an engine. A plugin can give it any face you want: your own panels, your own layout, your own workflow.",
@@ -61,7 +80,7 @@ en: {
   "trust.langs":"interface languages","trust.query":"research query languages","trust.mods":"autonomous modules","trust.os":"Windows · Linux · Android",
 
   "demo.kicker":"Interactive","demo.title":"Try Storm-LX right now — nothing to install",
-  "demo.sub":"Five modules running entirely in your browser. The same engine and the same reasoning loop, with zero risk to your machine.",
+  "demo.sub":"Nine modules running entirely in your browser. The same engine and the same reasoning loop, with zero risk to your machine.",
   "demo.tab1":"AI Council","demo.tab2":"Deep research","demo.tab3":"Media analysis","demo.tab4":"Tool forge","demo.tab5":"Security suite",
 
   "council.h3":"Give it an objective",
@@ -130,7 +149,7 @@ en: {
   "audit.sev.high":"high","audit.sev.med":"medium","audit.sev.low":"low",
   "audit.clean":"No issues found — nice and boring, which is exactly what you want.",
 
-  "mod.kicker":"What's inside","mod.title":"Five autonomous modules, one licence",
+  "mod.kicker":"What's inside","mod.title":"Nine autonomous modules, one licence",
   "mod.sub":"Every module ships complete. Bring your own plugins and build your own interface.",
   "mod.m1":"Dynamic Deep Research","mod.d1":"Classifies your topic, expands it into 10–15 queries, runs them in 17+ languages, crawls recursively and scores source authority before synthesising a cited dossier.",
   "mod.m2":"The AI Council","mod.d2":"Three dialectical rounds — proposals, devil's-advocate cross-examination, executive arbitration — with live human intervention and multi-model showdowns.",
@@ -218,6 +237,25 @@ en: {
 
 /* ================================ FR ================================ */
 fr: {
+  "demo.tab_osint":"Outils OSINT",
+"demo.tab_finbot":"FinBot",
+"demo.tab_autoresearch":"AutoResearch Code",
+"demo.tab_pentest":"Pentest Trainer",
+"mod.m6":"Outils OSINT","mod.d6":"Pseudonymes, domaines, e-mails et traces d'images sur les sources publiques, recoupés dans une seule carte de surface.",
+"mod.m7":"FinBot","mod.d7":"Paper trading avec limites de risque strictes, détection de regime et trace d'audit complète. Aucune commande réelle n'est envoyée.",
+"mod.m8":"AutoResearch Code","mod.d8":"Auto-amélioration expérimentale façon Karpati : améliorez n'importe quel code de n'importe quel logiciel auquel vous avez accès.",
+"mod.m9":"Pentest Trainer","mod.d9":"Drills d'attaque et de défense sur votre propre bac à sable. Aucun fine-tuning nécessaire.",
+"osint.h3":"Cartographier la surface publique","osint.p":"Empreintes de pseudos, de domaines, d'e-mails et d'images. Storm-LX enchaîne les sources publiques, enrichit chaque résultat et relie les identités comme un enquêteur - mais dix fois plus vite.","osint.label":"Target (handle, domain or email)","osint.run":"Scanner la surface publique","osint.noteTitle":"Simulation","osint.note":"Aucune vraie requête ne quitte cette page. La sortie reprend le format desktop.",
+"finbot.h3":"Les marchés, en pilote automatique, sans risque","finbot.p":"Testez une stratégie en paper trading, dimensionnez les positions avec des limites de risque strictes, détectez les changements de regime et gardez une trace d'audit complète. Recherche uniquement - aucune commande réelle n'est envoyée.","finbot.label":"Strategy","finbot.o1":"Momentum (20-day breakout)","finbot.o2":"Mean reversion (RSI)","finbot.o3":"Cross-exchange arbitrage","finbot.run":"Lancer une session de paper trading","finbot.noteTitle":"Paper trading seulement","finbot.note":"Aucune commande réelle n'est envoyée. Outil de recherche pédagogique.",
+"code.h3":"AutoResearch Code - améliorez tout code auquel vous avez accès","code.p":"Comme l'auto-amélioration de Karpati : vous pouvez améliorer n'importe quel code de n'importe quel logiciel auquel vous avez accès - votre propre application, une bibliothèque modifiable, un fork qui vous appartient. Storm-LX l'étudie, propose des versions meilleures, les réécrit et les reteste. C'est encore expérimental, et c'est pour cela qu'il est proposé en option à part.","code.label":"Repository path","code.label2":"Question","code.run":"Améliorer ce code","code.noteTitle":"Expérimental - local uniquement","code.note":"Module expérimental. Rien n'est envoyé : l'analyse tourne en local, sur du code que vous avez déjà le droit de lire.",
+"pt.h3":"Entraînez-vous en sécurité, sur votre propre labo","pt.p":"Des drills d'attaque et de défense pas à pas sur un bac à sable que vous possédez. Aucun ciblage en direct.","pt.label":"Drill","pt.o1":"Reconnaissance on your own network","pt.o2":"Web app scanning (DVWA-style)","pt.o3":"Privilege escalation in a VM","pt.run":"Lancer le drill","pt.noteTitle":"Usage autorisé uniquement","pt.note":"Les drills tournent sur un bac à sable. Testez uniquement ce que vous possédez ou êtes autorisé à tester.",
+"langs.list":"Les 14 langues d'interface prises en charge : English, Français, Español, Deutsch, Italiano, Português, Nederlands, Русский, 中文, 日本語, 한국어, العربية, עברית, हिन्दी.",
+"pt.fine":"Aucun fine-tuning nécessaire",
+  "pt.fineNote":"Drills, scoring, indices et debrief sont préconfigurés : rien à entraîner, aucun jeu de données à préparer.",
+  "faq.q_ar":"C'est quoi exactement AutoResearch Code ?",
+  "faq.a_ar":"C'est le même principe que l'auto-amélioration façon Karpati : vous pointez Storm-LX vers n'importe quel code auquel vous avez accès - votre propre application, une bibliothèque modifiable, un fork qui vous appartient - et il l'étudie, réécrit tout ce qu'il peut améliorer, puis reteste le résultat. C'est encore expérimental, et c'est pour cela qu'il est proposé en option à part plutôt qu'en fonctionnalité finie.",
+  "faq.q_pt":"Le Pentest Trainer a-t-il besoin de fine-tuning ?",
+  "faq.a_pt":"Non. Les drills, le scoring, les indices et le debrief sont préconfigurés - aucun fine-tuning, aucun jeu de données à préparer. Vous l'ouvrez, vous choisissez un drill sur votre propre bac à sable, et vous commencez. Il ne vise que des machines que vous possédez ou que vous êtes autorisé à tester.",
   "cus.kicker":"Entièrement personnalisable",
   "cus.title":"Faites-le vôtre — jusqu'à l'interface",
   "cus.sub":"Storm-LX est livré comme un moteur. Un plugin peut lui donner le visage que vous voulez : vos panneaux, votre disposition, votre façon de travailler.",
@@ -256,7 +294,7 @@ fr: {
   "trust.langs":"langues d'interface","trust.query":"langues de requête","trust.mods":"modules autonomes","trust.os":"Windows · Linux · Android",
 
   "demo.kicker":"Interactif","demo.title":"Essayez Storm-LX maintenant — rien à installer",
-  "demo.sub":"Cinq modules qui tournent entièrement dans votre navigateur. Le même moteur, la même boucle de raisonnement, zéro risque pour votre machine.",
+  "demo.sub":"Neuf modules qui tournent entièrement dans votre navigateur. Le même moteur, la même boucle de raisonnement, zéro risque pour votre machine.",
   "demo.tab1":"Conseil IA","demo.tab2":"Recherche approfondie","demo.tab3":"Analyse média","demo.tab4":"Forge d'outils","demo.tab5":"Suite sécurité",
 
   "council.h3":"Donnez-lui un objectif",
@@ -325,7 +363,7 @@ fr: {
   "audit.sev.high":"élevé","audit.sev.med":"moyen","audit.sev.low":"faible",
   "audit.clean":"Aucun problème détecté — ennuyeux, ce qui est exactement ce que vous voulez.",
 
-  "mod.kicker":"À l'intérieur","mod.title":"Cinq modules autonomes, une seule licence",
+  "mod.kicker":"À l'intérieur","mod.title":"Neuf modules autonomes, une seule licence",
   "mod.sub":"Chaque module est fourni complet. Importez vos propres plugins et construisez votre propre interface.",
   "mod.m1":"Recherche approfondie dynamique","mod.d1":"Classe votre sujet, le décompose en 10–15 requêtes, les exécute dans plus de 17 langues, explore récursivement et note l'autorité des sources avant de synthétiser un dossier cité.",
   "mod.m2":"Le Conseil IA","mod.d2":"Trois tours dialectiques — propositions, contre-examen par l'avocat du diable, arbitrage exécutif — avec intervention humaine en direct et duels multi-modèles.",
@@ -412,6 +450,25 @@ fr: {
 
 /* ================================ ES ================================ */
 es: {
+  "demo.tab_osint":"Herramientas OSINT",
+"demo.tab_finbot":"FinBot",
+"demo.tab_autoresearch":"AutoResearch Code",
+"demo.tab_pentest":"Pentest Trainer",
+"mod.m6":"Herramientas OSINT","mod.d6":"Nicks, dominios, correos y rastros de imagen en fuentes públicas, cruzados en un solo mapa de superficie.",
+"mod.m7":"FinBot","mod.d7":"Paper trading con límites de riesgo estrictos, detección de régimen y auditoría completa. Nunca se envía una orden real.",
+"mod.m8":"AutoResearch Code","mod.d8":"Auto-mejora experimental estilo Karpati: mejora cualquier código de cualquier software al que tengas acceso.",
+"mod.m9":"Pentest Trainer","mod.d9":"Drills de ataque y defensa en tu propio sandbox. No necesita fine-tuning.",
+"osint.h3":"Mapea la superficie pública","osint.p":"Huellas de nick, dominio, correo e imagen. Storm-LX encadena fuentes públicas, enriquece cada hallazgo y vincula identidades como un investigador - pero diez veces más rápido.","osint.label":"Target (handle, domain or email)","osint.run":"Escanear superficie pública","osint.noteTitle":"Simulación","osint.note":"Ninguna consulta real sale de esta page. La salida replica el formato de escritorio.",
+"finbot.h3":"Mercados en piloto automático, sin riesgo","finbot.p":"Opera una estrategia en paper trading, dimensiona posiciones con límites de riesgo estrictos, detecta cambios de régimen y guarda auditoría completa. Sólo investigación - nunca se envía una orden real.","finbot.label":"Strategy","finbot.o1":"Momentum (20-day breakout)","finbot.o2":"Mean reversion (RSI)","finbot.o3":"Cross-exchange arbitrage","finbot.run":"Ejecutar sesión de paper trading","finbot.noteTitle":"Sólo paper trading","finbot.note":"Nunca se envían órdenes reales. Herramienta educativa de investigación.",
+"code.h3":"AutoResearch Code - mejora cualquier código al que tengas acceso","code.p":"Como la auto-mejora de Karpati: puedes mejorar cualquier código de cualquier software al que tengas acceso - tu propia aplicación, una librería modificable, un fork propio. Storm-LX lo estudia, propone versiones mejores, las reescribe y las vuelve a probar. Sigue siendo experimental, y por eso se ofrece como opción aparte.","code.label":"Repository path","code.label2":"Question","code.run":"Mejorar este código","code.noteTitle":"Experimental - sólo local","code.note":"Módulo experimental. No se sube nada: el análisis corre en local, sobre código que ya tienes derecho a leer.",
+"pt.h3":"Entrena en seguridad, en tu propio laboratorio","pt.p":"Drills de ataque y defensa paso a paso contra un sandbox propio. Sin apuntamiento en vivo.","pt.label":"Drill","pt.o1":"Reconnaissance on your own network","pt.o2":"Web app scanning (DVWA-style)","pt.o3":"Privilege escalation in a VM","pt.run":"Iniciar drill","pt.noteTitle":"Sólo uso autorizado","pt.note":"Los drills corren en un sandbox. Prueba solo lo que posees o estés autorizado a probar.",
+"langs.list":"Los 14 idiomas de interfaz compatibles: English, Français, Español, Deutsch, Italiano, Português, Nederlands, Русский, 中文, 日本語, 한국어, العربية, עברית, हिन्दी.",
+"pt.fine":"No necesita fine-tuning",
+  "pt.fineNote":"Drills, puntuación, pistas y debrief vienen preconfigurados: nada que entrenar, ningún dataset que preparar.",
+  "faq.q_ar":"¿Qué es exactamente AutoResearch Code?",
+  "faq.a_ar":"Es la misma idea que la auto-mejora estilo Karpati: apuntas Storm-LX a cualquier código al que tengas acceso - tu propia aplicación, una librería modificable, un fork propio - y lo estudia, reescribe lo que puede mejorar y vuelve a probar el resultado. Sigue siendo experimental, y por eso se ofrece como opción aparte y no como función terminada.",
+  "faq.q_pt":"¿Necesita fine-tuning el Pentest Trainer?",
+  "faq.a_pt":"No. Los drills, la puntuación, las pistas y el debrief vienen preconfigurados - sin fine-tuning y sin dataset que preparar. Lo abres, eliges un drill en tu propio sandbox y empieza. Solo apunta a máquinas de tu propiedad o que estés autorizado a probar.",
   "cus.kicker":"Totalmente personalizable",
   "cus.title":"Hazlo tuyo — hasta la interfaz",
   "cus.sub":"Storm-LX se entrega como un motor. Un plugin puede darle la cara que quieras: tus paneles, tu distribución, tu forma de trabajar.",
@@ -450,7 +507,7 @@ es: {
   "trust.langs":"idiomas de interfaz","trust.query":"idiomas de consulta","trust.mods":"módulos autónomos","trust.os":"Windows · Linux · Android",
 
   "demo.kicker":"Interactivo","demo.title":"Prueba Storm-LX ahora — no hay nada que instalar",
-  "demo.sub":"Cinco módulos que se ejecutan por completo en tu navegador. El mismo motor, el mismo bucle de razonamiento, cero riesgo para tu equipo.",
+  "demo.sub":"Nueve módulos que se ejecutan por completo en tu navegador. El mismo motor, el mismo bucle de razonamiento, cero riesgo para tu equipo.",
   "demo.tab1":"Consejo IA","demo.tab2":"Investigación profunda","demo.tab3":"Análisis multimedia","demo.tab4":"Forja de herramientas","demo.tab5":"Suite de seguridad",
 
   "council.h3":"Dale un objetivo",
@@ -519,7 +576,7 @@ es: {
   "audit.sev.high":"alto","audit.sev.med":"medio","audit.sev.low":"bajo",
   "audit.clean":"Sin problemas detectados — aburrido, que es justo lo que quieres.",
 
-  "mod.kicker":"Qué incluye","mod.title":"Cinco módulos autónomos, una sola licencia",
+  "mod.kicker":"Qué incluye","mod.title":"Nueve módulos autónomos, una sola licencia",
   "mod.sub":"Cada módulo se entrega completo. Importa tus propios plugins y construye tu propia interfaz.",
   "mod.m1":"Investigación profunda dinámica","mod.d1":"Clasifica tu tema, lo expande en 10–15 consultas, las ejecuta en más de 17 idiomas, explora recursivamente y puntúa la autoridad de las fuentes antes de sintetizar un dossier citado.",
   "mod.m2":"El Consejo IA","mod.d2":"Tres rondas dialécticas — propuestas, contraexamen del abogado del diablo, arbitraje ejecutivo — con intervención humana en vivo y duelelos multimodelo.",
@@ -606,6 +663,25 @@ es: {
 
 /* ================================ DE ================================ */
 de: {
+  "demo.tab_osint":"OSINT-Werkzeuge",
+"demo.tab_finbot":"FinBot",
+"demo.tab_autoresearch":"AutoResearch Code",
+"demo.tab_pentest":"Pentest Trainer",
+"mod.m6":"OSINT-Werkzeuge","mod.d6":"Nicks, Domains, E-Mails und Bildspuren aus öffentlichen Quellen, zu einer Flächenkarte verknüpft.",
+"mod.m7":"FinBot","mod.d7":"Paper-Trading mit harten Risikogrenzen, Regime-Erkennung und vollständigem Audit-Trail. Es wird nie ein Auftrag ausgeführt.",
+"mod.m8":"AutoResearch Code","mod.d8":"Experimentelle Auto-Verbesserung im Karpati-Stil: verbessern Sie jeden Code jeder Software, auf den Sie Zugriff haben.",
+"mod.m9":"Pentest Trainer","mod.d9":"Angriffs- und Verteidigungs-Drills in Ihrer eigenen Sandbox. Kein Fine-Tuning nötig.",
+"osint.h3":"Die öffentliche Fläche kartieren","osint.p":"Nick-, Domain-, E-Mail- und Bildspuren. Storm-LX verknüpft öffentliche Quellen, reichert jeden Treffer an und verbindet Identitäten wie ein Ermittler - nur zehnmal schneller.","osint.label":"Target (handle, domain or email)","osint.run":"Öffentliche Fläche scannen","osint.noteTitle":"Simulation","osint.note":"Es verlässt keine echte Abfrage diese Seite. Die Ausgabe entspricht dem Desktop-Format.",
+"finbot.h3":"Märkte im Autopilot, ohne Risiko","finbot.p":"Handeln Sie eine Strategie im Paper-Trading, mit harten Risikogrenzen, Regime-Erkennung und vollständigem Audit-Trail. Nur Recherche - es wird nie ein Auftrag ausgeführt.","finbot.label":"Strategy","finbot.o1":"Momentum (20-day breakout)","finbot.o2":"Mean reversion (RSI)","finbot.o3":"Cross-exchange arbitrage","finbot.run":"Paper-Session starten","finbot.noteTitle":"Nur Paper-Trading","finbot.note":"Es werden keine echten Aufträge gesendet. Bildungsnahes Rechercheinstrument.",
+"code.h3":"AutoResearch Code - jeden Code verbessern, auf den Sie Zugriff haben","code.p":"Wie die Karpati-Autoverbesserung: Sie können jeden Code jeder Software verbessern, auf den Sie Zugriff haben - eigene Anwendung, änderbare Bibliothek, eigener Fork. Storm-LX analysiert ihn, schlagkräftigere Versionen vor, schreibt sie um und testet sie erneut. Es ist noch experimentell, weshalb es als eigene Option angeboten wird.","code.label":"Repository path","code.label2":"Question","code.run":"Diesen Code verbessern","code.noteTitle":"Experimentell - nur lokal","code.note":"Experimentelles Modul. Nichts wird hochgeladen: die Analyse läuft lokal, auf Code, den Sie ohnehin lesen dürfen.",
+"pt.h3":"Sicher trainieren - in Ihrem eigenen Labor","pt.p":"Schrittweise Angriffs- und Verteidigungs-Drills gegen eine eigene Sandbox. Kein Live-Ziel.","pt.label":"Drill","pt.o1":"Reconnaissance on your own network","pt.o2":"Web app scanning (DVWA-style)","pt.o3":"Privilege escalation in a VM","pt.run":"Drill starten","pt.noteTitle":"Nur mit Genehmigung","pt.note":"Die Drills laufen in einer Sandbox. Testen Sie nur, was Ihnen gehört oder wofür Sie autorisiert sind.",
+"langs.list":"Die 14 unterstützten Oberflächensprachen: English, Français, Español, Deutsch, Italiano, Português, Nederlands, Русский, 中文, 日本語, 한국어, العربية, עברית, हिन्दी.",
+"pt.fine":"Kein Fine-Tuning nötig",
+  "pt.fineNote":"Drills, Scoring, Hinweise und Debrief sind vorkonfiguriert: nichts zu trainieren, kein Datensatz vorzubereiten.",
+  "faq.q_ar":"Was genau ist AutoResearch Code?",
+  "faq.a_ar":"Dieselbe Idee wie die Karpati-Autoverbesserung: Sie richten Storm-LX auf beliebigen Code, zu dem Sie Zugriff haben - eigene Anwendung, änderbare Bibliothek, eigener Fork -, es analysiert ihn, schreibt alles Verbesserbare um und testet das Ergebnis erneut. Es ist noch experimentell, weshalb es als eigene Option statt als fertige Funktion angeboten wird.",
+  "faq.q_pt":"Braucht der Pentest Trainer Fine-Tuning?",
+  "faq.a_pt":"Nein. Drills, Scoring, Hinweise und Debrief sind vorkonfiguriert - kein Fine-Tuning, kein Datensatz zum Vorbereiten. Sie öffnen es, wählen einen Drill in Ihrer eigenen Sandbox und starten. Es werden nur Systeme angesprochen, die Ihnen gehören oder die Sie testen dürfen.",
   "cus.kicker":"Vollständig anpassbar",
   "cus.title":"Machen Sie ihn zu Ihrem — bis zur Oberfläche",
   "cus.sub":"Storm-LX wird als Engine geliefert. Ein Plugin kann ihm jedes Gesicht geben, das Sie wollen: Ihre Panels, Ihr Layout, Ihre Arbeitsweise.",
@@ -644,7 +720,7 @@ de: {
   "trust.langs":"Oberflächensprachen","trust.query":"Abfragesprachen","trust.mods":"autonome Module","trust.os":"Windows · Linux · Android",
 
   "demo.kicker":"Interaktiv","demo.title":"Probieren Sie Storm-LX jetzt — nichts zu installieren",
-  "demo.sub":"Fünf Module, die vollständig in Ihrem Browser laufen. Dieselbe Engine, dieselbe Denkschleife, null Risiko für Ihren Rechner.",
+  "demo.sub":"Neun Module, die vollständig in Ihrem Browser laufen. Dieselbe Engine, dieselbe Denkschleife, null Risiko für Ihren Rechner.",
   "demo.tab1":"KI-Rat","demo.tab2":"Tiefenrecherche","demo.tab3":"Medienanalyse","demo.tab4":"Werkzeugschmiede","demo.tab5":"Sicherheitspaket",
 
   "council.h3":"Geben Sie ihm ein Ziel",
@@ -713,7 +789,7 @@ de: {
   "audit.sev.high":"hoch","audit.sev.med":"mittel","audit.sev.low":"niedrig",
   "audit.clean":"Keine Probleme gefunden — langweilig, und genau so soll es sein.",
 
-  "mod.kicker":"Was enthalten ist","mod.title":"Fünf autonome Module, eine Lizenz",
+  "mod.kicker":"Was enthalten ist","mod.title":"Neun autonome Module, eine Lizenz",
   "mod.sub":"Jedes Modul wird vollständig geliefert. Bringen Sie Ihre eigenen Plugins mit und bauen Sie Ihre eigene Oberfläche.",
   "mod.m1":"Dynamische Tiefenrecherche","mod.d1":"Klassifiziert Ihr Thema, zerlegt es in 10–15 Abfragen, führt sie in über 17 Sprachen aus, crawlt rekursiv und bewertet die Quellenautorität, bevor ein zitiertes Dossier entsteht.",
   "mod.m2":"Der KI-Rat","mod.d2":"Drei dialektische Runden — Vorschläge, Kreuzverhör durch den Teufelsadvokaten, executive Arbitrage — mit Live-Eingriff des Menschen und Multi-Modell-Duellen.",
@@ -800,6 +876,25 @@ de: {
 
 /* ================================ IT ================================ */
 it: {
+  "demo.tab_osint":"Strumenti OSINT",
+"demo.tab_finbot":"FinBot",
+"demo.tab_autoresearch":"AutoResearch Code",
+"demo.tab_pentest":"Pentest Trainer",
+"mod.m6":"Strumenti OSINT","mod.d6":"Nickname, domini, email e tracce d'immagine da fonti pubbliche, incrociate in una mappa di superficie.",
+"mod.m7":"FinBot","mod.d7":"Paper trading con limiti di rischio rigidi, rilevamento del regime e audit trail completo. Nessun ordine reale viene inviato.",
+"mod.m8":"AutoResearch Code","mod.d8":"Auto-miglioramento sperimentale alla Karpati: migliora qualsiasi codice di qualsiasi software a cui hai accesso.",
+"mod.m9":"Pentest Trainer","mod.d9":"Drill di attacco e difesa nel tuo sandbox. Nessun fine-tuning necessario.",
+"osint.h3":"Mappa la superficie pubblica","osint.p":"Impronte di nickname, dominio, email e immagini. Storm-LX collega fonti pubbliche, arricchisce ogni riscontro e unisce le identità come un investigatore - ma dieci volte più veloce.","osint.label":"Target (handle, domain or email)","osint.run":"Scansiona la superficie pubblica","osint.noteTitle":"Simulazione","osint.note":"Nessuna query reale lascia questa pagina. L'output riproduce il formato desktop.",
+"finbot.h3":"Mercati in pilota automatico, in sicurezza","finbot.p":"Opera una strategia in paper trading, dimensiona le posizioni con limiti di rischio rigidi, rileva i cambi di regime e tiene un audit trail completo. Solo ricerca - nessun ordine reale viene inviato.","finbot.label":"Strategy","finbot.o1":"Momentum (20-day breakout)","finbot.o2":"Mean reversion (RSI)","finbot.o3":"Cross-exchange arbitrage","finbot.run":"Esegui sessione di paper trading","finbot.noteTitle":"Solo paper trading","finbot.note":"Nessun ordine reale viene inviato. Strumento di ricerca didattica.",
+"code.h3":"AutoResearch Code - migliora qualsiasi codice a cui hai accesso","code.p":"Come l'auto-miglioramento alla Karpati: puoi migliorare qualsiasi codice di qualsiasi software a cui hai accesso - la tua applicazione, una libreria modificabile, un fork di tua proprietà. Storm-LX lo studia, propone versioni migliori, le riscrive e le ritesta. È ancora sperimentale, ed è per questo offerto come opzione a parte.","code.label":"Repository path","code.label2":"Question","code.run":"Migliora questo codice","code.noteTitle":"Sperimentale - solo locale","code.note":"Modulo sperimentale. Non viene caricato nulla: l'analisi gira in locale, su codice che già puoi leggere.",
+"pt.h3":"Allenati in sicurezza, nel tuo laboratorio","pt.p":"Drill passo passo di attacco e difesa contro un sandbox di tua proprietà. Nessun bersaglio reale.","pt.label":"Drill","pt.o1":"Reconnaissance on your own network","pt.o2":"Web app scanning (DVWA-style)","pt.o3":"Privilege escalation in a VM","pt.run":"Avvia drill","pt.noteTitle":"Solo uso autorizzato","pt.note":"I drill girano in un sandbox. Testa solo ciò che possiedi o che sei autorizzato a testare.",
+"langs.list":"Le 14 lingue di interfaccia supportate: English, Français, Español, Deutsch, Italiano, Português, Nederlands, Русский, 中文, 日本語, 한국어, العربية, עברית, हिन्दी.",
+"pt.fine":"Nessun fine-tuning necessario",
+  "pt.fineNote":"Drill, punteggio, indizi e debrief sono preconfigurati: niente addestramento, nessun dataset da preparare.",
+  "faq.q_ar":"Cos'è esattamente AutoResearch Code?",
+  "faq.a_ar":"È la stessa idea dell'auto-miglioramento alla Karpati: punti Storm-LX su qualsiasi codice a cui hai accesso - la tua applicazione, una libreria modificabile, un fork di tua proprietà - e lo studia, riscrive ciò che può migliorare e ritesta il risultato. È ancora sperimentale, ed è per questo offerto come opzione a parte e non come funzione finita.",
+  "faq.q_pt":"Il Pentest Trainer richiede fine-tuning?",
+  "faq.a_pt":"No. Drill, punteggio, indizi e debrief sono preconfigurati - nessun fine-tuning, nessun dataset da preparare. Lo apri, scegli un drill nel tuo sandbox e parti. Punta solo macchine di tua proprietà o che sei autorizzato a testare.",
   "cus.kicker":"Completamente personalizzabile",
   "cus.title":"Rendilo tuo — fino all'interfaccia",
   "cus.sub":"Storm-LX viene fornito come motore. Un plugin può dargli il volto che vuoi: i tuoi pannelli, il tuo layout, il tuo modo di lavorare.",
@@ -838,7 +933,7 @@ it: {
   "trust.langs":"lingue di interfaccia","trust.query":"lingue di interrogazione","trust.mods":"moduli autonomi","trust.os":"Windows · Linux · Android",
 
   "demo.kicker":"Interattivo","demo.title":"Prova Storm-LX ora — non c'è nulla da installare",
-  "demo.sub":"Cinque moduli che girano interamente nel tuo browser. Lo stesso motore, lo stesso ciclo di ragionamento, zero rischi per il tuo computer.",
+  "demo.sub":"Nove moduli che girano interamente nel tuo browser. Lo stesso motore, lo stesso ciclo di ragionamento, zero rischi per il tuo computer.",
   "demo.tab1":"Consiglio IA","demo.tab2":"Ricerca approfondita","demo.tab3":"Analisi media","demo.tab4":"Forge di strumenti","demo.tab5":"Suite di sicurezza",
 
   "council.h3":"Dagli un obiettivo",
@@ -907,7 +1002,7 @@ it: {
   "audit.sev.high":"alto","audit.sev.med":"medio","audit.sev.low":"basso",
   "audit.clean":"Nessun problema trovato — noioso, ed è esattamente quello che vuoi.",
 
-  "mod.kicker":"Cosa contiene","mod.title":"Cinque moduli autonomi, una sola licenza",
+  "mod.kicker":"Cosa contiene","mod.title":"Nove moduli autonomi, una sola licenza",
   "mod.sub":"Ogni modulo viene fornito completo. Importa i tuoi plugin e costruisci la tua interfaccia.",
   "mod.m1":"Ricerca approfondita dinamica","mod.d1":"Classifica il tuo tema, lo espande in 10–15 query, le esegue in oltre 17 lingue, esplora ricorsivamente e valuta l'autorità delle fonti prima di sintetizzare un dossier citato.",
   "mod.m2":"Il Consiglio IA","mod.d2":"Tre round dialettici — proposte, controesame dell'avvocato del diavolo, arbitrato esecutivo — con intervento umano dal vivo e duel multimodello.",
@@ -994,6 +1089,25 @@ it: {
 
 /* ================================ PT ================================ */
 pt: {
+  "demo.tab_osint":"Ferramentas OSINT",
+"demo.tab_finbot":"FinBot",
+"demo.tab_autoresearch":"AutoResearch Code",
+"demo.tab_pentest":"Pentest Trainer",
+"mod.m6":"Ferramentas OSINT","mod.d6":"Nicks, domínios, e-mails e rastros de imagem de fontes públicas, cruzados num único mapa de superfície.",
+"mod.m7":"FinBot","mod.d7":"Paper trading com limites de risco rígidos, deteção de regime e trilho de auditoria completo. Nenhuma ordem real é enviada.",
+"mod.m8":"AutoResearch Code","mod.d8":"Auto-melhoria experimental estilo Karpati: melhora qualquer código de qualquer software a que tenhas acesso.",
+"mod.m9":"Pentest Trainer","mod.d9":"Drills de ataque e defesa no teu próprio sandbox. Não precisa de fine-tuning.",
+"osint.h3":"Mapeia a superfície pública","osint.p":"Pegadas de nick, domínio, e-mail e imagem. Storm-LX encadeia fontes públicas, enriquece cada resultado e liga identidades como um investigador - mas dez vezes mais rápido.","osint.label":"Target (handle, domain or email)","osint.run":"Escannear superfície pública","osint.noteTitle":"Simulação","osint.note":"Nenhuma consulta real sai desta página. A saída replica o formato desktop.",
+"finbot.h3":"Mercados em piloto automático, em segurança","finbot.p":"Opera uma estratégia em paper trading, dimensiona posições com limites de risco rígidos, deteta mudanças de regime e mantém um trilho de auditoria completo. Só investigação - nenhuma ordem real é enviada.","finbot.label":"Strategy","finbot.o1":"Momentum (20-day breakout)","finbot.o2":"Mean reversion (RSI)","finbot.o3":"Cross-exchange arbitrage","finbot.run":"Executar sessão de paper trading","finbot.noteTitle":"Só paper trading","finbot.note":"Nenhuma ordem real é enviada. Ferramenta educativa de investigação.",
+"code.h3":"AutoResearch Code - melhora qualquer código a que tenhas acesso","code.p":"Como a auto-melhoria do Karpati: podes melhorar qualquer código de qualquer software a que tenhas acesso - a tua própria aplicação, uma biblioteca modificável, um fork teu. O Storm-LX estuda-o, propõe versões melhores, reescreve-as e volta a testá-las. Ainda é experimental, e é por isso que é oferecido como opção à parte.","code.label":"Repository path","code.label2":"Question","code.run":"Melhorar este código","code.noteTitle":"Experimental - só local","code.note":"Módulo experimental. Nada é enviado: a análise corre em local, sobre código que já tens direito de ler.",
+"pt.h3":"Treina em segurança, no teu próprio laboratório","pt.p":"Drills passo a passo de ataque e defesa contra um sandbox teu. Sem alvos reais.","pt.label":"Drill","pt.o1":"Reconnaissance on your own network","pt.o2":"Web app scanning (DVWA-style)","pt.o3":"Privilege escalation in a VM","pt.run":"Iniciar drill","pt.noteTitle":"Só uso autorizado","pt.note":"Os drills correm num sandbox. Testa apenas o que te pertence ou para o que estás autorizado a testar.",
+"langs.list":"As 14 línguas de interface suportadas: English, Français, Español, Deutsch, Italiano, Português, Nederlands, Русский, 中文, 日本語, 한국어, العربية, עברית, हिन्दी.",
+"pt.fine":"Não precisa de fine-tuning",
+  "pt.fineNote":"Drills, pontuação, pistas e debrief vêm pré-configurados: nada a treinar, nenhum dataset a preparar.",
+  "faq.q_ar":"O que é exatamente o AutoResearch Code?",
+  "faq.a_ar":"É a mesma ideia da auto-melhoria estilo Karpati: apontas o Storm-LX para qualquer código a que tenhas acesso - a tua aplicação, uma biblioteca modificável, um fork teu - e ele analisa-o, reescreve tudo o que pode melhorar e volta a testar o resultado. Ainda é experimental, e é por isso que é oferecido como opção à parte e não como função acabada.",
+  "faq.q_pt":"O Pentest Trainer precisa de fine-tuning?",
+  "faq.a_pt":"Não. Drills, pontuação, pistas e debrief vêm pré-configurados - sem fine-tuning e sem dataset a preparar. Abres, escolhes um drill no teu próprio sandbox e começas. Só atinge máquinas que te pertencem ou que estás autorizado a testar.",
   "cus.kicker":"Totalmente personalizável",
   "cus.title":"Torne-o seu — até à interface",
   "cus.sub":"O STORM-LX é entregue como um motor. Um plugin pode dar-lhe o aspecto que quiser: os seus painéis, a sua disposição, a sua forma de trabalhar.",
@@ -1032,7 +1146,7 @@ pt: {
   "trust.langs":"idiomas de interface","trust.query":"idiomas de consulta","trust.mods":"módulos autónomos","trust.os":"Windows · Linux · Android",
 
   "demo.kicker":"Interactivo","demo.title":"Experimenta o STORM-LX agora — não há nada a instalar",
-  "demo.sub":"Cinco módulos que correm inteiramente no teu navegador. O mesmo motor, o mesmo ciclo de raciocínio, zero risco para a tua máquina.",
+  "demo.sub":"Nove módulos que correm inteiramente no teu navegador. O mesmo motor, o mesmo ciclo de raciocínio, zero risco para a tua máquina.",
   "demo.tab1":"Conselho de IA","demo.tab2":"Investigação profunda","demo.tab3":"Análise multimédia","demo.tab4":"Forge de ferramentas","demo.tab5":"Suite de segurança",
 
   "council.h3":"Dá-lhe um objectivo",
@@ -1101,7 +1215,7 @@ pt: {
   "audit.sev.high":"alto","audit.sev.med":"médio","audit.sev.low":"baixo",
   "audit.clean":"Nenhum problema encontrado — aborrecido, e é exatamente o que queres.",
 
-  "mod.kicker":"O que inclui","mod.title":"Cinco módulos autónomos, uma só licença",
+  "mod.kicker":"O que inclui","mod.title":"Nove módulos autónomos, uma só licença",
   "mod.sub":"Cada módulo é fornecido completo. Importa os teus plugins e constrói a tua própria interface.",
   "mod.m1":"Investigação profunda dinâmica","mod.d1":"Classifica o teu tema, expande-o em 10–15 consultas, executa-as em mais de 17 idiomas, faz crawling recursivo e pontua a autoridade das fontes antes de sintetizar um dossiê citado.",
   "mod.m2":"O Conselho de IA","mod.d2":"Três rondas dialécticas — propostas, contra interrogatório do advogado do diabo, arbitragem executiva — com intervenção humana em tempo real e duelos multimodais.",
@@ -1188,6 +1302,25 @@ pt: {
 
 /* ================================ NL ================================ */
 nl: {
+  "demo.tab_osint":"OSINT-tools",
+"demo.tab_finbot":"FinBot",
+"demo.tab_autoresearch":"AutoResearch Code",
+"demo.tab_pentest":"Pentest Trainer",
+"mod.m6":"OSINT-tools","mod.d6":"Nicks, domeinen, e-mails en beeldsporen uit openbare bronnen, gekruist in één oppervlaktekaart.",
+"mod.m7":"FinBot","mod.d7":"Paper trading met harde risicogrenzen, regimeherkenning en een volledige audit trail. Er wordt nooit een echte order verstuurd.",
+"mod.m8":"AutoResearch Code","mod.d8":"Experimentele auto-improvement in Karpati-stijl: verbeter elke code van elke software waartoe je toegang hebt.",
+"mod.m9":"Pentest Trainer","mod.d9":"Aanval- en verdedigingsdrills in je eigen sandbox. Geen fine-tuning nodig.",
+"osint.h3":"Breng het openbare oppervlak in kaart","osint.p":"Nick-, domein-, e-mail- en beeldsporen. Storm-LX koppelt openbare bronnen, verrijkt elke hit en verbindt identiteiten zoals een onderzoeker - maar tien keer sneller.","osint.label":"Target (handle, domain or email)","osint.run":"Openbaar oppervlak scannen","osint.noteTitle":"Simulatie","osint.note":"Er verlaat geen echte query deze pagina. De uitvoer volgt het desktopformaat.",
+"finbot.h3":"Markten op autopiloot, zonder risico","finbot.p":"Verhandel een strategie met paper trading, dimensioneer posities met harde risicogrenzen, herken regimeveranderingen en houd een volledige audit trail bij. Alleen onderzoek - er wordt nooit een echte order verstuurd.","finbot.label":"Strategy","finbot.o1":"Momentum (20-day breakout)","finbot.o2":"Mean reversion (RSI)","finbot.o3":"Cross-exchange arbitrage","finbot.run":"Paper-sessie starten","finbot.noteTitle":"Alleen paper trading","finbot.note":"Er worden geen echte orders verstuurd. Educatief onderzoeksinstrument.",
+"code.h3":"AutoResearch Code - verbeter elke code waartoe je toegang hebt","code.p":"Zoals de auto-improvement van Karpati: je kunt elke code van elke software waartoe je toegang hebt verbeteren - je eigen app, een aanpasbare bibliotheek, een eigen fork. Storm-LX analyseert het, stelt betere versies voor, herschrijft ze en test ze opnieuw. Het is nog experimenteel, en daarom als eigen optie aangeboden.","code.label":"Repository path","code.label2":"Question","code.run":"Deze code verbeteren","code.noteTitle":"Experimenteel - alleen lokaal","code.note":"Experimentele module. Er wordt niets geüpload: de analyse draait lokaal, op code die je toch al mag lezen.",
+"pt.h3":"Veilig trainen - in je eigen lab","pt.p":"Drills met aanval en verdediging, stap voor stap, tegen een sandbox die je bezit. Geen live doelwit.","pt.label":"Drill","pt.o1":"Reconnaissance on your own network","pt.o2":"Web app scanning (DVWA-style)","pt.o3":"Privilege escalation in a VM","pt.run":"Drill starten","pt.noteTitle":"Alleen geautoriseerd gebruik","pt.note":"De drills draaien in een sandbox. Test alleen wat je bezit of waarvoor je mag testen.",
+"langs.list":"De 14 ondersteunde interfacetalen: English, Français, Español, Deutsch, Italiano, Português, Nederlands, Русский, 中文, 日本語, 한국어, العربية, עברית, हिन्दी.",
+"pt.fine":"Geen fine-tuning nodig",
+  "pt.fineNote":"Drills, score, hints en de debrief zijn vooraf geconfigureerd: niets om te trainen, geen dataset om voor te bereiden.",
+  "faq.q_ar":"Wat is AutoResearch Code precies?",
+  "faq.a_ar":"Hetzelfde idee als de Karpati-stijl auto-improvement: je richt Storm-LX op elke code waartoe je toegang hebt - je eigen app, een aanpasbare bibliotheek, een eigen fork - en het analyseert die, herschrijft wat beter kan en test het resultaat opnieuw. Het is nog experimenteel, en daarom als eigen optie aangeboden in plaats van als afgewerkte functie.",
+  "faq.q_pt":"Heeft de Pentest Trainer fine-tuning nodig?",
+  "faq.a_pt":"Nee. Drills, score, hints en de debrief zijn vooraf geconfigureerd - geen fine-tuning, geen dataset om voor te bereiden. Je opent het, kiest een drill in je eigen sandbox en start. Het richt zich alleen op machines die je bezit of waarvoor je mag testen.",
   "cus.kicker":"Volledig aanpasbaar",
   "cus.title":"Maak het van jou — tot aan de interface",
   "cus.sub":"Storm-LX wordt geleverd als een engine. Een plugin kan het elk gezicht geven dat je wilt: je eigen panelen, je eigen indeling, je eigen werkwijze.",
@@ -1226,7 +1359,7 @@ nl: {
   "trust.langs":"interfacetalen","trust.query":"querytalen","trust.mods":"autonome modules","trust.os":"Windows · Linux · Android",
 
   "demo.kicker":"Interactief","demo.title":"Probeer Storm-LX nu — niets te installeren",
-  "demo.sub":"Vijf modules die volledig in je browser draaien. Dezelfde engine, dezelfde denkslus, nul risico voor je computer.",
+  "demo.sub":"Negen modules die volledig in je browser draaien. Dezelfde engine, dezelfde denkslus, nul risico voor je computer.",
   "demo.tab1":"AI-raad","demo.tab2":"Diepgaand onderzoek","demo.tab3":"Media-analyse","demo.tab4":"Gereedschapssmidse","demo.tab5":"Beveiligingspakket",
 
   "council.h3":"Geef hem een doel",
@@ -1295,7 +1428,7 @@ nl: {
   "audit.sev.high":"hoog","audit.sev.med":"gemiddeld","audit.sev.low":"laag",
   "audit.clean":"Geen problemen gevonden — saai, en dat is precies wat je wilt.",
 
-  "mod.kicker":"Wat erin zit","mod.title":"Vijf autonome modules, één licentie",
+  "mod.kicker":"Wat erin zit","mod.title":"Negen autonome modules, één licentie",
   "mod.sub":"Elke module wordt volledig geleverd. Importeer je eigen plugins en bouw je eigen interface.",
   "mod.m1":"Dynamisch diepgaand onderzoek","mod.d1":"Classificeert je onderwerp, splitst het op in 10–15 queries, voert ze uit in meer dan 17 talen, crawlt recursief en weegt bronautoriteit af vóór een geciteerd dossier wordt opgesteld.",
   "mod.m2":"De AI-raad","mod.d2":"Drie dialectische rondes — voorstellen, tegenondervraging door de duivelsadvocaat, uitvoerende arbitrage — met live menselijke tussenkomst en multimodel-duels.",
@@ -1386,6 +1519,25 @@ nl: {
 
 /* ================================ RU ================================ */
 ru: {
+  "demo.tab_osint":"Инструменты OSINT",
+"demo.tab_finbot":"FinBot",
+"demo.tab_autoresearch":"AutoResearch Code",
+"demo.tab_pentest":"Pentest Trainer",
+"mod.m6":"Инструменты OSINT","mod.d6":"Никнемы, домены, почты и следы изображений из открытых источников, своденные в одну карту поверхности.",
+"mod.m7":"FinBot","mod.d7":"Папертрейдинг с жёсткими лимитами риска, определением режима и полным аудиторским следом. Реальные ордеры не отправляются.",
+"mod.m8":"AutoResearch Code","mod.d8":"Экспериментальное самоулучшение в стиле Карпати: улучшайте любой код любого программного обеспечения, к которому у вас есть доступ.",
+"mod.m9":"Pentest Trainer","mod.d9":"Учебные дриллы атаки и защиты в вашей песочнице. Fine-tuning не нужен.",
+"osint.h3":"Карта открытой поверхности","osint.p":"Следы никнема, домена, почты и изображений. Storm-LX связывает открытые источники, обогащает каждый результат и сводит личности, как следователь, но в десять раз быстрее.","osint.label":"Target (handle, domain or email)","osint.run":"Сканировать поверхность","osint.noteTitle":"Симуляция","osint.note":"Реальные запросы страницы не покидают. Формат вывода как в desktop-.",
+"finbot.h3":"Рынки на автопилоте, безопасно","finbot.p":"Торговляйте стратегию в paper trading, размеревывайте позиции с жёсткими лимитами, определяйте смены режима и ведите полный аудиторский след. Только исследование - реальные ордеры не отправляются.","finbot.label":"Strategy","finbot.o1":"Momentum (20-day breakout)","finbot.o2":"Mean reversion (RSI)","finbot.o3":"Cross-exchange arbitrage","finbot.run":"Запустить paper-сессию","finbot.noteTitle":"Только paper trading","finbot.note":"Реальные ордеры не отправляются. Учебный инструмент.",
+"code.h3":"AutoResearch Code - улучшайте любой код, к которому есть доступ","code.p":"Как самоулучшение в стиле Карпати: вы можете улучшить любой код любого программного обеспечения, к которому у вас есть доступ: свой приложение, изменяемая библиотека, свой форк. Storm-LX его изучает, предлагает лучшие версии, переписывает их и снова тестирует. Это все ещё экспериментально, поэтому офертено как отдельная опция.","code.label":"Repository path","code.label2":"Question","code.run":"Улучшить этот код","code.noteTitle":"Экспериментально - только локально","code.note":"Экспериментальный модуль. Ничего не отправляется: анализ идёт локально.",
+"pt.h3":"Тренируйтесь безопасно, на своей лаборатории","pt.p":"Шаговые учебные дриллы атаки и защиты на песочнице, которую вы владеете. Без реальных целей.","pt.label":"Drill","pt.o1":"Reconnaissance on your own network","pt.o2":"Web app scanning (DVWA-style)","pt.o3":"Privilege escalation in a VM","pt.run":"Запустить дрилл","pt.noteTitle":"Только с разрешения","pt.note":"Дриллы идут в песочнице. Тестируйте только свое или то, на что вам разрешено.",
+"langs.list":"Языки интерфейса (14): English, Français, Español, Deutsch, Italiano, Português, Nederlands, Русский, 中文, 日本語, 한국어, العربية, עברית, हिन्दी.",
+"pt.fine":"Fine-tuning не нужен",
+  "pt.fineNote":"Дриллы, очки, подсказки и разбор настроены заранее: ничего не нужно тренировать.",
+  "faq.q_ar":"Что такое AutoResearch Code?",
+  "faq.a_ar":"Та же идея, что и самоулучшение в стиле Карпати: вы направляете Storm-LX на любой код, к которому у вас есть доступ, - и он изучает его, переписывает всё, что можно улучшить, и снова тестирует результат. Это всё ещё экспериментально, поэтому офертено как отдельная опция, а не как готовая функция.",
+  "faq.q_pt":"Нужен ли fine-tuning для Pentest Trainer?",
+  "faq.a_pt":"Нет. Дриллы, очки, подсказки и разбор настроены заранее - никакого fine-tuning и никакой подготовки данных. Открываете, выбираете дрилл в своей песочнице и начинаете. Целятся только ваши машины или те, что вам разрешено тестировать.",
   "cus.kicker":"Полность настраиваемо",
   "cus.title":"Делайте своё — даже до интерфейса",
   "cus.sub":"Storm-LX поставляется как движок. Плагин может придать ему любое лицо: свои панели, свою верстка, своё рабочий порядок.",
@@ -1421,7 +1573,7 @@ ru: {
   "hero.b1":"Один платёж","hero.b2":"14 языков интерфейса","hero.b3":"Без подписки","hero.b4":"Модели полностью офлайн",
   "trust.langs":"языков интерфейса","trust.query":"языков запросов","trust.mods":"автономных модулей","trust.os":"Windows · Linux · Android",
   "demo.kicker":"Интерактивно","demo.title":"Попробуйте Storm-LX прямо сейчас — ничего не нужно устанавливать",
-  "demo.sub":"Пять модулей работают целиком в вашем браузере. Тот же движок, тот же цикл рассуждений, нулевой риск.",
+  "demo.sub":"Девять модулей работают целиком в вашем браузере. Тот же движок, тот же цикл рассуждений, нулевой риск.",
   "demo.tab1":"Совет ИИ","demo.tab2":"Глубокое исследование","demo.tab3":"Анализ медиа","demo.tab4":"Кузница инструментов","demo.tab5":"Пакет безопасности",
   "council.h3":"Дайте ему цель",
   "council.p":"Три раунда: специалисты предлагают, критики возражают, координатор выносит один приоритетный план. Это реальный цикл.",
@@ -1478,7 +1630,7 @@ ru: {
   "audit.f.tls":"Проверка TLS отключена","audit.f.tmp":"Предсказуемый временный файл","audit.f.line":"Слишком длинная строка",
   "audit.sev.high":"высокая","audit.sev.med":"средняя","audit.sev.low":"низкая",
   "audit.clean":"Проблем не найдено — и это как раз то, что нужно.",
-  "mod.kicker":"Что внутри","mod.title":"Пять автономных модулей, одна лицензия",
+  "mod.kicker":"Что внутри","mod.title":"Девять автономных модулей, одна лицензия",
   "mod.sub":"Каждый модуль поставляется полностью. Подключайте свои плагины и стройте свой интерфейс.",
   "mod.m1":"Глубокое исследование","mod.d1":"Классифицирует тему, разворачивает в 10–15 запросов, выполняет на 17+ языках и собирает досье со ссылками.",
   "mod.m2":"Совет ИИ","mod.d2":"Три раунда спора: предложения, критика, арбитраж — с вмешательством человека и состязаниями моделей.",
@@ -1556,6 +1708,25 @@ ru: {
 
 /* ================================ ZH ================================ */
 zh: {
+  "demo.tab_osint":"OSINT 工具",
+"demo.tab_finbot":"FinBot",
+"demo.tab_autoresearch":"AutoResearch Code",
+"demo.tab_pentest":"Pentest Trainer",
+"mod.m6":"OSINT 工具","mod.d6":"跨公开来源交叉用户名、域名、邮箱与图像痕迹，汇总成一张面向图。",
+"mod.m7":"FinBot","mod.d7":"纸上交易配硬风险限制、市场分型检测与完整审计轨迹，从不发送真实订单。",
+"mod.m8":"AutoResearch Code","mod.d8":"实验性 Karpati 式自我改进：你能改进你有权访问的任何软件的任何代码。",
+"mod.m9":"Pentest Trainer","mod.d9":"在你自己的沙箱中进行攻防演练，无需 fine-tuning。",
+"osint.h3":"绘制公开面向图","osint.p":"用户名、域名、邮箱与图像足迹。Storm-LX 串联公开来源、丰富每个结果，像调查员那样关联身份——但快十倍。","osint.label":"Target (handle, domain or email)","osint.run":"扫描公开面向","osint.noteTitle":"模拟","osint.note":"本页不会发出任何真实请求，输出与桌面版格式一致。",
+"finbot.h3":"市场自动驾驶，安全无忙","finbot.p":"用纸上交易测试策略，按严格风险限制建仓，检测市场分型并保留完整审计轨迹。仅研究用——从不发送真实订单。","finbot.label":"Strategy","finbot.o1":"Momentum (20-day breakout)","finbot.o2":"Mean reversion (RSI)","finbot.o3":"Cross-exchange arbitrage","finbot.run":"运行纸上交易","finbot.noteTitle":"仅纸上交易","finbot.note":"从不发送真实订单，教学研究工具。",
+"code.h3":"AutoResearch Code — 改进你有权访问的任何代码","code.p":"就像 Karpati 的自我改进：你可以改进你有权访问的任何软件的任何代码——你自己的应用、可修改的库、你自己的 fork。Storm-LX 研究它、提出更好的版本、重写并重新测试。它仍属实验性功能，因此作为单独选项提供。","code.label":"Repository path","code.label2":"Question","code.run":"改进这段代码","code.noteTitle":"实验性 — 仅本地","code.note":"实验性模块。不上传任何内容，分析在本地运行。",
+"pt.h3":"在自己的实验室安全训练","pt.p":"在你自己的沙箱上进行逐步攻防演练，不对真实目标发起行动。","pt.label":"Drill","pt.o1":"Reconnaissance on your own network","pt.o2":"Web app scanning (DVWA-style)","pt.o3":"Privilege escalation in a VM","pt.run":"开始演练","pt.noteTitle":"仅授权使用","pt.note":"演练在沙箱中运行，只测试你拥有或获得授权的系统。",
+"langs.list":"支持的 14 种界面语言：English, Français, Español, Deutsch, Italiano, Português, Nederlands, Русский, 中文, 日本語, 한국어, العربية, עברית, हिन्दी.",
+"pt.fine":"无需 fine-tuning",
+  "pt.fineNote":"演练、评分、提示与总结已预配置：无需训练，无需准备数据集。",
+  "faq.q_ar":"AutoResearch Code 到底是什么？",
+  "faq.a_ar":"它与 Karpati 式自我改进思路相同：把 Storm-LX 指向你有权访问的任何代码——你自己的应用、可修改的库、你自己的 fork——它会研究、重写可改进之处并重新测试结果。它仍属实验性，因此作为单独选项而非成品功能提供。",
+  "faq.q_pt":"Pentest Trainer 需要 fine-tuning 吗？",
+  "faq.a_pt":"不需要。演练、评分、提示与总结都是预配置的：无需 fine-tuning，无需准备数据集。打开后在自己的沙箱中选择演练即可开始，它只针对你拥有或获授权测试的机器。",
   "cus.kicker":"完全可定制",
   "cus.title":"变成你自己的 — 包括界面",
   "cus.sub":"Storm-LX 以引擎的形式交付。插件可以让它长成你想要的任何样子：你的面板、你的布局、你的工作流。",
@@ -1590,7 +1761,7 @@ zh: {
   "hero.cta1":"试用演示","hero.b1":"一次付费","hero.b2":"14 种界面语言","hero.b3":"无订阅费","hero.b4":"模型可离线运行",
   "trust.langs":"种界面语言","trust.query":"种检索语言","trust.mods":"个自主模块","trust.os":"Windows · Linux · Android",
   "demo.kicker":"交互式","demo.title":"立即试用 Storm-LX — 无需安装",
-  "demo.sub":"五个模块全部在浏览器中运行。相同的引擎，相同的推理循环，零风险。",
+  "demo.sub":"九个模块全部在浏览器中运行。相同的引擎，相同的推理循环，零风险。",
   "demo.tab1":"AI 议会","demo.tab2":"深度研究","demo.tab3":"媒体分析","demo.tab4":"工具锻造","demo.tab5":"安全套件",
   "council.h3":"给它一个目标",
   "council.p":"三轮辩论：专家提出方案，批评者反驳，最后由协调者裁定出一份优先级明确的计划。",
@@ -1647,7 +1818,7 @@ zh: {
   "audit.f.tls":"已关闭 TLS 验证","audit.f.tmp":"可预测的临时文件","audit.f.line":"过长的行",
   "audit.sev.high":"高","audit.sev.med":"中","audit.sev.low":"低",
   "audit.clean":"未发现问题 — 无聊得很，但这正是你想要的。",
-  "mod.kicker":"包含内容","mod.title":"五个自主模块，一份授权",
+  "mod.kicker":"包含内容","mod.title":"九个自主模块，一份授权",
   "mod.sub":"每个模块都完整交付。你可以导入自己的插件，并搭建自己的界面。",
   "mod.m1":"动态深度研究","mod.d1":"分类主题，扩展为 10–15 条检索式，以 17 种以上语言执行，递归抓取并评估来源，最终生成带引证的报告。",
   "mod.m2":"AI 议会","mod.d2":"三轮辩论 — 提案、反驳、裁决 — 支持人类实时介入与模型之间对决。",
