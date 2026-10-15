@@ -1,4 +1,4 @@
-﻿/* ============================================================
+/* ============================================================
    Storm-LX demo — language registry
    9 shipped in the web demo. The desktop product ships 14;
    add the missing blocks here to extend the demo.
