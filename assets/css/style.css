@@ -564,3 +564,50 @@ p{margin:0 0 1rem}
   color: var(--muted, var(--txt-2, #9aa3b2));
 }
 
+
+/* ---- v3: theme switcher, matrix, quiz, chat tree ---- */
+.theme-row { display: flex; gap: 8px; align-items: center; margin-bottom: 12px; flex-wrap: wrap; font-size: 14px; }
+.theme-btn { padding: 6px 14px; border-radius: 999px; border: 1px solid var(--line); background: transparent; color: var(--txt); cursor: pointer; font-size: 13px; }
+.theme-btn.on { border-color: var(--accent); background: var(--accent); color: #fff; }
+.cus-shot { position: relative; overflow: hidden; }
+.cus-shot[data-theme="dark"] { background: #0b0e14; border-color: #232a35; }
+.cus-shot[data-theme="dark"] img { filter: brightness(.8) contrast(1.08); }
+.cus-shot[data-theme="dark"] figcaption { color: #c9d1d9; }
+.cus-shot[data-theme="matrix"] { background: #000; border: 1px solid #00ff41; box-shadow: 0 0 28px rgba(0,255,65,.35), inset 0 0 60px rgba(0,255,65,.08); }
+.cus-shot[data-theme="matrix"] img { filter: grayscale(1) sepia(1) hue-rotate(65deg) saturate(3.2) brightness(.92); }
+.cus-shot[data-theme="matrix"]::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: repeating-linear-gradient(0deg, rgba(0,255,65,.06) 0 1px, transparent 1px 3px); }
+.cus-shot[data-theme="matrix"] figcaption { color: #00ff41; font-family: ui-monospace, Consolas, monospace; text-shadow: 0 0 8px rgba(0,255,65,.8); }
+.cus-shot[data-theme="matrix"] figcaption strong { color: #00ff41; }
+.file-btn { display: inline-block; padding: 8px 14px; border: 1px dashed var(--line); border-radius: 8px; cursor: pointer; font-size: 13px; margin: 4px 0 10px; }
+.file-btn:hover { border-color: var(--accent); }
+.lk-row { display: grid; grid-template-columns: 150px 1fr; gap: 8px; padding: 8px 0; border-top: 1px solid var(--line); font-size: 14px; }
+.lk-row .v a { color: var(--accent); }
+pre.spark { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 12px; font-size: 15px; line-height: 1.8; overflow-x: auto; margin: 12px 0; }
+pre.codebox { background: #0d1117; color: #c9d1d9; border-radius: 8px; padding: 14px; font-size: 12.5px; line-height: 1.65; overflow-x: auto; max-height: 320px; overflow-y: auto; white-space: pre; }
+.qcard { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 16px; }
+.qq { font-weight: 600; margin-bottom: 12px; }
+.qopts { display: grid; gap: 8px; }
+.opt { text-align: left; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--line); background: transparent; color: var(--txt); cursor: pointer; font-size: 14px; }
+.opt:hover:not(:disabled) { border-color: var(--accent); }
+.opt.ok { border-color: #2ea043; background: rgba(46,160,67,.15); }
+.opt.bad { border-color: #f85149; background: rgba(248,81,73,.12); }
+.opt:disabled { cursor: default; opacity: .85; }
+.qhint { margin-top: 10px; font-size: 13px; opacity: .75; }
+.qfb { margin-top: 12px; display: grid; gap: 8px; }
+.qok { color: #2ea043; font-weight: 700; }
+.qbad { color: #f85149; font-weight: 700; }
+.qwhy { font-size: 14px; line-height: 1.6; }
+.ex { padding: 10px 0; border-top: 1px solid var(--line); }
+.exq { font-size: 14px; margin-bottom: 8px; line-height: 1.7; }
+.exrow { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.exin { flex: 1; min-width: 140px; padding: 8px 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--bg, transparent); color: var(--txt); }
+.exbtn { width: auto; }
+.exfb { font-size: 14px; }
+.tree { display: grid; gap: 6px; margin-bottom: 12px; }
+.tnode { display: flex; gap: 10px; align-items: baseline; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 9px 12px; font-size: 14px; }
+.tnode.root { border-color: var(--accent); }
+.tnode.sub { margin-left: 28px; border-style: dashed; }
+.tn { font-family: ui-monospace, Consolas, monospace; font-size: 12px; color: var(--accent); white-space: nowrap; }
+.btn.xs { width: auto; padding: 3px 10px; font-size: 12px; margin-left: auto; white-space: nowrap; }
+.plan { padding: 12px 14px; font-size: 14px; line-height: 2; }
