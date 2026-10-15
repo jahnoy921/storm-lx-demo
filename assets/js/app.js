@@ -69,7 +69,7 @@ function setLang(l) {
 /* ============================================================
    2. CONTENT TABLES
    ============================================================ */
-/* The five modules exactly as described on the Gumroad listing */
+/* The ten modules exactly as described on the Gumroad listing */
 const MODULES = [
   { ico: "🔍", k: "mod.m1", d: "mod.d1" },
   { ico: "🏛️", k: "mod.m2", d: "mod.d2" },
@@ -79,14 +79,16 @@ const MODULES = [
   { ico: "🛡️", k: "mod.m5", d: "mod.d5" },
   { ico: "💰", k: "mod.m7", d: "mod.d7" },
   { ico: "💻", k: "mod.m8", d: "mod.d8" },
-  { ico: "🎯", k: "mod.m9", d: "mod.d9" }
+  { ico: "🎯", k: "mod.m9", d: "mod.d9" },
+  { ico: "💬", k: "mod.m10", d: "mod.d10" }
 ];
 
 const FAQ_KEYS = [
   ["faq.q1", "faq.a.lic"], ["faq.q2", "faq.a.req"], ["faq.q3", "faq.a.lang"],
   ["faq.q4", "faq.a.priv"], ["faq.q5", "faq.a.src"], ["faq.q6", "faq.a.trial"],
   ["faq.q7", "faq.a.legal"], ["faq.q8", "faq.a.upd"],
-  ["faq.q_ar", "faq.a_ar"], ["faq.q_pt", "faq.a_pt"]
+  ["faq.q_ar", "faq.a_ar"], ["faq.q_pt", "faq.a_pt"],
+  ["faq.q_rlm", "faq.a_rlm"]
 ];
 
 /* Council roles — index order is meaningful, roles.0 = proposer, 1 = advocate… */
@@ -759,89 +761,567 @@ function runAudit() {
 }
 
 
-/* --- OSINT tools --- */
+/* --- OSINT tools (real local analysis, zero network) --- */
+function osintEntropy(str) {
+  if (!str.length) return 0;
+  const f = {};
+  for (const ch of str) f[ch] = (f[ch] || 0) + 1;
+  let e = 0;
+  for (const k in f) { const p = f[k] / str.length; e -= p * (Math.log(p) / Math.log(2)); }
+  return e;
+}
+function osintType(tgt) {
+  if (/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(tgt)) return "email";
+  if (/^\d{1,3}(\.\d{1,3}){3}$/.test(tgt)) return "ipv4";
+  if (/^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?(\.[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)+$/i.test(tgt)) return "domain";
+  if (/^@?[a-z0-9_.-]{3,39}$/i.test(tgt)) return "handle";
+  return "text";
+}
 async function runOsint() {
-  const target = ($("#osintTarget") || {}).value || "";
   const out = $("#osintOut"); if (!out) return;
-  out.innerHTML = '<div class="note note-info">Scanning &hellip;</div>';
-  await sleep(450);
-  const handles = [target, target.replace(/\./g, ""), target + "_official", "the_" + target.split(".")[0]];
-  const emails = ["contact@" + target, "admin@" + target, "press@" + target];
-  const tag = (k, v) => '<span class="k">' + esc(k) + '</span><span class="v">' + esc(v) + "</span>";
-  out.innerHTML =
-    '<div class="kv">' +
-      tag("Target", target) +
-      tag("Usernames found", handles.length + " (LinkedIn, X, GitHub, Reddit)") +
-      tag("Email patterns", emails.join(", ")) +
-      tag("Subdomains", "api." + target + ", blog." + target + ", cdn." + target) +
-      tag("Images linked", "4 (2 re-used on 3 sites)") +
-      tag("Risk score", "Medium") +
-    "</div>" +
-    '<div class="log-window"><div class="log-bar"><span class="tb-title">osint.log</span></div><div class="log-body">' +
-    handles.map((h, i) => '<div class="log-line"><span class="ts">[' + String(i).padStart(2,"0") + ':00]</span><span class="lvl info">info</span><span class="msg">pivot ' + esc(h) + "</span></div>").join("") +
-    '<div class="log-line"><span class="ts">[99:99]</span><span class="lvl ok">ok</span><span class="msg">done - ' + emails.length + ' addresses, ' + handles.length + ' identities</span></div>' +
-    "</div></div>";
+  const raw = ((($("#osintTarget") || {}).value) || "").trim();
+  if (!raw) { out.innerHTML = '<div class="note note-warn">' + esc(t("osint.empty")) + "</div>"; return; }
+  out.innerHTML = '<div class="note note-info">…</div>';
+  await sleep(350);
+  const type = osintType(raw);
+  const kv = (k, v) => '<span class="k">' + esc(k) + '</span><span class="v">' + v + "</span>";
+  const rows = [];
+  rows.push(kv(t("osint.k_type"), esc(t("osint.t_" + type))));
+  rows.push(kv(t("osint.k_len"), String(raw.length)));
+  rows.push(kv(t("osint.k_entropy"), osintEntropy(raw).toFixed(2) + " bits"));
+  const dg = (raw.match(/\d/g) || []).length;
+  rows.push(kv(t("osint.k_digits"), dg + " / " + raw.length));
+  const links = [];
+  const q = encodeURIComponent(raw);
+  if (type === "domain") {
+    const parts = raw.toLowerCase().split(".");
+    rows.push(kv(t("osint.k_labels"), esc(parts.join(" · "))));
+    rows.push(kv(t("osint.k_tld"), esc(parts[parts.length - 1])));
+    rows.push(kv(t("osint.k_idn"), esc(/[^\x00-\x7F]/.test(raw) ? t("osint.yes") : t("osint.no"))));
+    links.push(["ViewDNS", "https://viewdns.info/search/?domain=" + q]);
+    links.push(["Shodan", "https://www.shodan.io/search?query=" + q]);
+    links.push(["urlscan", "https://urlscan.io/search/#" + q]);
+    links.push(["GitHub code", "https://github.com/search?q=" + q + "&type=code"]);
+  } else if (type === "email") {
+    const at = raw.split("@");
+    rows.push(kv(t("osint.k_labels"), esc(at[0]) + " @ " + esc(at[1])));
+    const loc = at[0].toLowerCase();
+    const pat = loc.includes(".") ? "firstname.lastname" : (/\d/.test(loc) ? "name+digits" : "single token");
+    rows.push(kv(t("osint.k_pattern"), esc(pat)));
+    links.push(["HaveIBeenPwned", "https://haveibeenpwned.com/"]);
+    links.push(["GitHub code", "https://github.com/search?q=" + q + "&type=code"]);
+  } else if (type === "handle") {
+    const h = raw.replace(/^@/, "");
+    const e = encodeURIComponent(h);
+    links.push(["GitHub", "https://github.com/" + e]);
+    links.push(["X", "https://x.com/" + e]);
+    links.push(["Reddit", "https://www.reddit.com/user/" + e]);
+    links.push(["LinkedIn", "https://www.linkedin.com/search/results/all/?keywords=" + e]);
+  } else if (type === "ipv4") {
+    const oct = raw.split(".").map(Number);
+    const priv = oct[0] === 10 || (oct[0] === 172 && oct[1] >= 16 && oct[1] <= 31) || (oct[0] === 192 && oct[1] === 168);
+    rows.push(kv(t("osint.k_labels"), priv ? t("osint.priv") : t("osint.pub")));
+    links.push(["Shodan", "https://www.shodan.io/search?query=" + q]);
+    links.push(["VirusTotal", "https://www.virustotal.com/gui/search/" + q]);
+  } else {
+    const mails = (raw.match(/[^\s@]+@[^\s@]+\.[^\s@]+/g) || []).slice(0, 5);
+    const urls = (raw.match(/https?:\/\/[^\s)]+/g) || []).slice(0, 5);
+    const ips = (raw.match(/\b\d{1,3}(\.\d{1,3}){3}\b/g) || []).slice(0, 5);
+    rows.push(kv(t("osint.k_labels"), "emails:" + mails.length + " urls:" + urls.length + " ips:" + ips.length));
+    if (mails.length) rows.push(kv("emails", esc(mails.join(", "))));
+    if (urls.length) rows.push(kv("urls", esc(urls.join(", "))));
+    if (ips.length) rows.push(kv("ips", esc(ips.join(", "))));
+  }
+  out.innerHTML = '<div class="kv">' + rows.join("") + "</div>" +
+    (links.length ? '<div class="lk-row"><span class="k">' + esc(t("osint.lookups")) + '</span><span class="v">' +
+      links.map(l => '<a href="' + l[1] + '" target="_blank" rel="noopener">' + esc(l[0]) + "</a>").join(" · ") +
+      "</span></div>" : "") +
+    '<div class="note note-info"><strong>' + esc(t("osint.realT")) + "</strong> " + esc(t("osint.real")) + "</div>";
 }
 
-/* --- FinBot --- */
+/* --- FinBot (real maths on a computed price path) --- */
+function sHash(str) {
+  let h = 2166136261;
+  for (let i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); }
+  return h >>> 0;
+}
+function mulberry32(a) {
+  return function () {
+    a |= 0; a = (a + 0x6D2B79F5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+function finSMA(a, n, i) {
+  let s = 0; for (let k = i - n + 1; k <= i; k++) s += a[k];
+  return s / n;
+}
+function finRSI(a, i, p) {
+  let g = 0, l = 0;
+  for (let k = i - p + 1; k <= i; k++) {
+    const d = a[k] - a[k - 1];
+    if (d > 0) g += d; else l -= d;
+  }
+  if (!l) return 100;
+  const rs = (g / p) / (l / p);
+  return 100 - 100 / (1 + rs);
+}
+function finSpark(vals) {
+  const bl = "▁▂▃▄▅▆▇█";
+  const mn = Math.min.apply(null, vals), mx = Math.max.apply(null, vals);
+  if (mx === mn) return bl[3].repeat(vals.length);
+  return vals.map(v => bl[Math.min(7, Math.floor((v - mn) / (mx - mn) * 8))]).join("");
+}
 async function runFinbot() {
-  const strat = ($("#finbotSelect") || {}).value || "momentum";
   const out = $("#finbotOut"); if (!out) return;
-  out.innerHTML = '<div class="note note-warn">Running paper session &hellip;</div>';
-  await sleep(600);
-  const trades = Math.floor(12 + Math.random() * 30);
-  const pnl = (Math.random() * 8 - 2).toFixed(2);
-  const win = (50 + Math.random() * 25).toFixed(1);
-  const dd = (Math.random() * 4).toFixed(2);
-  out.innerHTML =
-    '<div class="kv">' +
-      '<span class="k">Strategy</span><span class="v">' + esc(strat) + '</span>' +
-      '<span class="k">Trades</span><span class="v">' + trades + '</span>' +
-      '<span class="k">Win rate</span><span class="v">' + win + '%</span>' +
-      '<span class="k">Net PnL</span><span class="v" style="color:var(--brand-2)">' + pnl + '%</span>' +
-      '<span class="k">Max drawdown</span><span class="v">' + dd + '%</span>' +
-      '<span class="k">Status</span><span class="v">Paper only - no real orders</span>' +
-    '</div>' +
-    '<div class="log-window"><div class="log-bar"><span class="tb-title">finbot.log</span></div><div class="log-body">' +
-    '<div class="log-line"><span class="ts">[00:00]</span><span class="lvl info">info</span><span class="msg">regime: trending</span></div>' +
-    '<div class="log-line"><span class="ts">[00:01]</span><span class="lvl info">info</span><span class="msg">risk guard: max 2% per trade</span></div>' +
-    '<div class="log-line"><span class="ts">[00:02]</span><span class="lvl ok">ok</span><span class="msg">session complete - full audit trail saved</span></div>' +
-    '</div></div>';
+  const strat = (($("#finbotSelect") || {}).value) || "momentum";
+  out.innerHTML = '<div class="note note-warn">…</div>';
+  await sleep(400);
+  const rnd = mulberry32(sHash(strat));
+  const N = 160, closes = [100];
+  const vol = strat === "meanrev" ? 0.022 : (strat === "arbitrage" ? 0.014 : 0.017);
+  const drift = strat === "momentum" ? 0.0012 : 0.0002;
+  for (let i = 1; i < N; i++) {
+    const shock = (rnd() + rnd() + rnd() - 1.5) * vol;
+    closes.push(closes[i - 1] * (1 + drift + shock));
+  }
+  const trades = [];
+  let pos = null;
+  const close = (i, px, why) => {
+    const pnl = (px / pos.px - 1) * 100 * pos.dir;
+    trades.push({ i: i, dir: pos.dir, pnl: pnl, why: why });
+    pos = null;
+  };
+  if (strat === "arbitrage") {
+    const b = closes.map(c => c * 0.985 * (1 + (rnd() - 0.5) * 0.004));
+    const spr = closes.map((c, i) => (c - b[i]) / b[i] * 100);
+    for (let i = 40; i < N; i++) {
+      const win = spr.slice(i - 20, i);
+      const m = win.reduce((x, y) => x + y, 0) / 20;
+      const sd = Math.sqrt(win.reduce((x, y) => x + (y - m) * (y - m), 0) / 20) || 1e-9;
+      const z = (spr[i] - m) / sd;
+      if (!pos && Math.abs(z) > 2) pos = { px: spr[i], dir: z > 0 ? -1 : 1 };
+      else if (pos && Math.abs(z) < 0.5) close(i, spr[i], "z→0");
+    }
+  } else {
+    for (let i = 50; i < N; i++) {
+      if (strat === "momentum") {
+        const f = finSMA(closes, 20, i), s = finSMA(closes, 50, i);
+        const fp = finSMA(closes, 20, i - 1), sp = finSMA(closes, 50, i - 1);
+        if (!pos && ((fp <= sp && f > s) || (i === 50 && f > s))) pos = { px: closes[i], dir: 1 };
+        else if (pos && fp >= sp && f < s) close(i, closes[i], "cross");
+      } else {
+        const r = finRSI(closes, i, 14);
+        if (!pos && r < 30) pos = { px: closes[i], dir: 1 };
+        else if (pos && r > 70) close(i, closes[i], "rsi");
+      }
+    }
+  }
+  if (pos) close(N - 1, strat === "arbitrage" ? 0 : closes[N - 1], "eod");
+  let eq = 100; const curve = [100];
+  trades.forEach(tr => { eq *= (1 + tr.pnl / 100); curve.push(eq); });
+  const wins = trades.filter(tr => tr.pnl > 0).length;
+  const net = eq - 100;
+  let peak = 100, dd = 0;
+  curve.forEach(v => { peak = Math.max(peak, v); dd = Math.min(dd, v / peak - 1); });
+  const kv = (k, v) => '<span class="k">' + esc(k) + '</span><span class="v">' + v + "</span>";
+  out.innerHTML = '<div class="kv">' +
+    kv(t("fin.k_trades"), String(trades.length)) +
+    kv(t("fin.k_win"), trades.length ? (wins / trades.length * 100).toFixed(1) + "%" : "—") +
+    kv(t("fin.k_pnl"), '<b style="color:var(--brand-2)">' + (net >= 0 ? "+" : "") + net.toFixed(2) + "%</b>") +
+    kv(t("fin.k_dd"), (dd * 100).toFixed(2) + "%") +
+    kv(t("fin.k_exp"), N + " bars · seed " + sHash(strat)) +
+    "</div>" +
+    '<pre class="spark">' + esc(finSpark(curve)) + "\n" + esc(t("fin.equity")) + " " + eq.toFixed(2) + "</pre>" +
+    '<div class="note note-warn"><strong>' + esc(t("finbot.noteTitle")) + "</strong> " + esc(t("finbot.note")) + "</div>" +
+    '<div class="note note-info"><strong>' + esc(t("fin.realT")) + "</strong> " + esc(t("fin.real")) + "</div>";
 }
 
-/* --- AutoResearch Code --- */
+/* --- AutoResearch Code (real static analysis + real patch) --- */
+const CODE_SAMPLE = [
+  "import os",
+  "import sys",
+  "",
+  "# TODO: cache results on disk",
+  "API_KEY = \"sk-live-abc123\"",
+  "",
+  "def load(path):   ",
+  "    data = open(path).read()   ",
+  "    if data == True:",
+  "        return data",
+  "    try:",
+  "        run(data)",
+  "    except:",
+  "        print(\"failed\")",
+  "",
+  "def run(cmd):",
+  "    os.system(\"convert \" + cmd)  ",
+  ""
+].join("\n");
+function loadCodeSample() {
+  const el = $("#codeInput"); if (el) el.value = CODE_SAMPLE;
+}
+function copyText(txt, btn, doneKey) {
+  const done = () => { if (btn) { btn.dataset.old = btn.textContent; btn.textContent = t(doneKey); setTimeout(() => { btn.textContent = btn.dataset.old; }, 1600); } };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(txt).then(done, done);
+  } else {
+    const ta = document.createElement("textarea");
+    ta.value = txt; document.body.appendChild(ta); ta.select();
+    try { document.execCommand("copy"); } catch (e) {}
+    document.body.removeChild(ta); done();
+  }
+}
+function copyFixed() { copyText(window._fixedCode || "", $("#copyFixBtn"), "code.copied"); }
+function copyForge() { copyText(window._forgeCode || "", $("#copyForgeBtn"), "forge.copied"); }
 async function runCode() {
-  const repo = ($("#codeTarget") || {}).value || "";
-  const q = ($("#codeQ") || {}).value || "";
   const out = $("#codeOut"); if (!out) return;
-  out.innerHTML = '<div class="note note-info">Searching &hellip;</div>';
-  await sleep(500);
-  out.innerHTML =
-    '<div class="log-window"><div class="log-bar"><span class="tb-title">code.log</span></div><div class="log-body">' +
-    '<div class="log-line"><span class="ts">[00:00]</span><span class="lvl info">info</span><span class="msg">repo: ' + esc(repo) + '</span></div>' +
-    '<div class="log-line"><span class="ts">[00:01]</span><span class="lvl info">info</span><span class="msg">question: ' + esc(q) + '</span></div>' +
-    '<div class="log-line"><span class="ts">[00:02]</span><span class="lvl ok">ok</span><span class="msg">files scanned: 142, matches: 7</span></div>' +
-    '</div></div>' +
-    '<div class="audit-out" style="margin-top:12px">' +
-    '<div class="finding low"><div class="fh"><span class="sev">ANSWER</span><span class="fn2">The plugin loader lives in src/plugin/loader.py and is called from boot() in src/main.py.</span></div><div class="ffix">Citation: loader.py:1-48, main.py:112-130. Suggested patch: register new plugins via plugins.json.</div></div>' +
-    '</div>';
+  let src = ((($("#codeInput") || {}).value) || "");
+  if (!src.trim()) { out.innerHTML = '<div class="note note-warn">' + esc(t("code.empty")) + "</div>"; return; }
+  out.innerHTML = '<div class="note note-info">…</div>';
+  await sleep(350);
+  const isPy = /^\s*(def |class |import |from \S+ import|print\()/m.test(src);
+  const isJs = /function\s+\w|console\.log|=>|(?:const|let|var)\s+\w+\s*=/.test(src);
+  const lang = isPy ? "Python" : (isJs ? "JavaScript" : t("code.unknown"));
+  const lines = src.split("\n");
+  const at = (re) => {
+    const hits = [];
+    lines.forEach((ln, i) => { const m = ln.match(re); if (m) hits.push({ n: i + 1, s: (m[1] || m[0]).slice(0, 60) }); });
+    return hits;
+  };
+  const defs = isPy ? at(/^\s*(def|class)\s+(\w+)/).map(h => ({ n: h.n, s: h.s })) : at(/function\s+(\w+)|(?:const|let|var)\s+(\w+)\s*=/).map(h => ({ n: h.n, s: h.s }));
+  const imps = isPy ? at(/^\s*(import\s+.+|from\s+\S+\s+import\s+.+)/) : at(/^\s*import\s+(.+)|require\((.+)\)/);
+  const todos = at(/TODO|FIXME|XXX|HACK/i);
+  const nonEmpty = lines.filter(l => l.trim()).length;
+  const comments = lines.filter(l => /^\s*(#|\/\/)/.test(l)).length;
+  let maxDepth = 0;
+  lines.forEach(l => {
+    const m = l.match(/^(\s*)\S/);
+    if (m) maxDepth = Math.max(maxDepth, Math.floor(m[1].replace(/\t/g, "    ").length / 4));
+  });
+  const findings = [];
+  (typeof RULES !== "undefined" ? RULES : []).forEach(rule => {
+    const re = new RegExp(rule.re.source, rule.re.flags);
+    let m, g = 0;
+    while ((m = re.exec(src)) !== null && g++ < 3) {
+      const idx = src.indexOf(m[0]);
+      findings.push({ sev: rule.sev, key: rule.k, line: src.slice(0, idx < 0 ? 0 : idx).split("\n").length, match: m[0] });
+      if (m.index === re.lastIndex) re.lastIndex++;
+    }
+  });
+  // real mechanical fixes
+  const fixes = [
+    { n: "trailing-whitespace", re: /[ \t]+$/gm, sub: "" },
+    { n: "bare-except", re: /^(\s*)except\s*:/gm, sub: "$1except Exception:" },
+    { n: "eq-true", re: /==\s*True\b/g, sub: "" },
+    { n: "eq-false", re: /!=\s*False\b/g, sub: "" }
+  ];
+  let fixed = src, applied = [];
+  fixes.forEach(f => {
+    const c = (fixed.match(f.re) || []).length;
+    if (c) { fixed = fixed.replace(f.re, f.sub); applied.push({ n: f.n, c: c }); }
+  });
+  window._fixedCode = fixed;
+  const kv = (k, v) => '<span class="k">' + esc(k) + '</span><span class="v">' + v + "</span>";
+  let html = '<div class="kv">' +
+    kv(t("code.m_lang"), esc(lang)) +
+    kv(t("code.m_loc"), lines.length + " / " + nonEmpty) +
+    kv(t("code.m_comments"), comments + "") +
+    kv(t("code.m_defs"), defs.length ? defs.slice(0, 8).map(d => "L" + d.n + " " + esc(d.s)).join(", ") + (defs.length > 8 ? " …" : "") : "—") +
+    kv(t("code.m_imports"), imps.length ? esc(imps.slice(0, 6).map(h => h.s).join(", ")) : "—") +
+    kv(t("code.m_todos"), todos.length ? todos.slice(0, 5).map(h => "L" + h.n).join(", ") : "—") +
+    kv(t("code.m_depth"), String(maxDepth)) +
+    kv(t("code.m_findings"), findings.length ? findings.slice(0, 4).map(f => "[" + f.sev + "] L" + f.line + " " + esc(t(f.key))).join(" · ") : t("audit.clean")) +
+    "</div>";
+  if (applied.length) {
+    html += '<div class="script-box"><div class="log-bar"><span class="tb-title">' + esc(t("code.patch")) +
+      " (" + applied.map(a => a.n + "×" + a.c).join(", ") + ")" + "</span></div>" +
+      '<pre class="codebox">' + esc(fixed.slice(0, 1200)) + (fixed.length > 1200 ? "\n…" : "") + "</pre></div>" +
+      '<button class="btn btn-ghost btn-block" id="copyFixBtn" onclick="copyFixed()">' + esc(t("code.copy")) + "</button>";
+  } else {
+    html += '<div class="note note-info">' + esc(t("code.none")) + "</div>";
+  }
+  html += '<div class="note note-info"><strong>' + esc(t("code.noteTitle")) + "</strong> " + esc(t("code.note")) + "</div>";
+  out.innerHTML = html;
 }
 
-/* --- Pentest Trainer --- */
+/* --- Tool forge (real template generator) --- */
+const FORGE_TPL = {
+  csv: { f: "csv_summary.py", c: [
+    "import csv, sys",
+    "path = sys.argv[1] if len(sys.argv) > 1 else \"TARGET\"",
+    "with open(path, newline=\"\", encoding=\"utf-8\") as fh:",
+    "    rows = list(csv.DictReader(fh))",
+    "print(\"rows:\", len(rows))",
+    "if rows:",
+    "    print(\"columns:\", \", \".join(rows[0].keys()))",
+    "    for col in rows[0].keys():",
+    "        vals = [r[col] for r in rows if r[col]]",
+    "        print(col + \": \" + str(len(vals)) + \" filled\")" ].join("\n") },
+  json: { f: "json_to_csv.py", c: [
+    "import csv, json, sys",
+    "path = sys.argv[1] if len(sys.argv) > 1 else \"TARGET\"",
+    "data = json.load(open(path, encoding=\"utf-8\"))",
+    "if isinstance(data, dict): data = [data]",
+    "keys = sorted({k for row in data for k in row.keys()})",
+    "w = csv.DictWriter(open(\"out.csv\", \"w\", newline=\"\", encoding=\"utf-8\"), fieldnames=keys)",
+    "w.writeheader(); w.writerows(data)",
+    "print(\"wrote out.csv:\", len(data), \"rows\")" ].join("\n") },
+  log: { f: "log_analyzer.py", c: [
+    "import re, sys, collections",
+    "path = sys.argv[1] if len(sys.argv) > 1 else \"TARGET\"",
+    "levels = collections.Counter(); msgs = collections.Counter()",
+    "for line in open(path, encoding=\"utf-8\", errors=\"replace\"):",
+    "    m = re.search(r\"(ERROR|WARN|INFO|DEBUG)\", line)",
+    "    if m: levels[m.group(1)] += 1",
+    "    msgs[line.strip()[:90]] += 1",
+    "print(dict(levels))",
+    "for msg, n in msgs.most_common(5): print(n, msg)" ].join("\n") },
+  rename: { f: "bulk_rename.py", c: [
+    "import os, sys",
+    "folder, prefix = sys.argv[1], sys.argv[2] if len(sys.argv) > 2 else \"TARGET\"",
+    "dry = \"--go\" not in sys.argv",
+    "for name in sorted(os.listdir(folder)):",
+    "    src, dst = os.path.join(folder, name), os.path.join(folder, prefix + name)",
+    "    print((\"WOULD \" if dry else \"\") + src + \" -> \" + dst)",
+    "    if not dry: os.rename(src, dst)",
+    "print(\"dry-run (add --go to apply)\" if dry else \"done\")" ].join("\n") },
+  backup: { f: "backup_now.py", c: [
+    "import shutil, sys, datetime",
+    "src = sys.argv[1] if len(sys.argv) > 1 else \"TARGET\"",
+    "dst = src.rstrip(\"/\\\\\") + \"-\" + datetime.datetime.now().strftime(\"%Y%m%d-%H%M%S\")",
+    "shutil.copytree(src, dst)",
+    "print(\"backed up to\", dst)" ].join("\n") }
+};
+async function runForge() {
+  const out = $("#forgeLog"), stage = $("#forgeStage");
+  const need = ((($("#forgeTarget") || {}).value) || "").toLowerCase();
+  if (stage) stage.innerHTML = "";
+  if (out) out.innerHTML = "";
+  await sleep(300);
+  let key = null;
+  for (const k of ["csv", "json", "log", "rename", "backup"]) {
+    if (need.includes(k) || (k === "rename" && /renam|prefix|bulk/.test(need)) || (k === "backup" && /backup|copy|save/.test(need))) { key = k; break; }
+  }
+  const main = $("#forgeStage") ? $("#forgeStage").parentElement.querySelector(".log-window .log-body") : null;
+  if (!key) {
+    if (out) out.innerHTML = '<div class="log-line"><span class="lvl warn">warn</span><span class="msg">' + esc(t("forge.none")) + " " + esc(t("forge.pick")) + "</span></div>";
+    return;
+  }
+  const tpl = FORGE_TPL[key];
+  const target = ((($("#forgeTarget") || {}).value) || "").trim().slice(0, 60) || "input";
+  const code = tpl.c.replace(/TARGET/g, target);
+  window._forgeCode = code;
+  const logHtml =
+    '<div class="log-line"><span class="lvl info">info</span><span class="msg">template: ' + esc(tpl.f) + "</span></div>" +
+    '<div class="log-line"><span class="lvl ok">ok</span><span class="msg">' + esc(t("forge.generated")) + "</span></div>";
+  if (out) out.innerHTML = logHtml;
+  const box = document.createElement("div");
+  box.className = "script-box";
+  box.innerHTML = '<div class="log-bar"><span class="tb-title">' + esc(tpl.f) + "</span></div>" +
+    '<pre class="codebox">' + esc(code) + "</pre>" +
+    '<button class="btn btn-ghost btn-block" id="copyForgeBtn" onclick="copyForge()">' + esc(t("forge.copy")) + "</button>" +
+    '<div class="note note-warn">' + esc(t("forge.review")) + "</div>";
+  if (out && out.parentElement) out.parentElement.appendChild(box);
+}
+
+/* --- Pentest Trainer (real quiz + real RAG exercises) --- */
+const QUIZ = {
+  recon: [
+    { q: { en: "Which nmap flag lists open ports AND service versions on your own host?", fr: "Quel flag nmap liste les ports ouverts ET les versions de services sur votre propre machine ?" },
+      opts: { en: ["-sV", "-sS", "-O", "-sn"], fr: ["-sV", "-sS", "-O", "-sn"] }, a: 0,
+      hint: { en: "V = version detection", fr: "V = détection de version" },
+      why: { en: "-sV probes open ports to identify service and version. -sS is a SYN scan, -O is OS detection, -sn is ping-only.", fr: "-sV sonde les ports ouverts pour identifier service et version. -sS est un scan SYN, -O la détection d'OS, -sn le ping seul." } },
+    { q: { en: "What is the mandatory first step before any recon?", fr: "Quelle est la première étape obligatoire avant toute reconnaissance ?" },
+      opts: { en: ["Define the scope and get written authorisation", "Run a full port scan", "Try default passwords", "Download exploits"], fr: ["Définir le périmètre et obtenir une autorisation écrite", "Lancer un scan complet des ports", "Tester les mots de passe par défaut", "Télécharger des exploits"] }, a: 0,
+      hint: { en: "Only test what you own", fr: "Ne testez que ce que vous possédez" },
+      why: { en: "Scope plus written authorisation is what separates training from a crime.", fr: "Périmètre plus autorisation écrite : c'est ce qui sépare l'entraînement du délit." } },
+    { q: { en: "Best passive source for subdomains of your own domain?", fr: "Meilleure source passive pour les sous-domaines de votre propre domaine ?" },
+      opts: { en: ["Certificate Transparency logs", "Brute-forcing DNS", "Guessing common names", "Asking on forums"], fr: ["Les logs Certificate Transparency", "Le brute-force DNS", "Deviner des noms courants", "Demander sur des forums"] }, a: 0,
+      hint: { en: "crt.sh", fr: "crt.sh" },
+      why: { en: "Every public TLS certificate is logged in CT; crt.sh lists them without sending a single packet.", fr: "Chaque certificat TLS public est loggé en CT ; crt.sh les liste sans envoyer un seul paquet." } }
+  ],
+  web: [
+    { q: { en: "On your own DVWA-style lab, where do you test a suspicious input first?", fr: "Sur votre propre labo type DVWA, où testez-vous d'abord une entrée suspecte ?" },
+      opts: { en: ["In a proxy repeater against your own target", "Directly on a production site", "On a random blog", "In the browser console of your bank"], fr: ["Dans un proxy/repeater contre votre propre cible", "Directement sur un site de production", "Sur un blog au hasard", "Dans la console du site de votre banque"] }, a: 0,
+      hint: { en: "Your target only", fr: "Votre cible uniquement" },
+      why: { en: "Repeater lets you replay and mutate requests safely — but only against systems you own or may test.", fr: "Le repeater rejoue et modifie les requêtes en sécurité — mais uniquement contre vos systèmes autorisés." } },
+    { q: { en: "The durable fix for SQL injection in your own code?", fr: "Le correctif durable contre l'injection SQL dans votre propre code ?" },
+      opts: { en: ["Parameterized queries / prepared statements", "Blocking the word SELECT", "Hiding the database", "Longer passwords"], fr: ["Requêtes paramétrées / prepared statements", "Bloquer le mot SELECT", "Cacher la base de données", "Des mots de passe plus longs"] }, a: 0,
+      hint: { en: "Separate code from data", fr: "Séparer code et données" },
+      why: { en: "Parameters keep user input as data, never as SQL. Filters and obscurity do not.", fr: "Les paramètres gardent l'entrée comme donnée, jamais comme SQL. Filtres et obscurité ne suffisent pas." } },
+    { q: { en: "A reflected input on your own app should first be checked for…", fr: "Une entrée reflétée sur votre propre appli doit d'abord être vérifiée pour…" },
+      opts: { en: ["Output encoding / context", "Font size", "Page colour", "Loading speed"], fr: ["L'encodage de sortie / le contexte", "La taille de police", "La couleur de page", "La vitesse de chargement"] }, a: 0,
+      hint: { en: "XSS lives in context", fr: "Le XSS vit dans le contexte" },
+      why: { en: "Encoding user data for its HTML/JS/URL context is what neutralises reflected XSS.", fr: "Encoder les données selon leur contexte HTML/JS/URL neutralise le XSS reflété." } }
+  ],
+  privesc: [
+    { q: { en: "In your own VM, which command lists what you may run as root?", fr: "Dans votre propre VM, quelle commande liste ce que vous pouvez lancer en root ?" },
+      opts: { en: ["sudo -l", "su -", "whoami", "id"], fr: ["sudo -l", "su -", "whoami", "id"] }, a: 0,
+      hint: { en: "l = list", fr: "l = list" },
+      why: { en: "sudo -l shows your sudo privileges, including NOPASSWD entries — the classic first enumeration.", fr: "sudo -l montre vos privilèges sudo, dont les entrées NOPASSWD — la première énumération classique." } },
+    { q: { en: "Find SUID binaries on your own Linux VM with…", fr: "Trouver les binaires SUID sur votre propre VM Linux avec…" },
+      opts: { en: ["find / -perm -4000 2>/dev/null", "ls -la", "ps aux", "cat /etc/passwd"], fr: ["find / -perm -4000 2>/dev/null", "ls -la", "ps aux", "cat /etc/passwd"] }, a: 0,
+      hint: { en: "4000 = SUID bit", fr: "4000 = bit SUID" },
+      why: { en: "The SUID bit lets a binary run as its owner; enumerating them is step one of privesc review.", fr: "Le bit SUID fait tourner un binaire comme son propriétaire ; les énumérer est l'étape un de la revue privesc." } },
+    { q: { en: "A cron job running your writable script as root means…", fr: "Un cron qui lance votre script inscriptible en root signifie…" },
+      opts: { en: ["A textbook privesc path — in your own lab", "Nothing, crons are safe", "Reinstall the VM", "Disable the network"], fr: ["Un chemin privesc classique — dans votre propre labo", "Rien, les crons sont sûrs", "Réinstaller la VM", "Couper le réseau"] }, a: 0,
+      hint: { en: "Who can write the script?", fr: "Qui peut écrire le script ?" },
+      why: { en: "Writable script + privileged schedule = code execution as that user. Fix: root-owned, non-writable paths.", fr: "Script inscriptible + planification privilégiée = exécution de code. Correctif : chemins appartenant à root, non inscriptibles." } }
+  ]
+};
+function ptLang(o) { return (window._ptLang === "fr" && o.fr) ? o.fr : o.en; }
+function toggleRag() {
+  const custom = (($("#pentestMode") || {}).value) === "custom";
+  const rf = $("#ragField"), fb = $("#ragFileBtn");
+  if (rf) rf.style.display = custom ? "" : "none";
+  if (fb) fb.style.display = custom ? "" : "none";
+  const dl = $("#pentestSelect");
+  if (dl && dl.closest(".field")) dl.closest(".field").style.display = custom ? "none" : "";
+}
+function readRagFile(ev) {
+  const f = ev.target && ev.target.files && ev.target.files[0];
+  if (!f) return;
+  const r = new FileReader();
+  r.onload = () => { const el = $("#ragInput"); if (el) el.value = String(r.result || "").slice(0, 8000); };
+  r.readAsText(f);
+}
 async function runPentest() {
-  const drill = ($("#pentestSelect") || {}).value || "recon";
   const out = $("#pentestOut"); if (!out) return;
-  out.innerHTML = '<div class="note note-safe">Starting drill &hellip;</div>';
-  await sleep(500);
-  const steps = {
-    recon: ["Identify live hosts on your own subnet", "Run a service scan against your own host", "Read the output, no false positives"],
-    web: ["Map forms and parameters", "Test one input for injection safely", "Review the WAF response"],
-    privesc: ["Enumerate sudo and SUID", "Find a writable path", "Get root in the VM, never the host"]
-  }[drill];
-  out.innerHTML = '<div class="log-window"><div class="log-bar"><span class="tb-title">drill.log</span></div><div class="log-body">' +
-    steps.map((s, i) => '<div class="log-line"><span class="ts">[' + String(i).padStart(2,"0") + ':00]</span><span class="lvl info">step</span><span class="msg">' + esc(s) + '</span></div>').join("") +
-    '<div class="log-line"><span class="ts">[99:99]</span><span class="lvl ok">ok</span><span class="msg">score: 3/3 - debrief ready</span></div>' +
-    '</div></div>';
+  window._ptLang = (typeof LANG !== "undefined" && LANG === "fr") ? "fr" : "en";
+  const custom = (($("#pentestMode") || {}).value) === "custom";
+  if (custom) return ptCustom(out);
+  const drill = (($("#pentestSelect") || {}).value) || "recon";
+  window._pt = { drill: drill, qi: 0, score: 0 };
+  ptAsk(out);
+}
+function ptAsk(out) {
+  const st = window._pt;
+  const Q = QUIZ[st.drill][st.qi];
+  const L = window._ptLang;
+  out.innerHTML =
+    '<div class="qcard"><div class="qq">Q' + (st.qi + 1) + "/3 — " + esc(ptLang(Q.q)) + "</div>" +
+    '<div class="qopts">' + Q.opts[L].map((o, i) => '<button class="opt" data-i="' + i + '">' + esc(o) + "</button>").join("") + "</div>" +
+    '<div class="qhint">💡 ' + esc(ptLang(Q.hint)) + "</div>" +
+    '<div class="qfb" id="qfb"></div></div>';
+  out.querySelectorAll(".opt").forEach(b => b.addEventListener("click", () => {
+    const ok = Number(b.dataset.i) === Q.a;
+    out.querySelectorAll(".opt").forEach(x => { x.disabled = true; if (Number(x.dataset.i) === Q.a) x.classList.add("ok"); });
+    if (!ok) b.classList.add("bad"); else st.score++;
+    $("#qfb").innerHTML = '<div class="' + (ok ? "qok" : "qbad") + '">' + esc(ok ? t("pt.correct") : t("pt.wrong")) + "</div>" +
+      '<div class="qwhy">' + esc(ptLang(Q.why)) + "</div>" +
+      '<button class="btn btn-primary btn-block" id="qnext">' + esc(st.qi < 2 ? t("pt.next") : t("pt.score")) + "</button>";
+    $("#qnext").addEventListener("click", () => {
+      st.qi++;
+      if (st.qi < 3) ptAsk(out); else ptDone(out);
+    });
+  }));
+}
+function ptDone(out) {
+  const st = window._pt;
+  out.innerHTML = '<div class="qcard"><div class="qq">' + esc(t("pt.score")) + ": " + st.score + "/3</div>" +
+    '<div class="qwhy">' + esc(t("pt.debrief")) + "</div>" +
+    '<button class="btn btn-ghost btn-block" id="qretry">' + esc(t("pt.restart")) + "</button></div>";
+  $("#qretry").addEventListener("click", () => { st.qi = 0; st.score = 0; ptAsk(out); });
+}
+function ptCustom(out) {
+  const text = ((($("#ragInput") || {}).value) || "").trim();
+  const sents = text.split(/(?<=[.!?])\s+/).map(s => s.trim()).filter(s => s.length >= 25 && s.length <= 240).slice(0, 6);
+  if (!sents.length) { out.innerHTML = '<div class="note note-warn">' + esc(t("pt.needText")) + "</div>"; return; }
+  window._ex = sents.map(s => {
+    const words = s.split(/\s+/);
+    let bi = -1, bl = 0;
+    words.forEach((w, i) => {
+      const clean = w.replace(/^[^A-Za-zÀ-ÿ]+|[^A-Za-zÀ-ÿ]+$/g, "");
+      if (clean.length >= 6 && clean.length > bl && /[A-Za-zÀ-ÿ]/.test(clean)) { bl = clean.length; bi = i; }
+    });
+    if (bi < 0) return null;
+    const ans = words[bi].replace(/^[^A-Za-zÀ-ÿ]+|[^A-Za-zÀ-ÿ]+$/g, "");
+    const masked = words.slice();
+    masked[bi] = masked[bi].replace(ans, "_____");
+    return { q: masked.join(" "), a: ans };
+  }).filter(Boolean);
+  if (!window._ex.length) { out.innerHTML = '<div class="note note-warn">' + esc(t("pt.needText")) + "</div>"; return; }
+  window._exScore = 0;
+  out.innerHTML = '<div class="qcard"><div class="qq">' + esc(t("pt.exTitle")) + " (" + window._ex.length + ")</div><div id='exList'>" +
+    window._ex.map((e, i) => '<div class="ex"><div class="exq">' + esc(e.q) + '</div>' +
+      '<div class="exrow"><input class="exin" data-i="' + i + '" spellcheck="false"><button class="btn btn-ghost exbtn" data-i="' + i + '">' + esc(t("pt.check")) + '</button>' +
+      '<span class="exfb" id="exfb' + i + '"></span></div></div>').join("") + "</div>" +
+    '<div class="qwhy" id="exScore"></div></div>';
+  out.querySelectorAll(".exbtn").forEach(b => b.addEventListener("click", () => {
+    const i = Number(b.dataset.i);
+    const inp = out.querySelector('.exin[data-i="' + i + '"]');
+    const ok = inp.value.trim().toLowerCase() === window._ex[i].a.toLowerCase();
+    const fb = $("#exfb" + i);
+    if (ok && !inp.disabled) window._exScore++;
+    inp.disabled = true; b.disabled = true;
+    fb.innerHTML = ok ? "✅" : "❌ <b>" + esc(window._ex[i].a) + "</b>";
+    $("#exScore").textContent = t("pt.score") + ": " + window._exScore + "/" + window._ex.length;
+  }));
+}
+
+/* --- AI Chatbot (RLM-style recursive elucidation, real local loop) --- */
+function chatSplit(text) {
+  let parts = String(text).split(/\n+/).map(s => s.trim()).filter(Boolean);
+  let out = [];
+  parts.forEach(p => {
+    p.split(/(?<=[.!?])\s+(?=[A-ZÀ-Þ0-9"“«])/).forEach(s => { s = s.trim(); if (s) out.push(s); });
+  });
+  const fin = [];
+  out.forEach(s => {
+    if (s.length > 110) {
+      s.split(/\s+(?:and|then|plus|while|without|with|but|&|\+|;)\s+/i).forEach(x => { x = x.trim(); if (x) fin.push(x); });
+    } else fin.push(s);
+  });
+  return fin.slice(0, 6);
+}
+function chatLenses() { return [t("chat.l1"), t("chat.l2"), t("chat.l3")]; }
+async function runChat() {
+  const out = $("#chatOut"); if (!out) return;
+  const raw = ((($("#chatInput") || {}).value) || "").trim();
+  if (!raw) { out.innerHTML = '<div class="note note-warn">' + esc(t("chat.empty")) + "</div>"; return; }
+  out.innerHTML = '<div class="note note-info">…</div>';
+  await sleep(400);
+  const kids = chatSplit(raw).map(k => ({ text: k, subs: [] }));
+  if (!kids.length) kids.push({ text: raw.slice(0, 160), subs: [] });
+  window._chat = { root: raw, kids: kids };
+  chatRender(out);
+}
+function chatRender(out) {
+  const st = window._chat;
+  let html = '<div class="tree"><div class="tnode root"><span class="tn">R0</span><span>' + esc(st.root.slice(0, 140)) + "</span></div>";
+  st.kids.forEach((k, i) => {
+    html += '<div class="tnode"><span class="tn">R' + (i + 1) + "</span><span>" + esc(k.text) + "</span> ";
+    if (!k.subs.length) html += '<button class="btn btn-ghost xs" data-exp="' + i + '">' + esc(t("chat.expand")) + "</button>";
+    html += "</div>";
+    k.subs.forEach((sb, j) => {
+      html += '<div class="tnode sub"><span class="tn">R' + (i + 1) + "." + (j + 1) + "</span><span>" + esc(sb) + "</span></div>";
+    });
+  });
+  html += "</div>" + '<button class="btn btn-primary btn-block" id="chatMerge">' + esc(t("chat.merge")) + "</button>" + '<div id="chatPlan"></div>';
+  out.innerHTML = html;
+  out.querySelectorAll("[data-exp]").forEach(b => b.addEventListener("click", () => {
+    const k = window._chat.kids[Number(b.dataset.exp)];
+    const parts = k.text.split(/\s*[:,—–-]\s*|\s+—\s+/).map(s => s.trim()).filter(s => s.length > 12);
+    k.subs = parts.length > 1 ? parts.slice(0, 3) : chatLenses().map(l => l + " → " + k.text.slice(0, 70));
+    chatRender(out);
+  }));
+  $("#chatMerge").addEventListener("click", () => {
+    const plan = window._chat.kids.map((k, i) => {
+      const det = k.subs.length ? " (" + k.subs.length + " " + t("chat.sub") + ")" : "";
+      return (i + 1) + ". " + k.text + det;
+    });
+    $("#chatPlan").innerHTML = '<div class="script-box"><div class="log-bar"><span class="tb-title">' + esc(t("chat.plan")) + "</span></div>" +
+      '<div class="plan">' + plan.map(p => "<div>▸ " + esc(p) + "</div>").join("") + "</div></div>";
+  });
+}
+
+/* --- GUI theme switcher --- */
+function setTheme(name) {
+  const fig = $("#cusShot");
+  if (fig) fig.dataset.theme = name;
+  $$(".theme-btn").forEach(b => b.classList.toggle("on", b.dataset.theme === name));
 }
 
 /* ============================================================
@@ -1023,6 +1503,11 @@ function wire() {
   $("#runFinbot").addEventListener("click", runFinbot);
   $("#runCode").addEventListener("click", runCode);
   $("#runPentest").addEventListener("click", runPentest);
+  $("#runChat").addEventListener("click", runChat);
+  const cs = $("#codeSample"); if (cs) cs.addEventListener("click", loadCodeSample);
+  const pm = $("#pentestMode"); if (pm) pm.addEventListener("change", toggleRag);
+  const rf = $("#ragFile"); if (rf) rf.addEventListener("change", readRagFile);
+  $$(".theme-btn").forEach(b => b.addEventListener("click", () => setTheme(b.dataset.theme)));
 
   $("#faqList").addEventListener("click", e => {
     const q = e.target.closest(".faq-q"); if (!q) return;
