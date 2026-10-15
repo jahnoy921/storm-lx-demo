@@ -404,8 +404,13 @@
     <div class="panel" id="panel-pentest">
       <div class="panel-grid">
         <div class="panel-side">
-          <h3 data-i18n="pt.h3">Pentest Trainer — no fine-tuning, ever</h3>
-          <p class="muted" data-i18n="pt.p">No fine-tuning needed: the model self-trains on whatever subject you want. Run a research campaign to forge a skill, or drop your own file into the RAG below — and it builds itself exercises on your subject. Drills run against your own sandbox. No live targeting.</p>
+          <h3 data-i18n="pt.h3">Pentest Trainer — zero fine-tuning</h3>
+          <p class="muted" data-i18n="pt.p">No fine-tuning needed. The LLM self-trains on whatever subject you want, then builds itself exercises on that subject. Two ways to feed it:</p>
+          <div class="ways">
+            <div class="way"><strong data-i18n="pt.w1t">1 — Make a skill with the research campaign</strong><span data-i18n="pt.w1d">Run a Deep Research campaign: the agent forges a reusable skill from live sources.</span></div>
+            <div class="way"><strong data-i18n="pt.w2t">2 — Drop your own file into the RAG</strong><span data-i18n="pt.w2d">Paste notes or drop a .txt / .md file below: the trainer generates exercises from your content.</span></div>
+          </div>
+          <p class="muted">Drills run against your own sandbox. No live targeting.</p>
           <label class="field">
             <span data-i18n="pt.label">Drill</span>
             <select id="pentestSelect">
@@ -428,7 +433,7 @@
           <label class="file-btn" id="ragFileBtn" style="display:none"><span data-i18n="pt.fileBtn">Drop a file instead</span><input type="file" id="ragFile" accept=".txt,.md,.markdown,.log" hidden></label>
           <button class="btn btn-primary btn-block" id="runPentest" data-i18n="pt.run">Start drill</button>
           <div class="note note-info">
-            <strong data-i18n="pt.fine">The LLM trains itself on your subject</strong>
+            <strong data-i18n="pt.fine">The LLM trains itself — then tests itself — on your subject</strong>
             <span data-i18n="pt.fineNote">Two ways in: forge a skill with a research campaign, or paste / drop your own file above — the trainer generates exercises from your content.</span>
           </div>
           <div class="note note-safe">
