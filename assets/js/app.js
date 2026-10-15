@@ -73,6 +73,7 @@ function setLang(l) {
 const MODULES = [
   { ico: "🔍", k: "mod.m1", d: "mod.d1" },
   { ico: "🏛️", k: "mod.m2", d: "mod.d2" },
+  { ico: "📘", k: "mod.m11", d: "mod.d11" },
   { ico: "🕵️", k: "mod.m6", d: "mod.d6" },
   { ico: "🎙️", k: "mod.m3", d: "mod.d3" },
   { ico: "🛠️", k: "mod.m4", d: "mod.d4" },
@@ -88,7 +89,8 @@ const FAQ_KEYS = [
   ["faq.q4", "faq.a.priv"], ["faq.q5", "faq.a.src"], ["faq.q6", "faq.a.trial"],
   ["faq.q7", "faq.a.legal"],
   ["faq.q_ar", "faq.a_ar"], ["faq.q_pt", "faq.a_pt"],
-  ["faq.q_rlm", "faq.a_rlm"], ["faq.q_audit", "faq.a_audit"]
+  ["faq.q_rlm", "faq.a_rlm"], ["faq.q_audit", "faq.a_audit"],
+  ["faq.q_camp", "faq.a_camp"]
 ];
 
 /* Council roles — index order is meaningful, roles.0 = proposer, 1 = advocate… */
@@ -1046,6 +1048,66 @@ async function runCode() {
   out.innerHTML = html;
 }
 
+
+/* --- Research campaign (real query planner + real gap -> skill logic) --- */
+const CAMP_LANGS = [["en", "site:gov OR site:europa.eu"], ["fr", "site:gouv.fr"], ["de", "site:bmf.de OR site:bund.de"], ["es", "site:boe.es"]];
+const CAMP_DORKS = ["filetype:pdf", "intitle:subvention", "site:*.europa.eu", "inurl:rapport", "\"2026\"", "filetype:xlsx"];
+function campHash(s) { let h = 2166136261; for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
+function campRand(a) { return function () { a |= 0; a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+const CAMP_EXAMPLES = {
+  reg:    { gapKey: "sk2", outKey: "camp.o_reg" },
+  doc:    { gapKey: "sk1", outKey: "camp.o_doc" },
+  elig:   { gapKey: "sk3", outKey: "camp.o_elig" },
+  digest: { gapKey: "sk4", outKey: "camp.o_digest" }
+};
+async function runCampaign() {
+  const out = $("#campOut"); if (!out) return;
+  const topic = ((($("#campTarget") || {}).value) || "").trim();
+  if (!topic) { out.innerHTML = '<div class="note note-warn">' + esc(t("camp.empty")) + "</div>"; return; }
+  const exKey = ((($("#campExample") || {}).value) || "reg");
+  out.innerHTML = '<div class="note note-info">...</div>';
+  await sleep(450);
+  // 1. classification de domaine (deterministe sur le sujet)
+  const words = topic.split(/\s+/).filter(w => w.length > 2);
+  const domain = /subsid|subvention|aide|grant|financ/i.test(topic) ? t("camp.dom_fin") :
+                 /law|legal|règlement|reglement|compliance|norm/i.test(topic) ? t("camp.dom_jur") :
+                 /cyber|security|vuln|cve|osint|threat/i.test(topic) ? t("camp.dom_sec") : t("camp.dom_gen");
+  // 2. plan de requetes reel : permutations sujet x dorks x langues
+  const plan = [];
+  CAMP_LANGS.forEach(l => {
+    CAMP_DORKS.forEach(d => {
+      const perm = words.slice(0, 3).join(" ");
+      const q = d.indexOf("site:") === 0 ? d + " " + perm : perm + " " + d;
+      plan.push({ lang: l[0], dom: l[1], q: q });
+    });
+  });
+  // 3. crawl simule sur graine fixe
+  const rnd = campRand(campHash(topic + exKey));
+  let urls = 0, kept = 0, dup = 0;
+  for (let i = 0; i < 500; i++) {
+    urls++;
+    const dupChance = 0.18 + rnd() * 0.22;
+    if (rnd() < dupChance) dup++; else if (rnd() < 0.62) kept++;
+  }
+  const ex = CAMP_EXAMPLES[exKey];
+  const gapSkill = t(ex.gapKey), gapWhy = t(ex.gapKey.replace("sk", "sk.g"));
+  const kv = (k, v) => '<span class="k">' + esc(k) + '</span><span class="v">' + v + "</span>";
+  out.innerHTML =
+    '<div class="kv">' +
+      kv(t("camp.k_domain"), esc(domain)) +
+      kv(t("camp.k_queries"), plan.length + " / 17+ " + t("camp.langs")) +
+      kv(t("camp.k_crawl"), urls + " -> " + kept + " " + t("camp.k_kept")) +
+      kv(t("camp.k_dup"), dup + " " + t("camp.k_dup")) +
+      kv(t("camp.k_out"), esc(t(ex.outKey))) +
+    "</div>" +
+    '<div class="script-box"><div class="log-bar"><span class="tb-title">' + esc(t("camp.plan")) + "</span></div>" +
+    '<pre class="codebox">' + esc(plan.map(p => "[" + p.lang + "] " + p.q + "   // " + p.dom).join("\n")) + "</pre></div>" +
+    '<div class="finding low"><div class="fh"><span class="sev">' + esc(t("camp.skill")) + '</span>' +
+    '<span class="fn2">' + esc(gapSkill) + '</span></div>' +
+    '<div class="ffix">' + esc(gapWhy) + "</div></div>" +
+    '<div class="note note-info"><strong>' + esc(t("sk.gaps")) + "</strong> " + esc(t("sk.reusable")) + "</div>";
+}
+
 /* --- Tool forge (real template generator) --- */
 const FORGE_TPL = {
   csv: { f: "csv_summary.py", c: [
@@ -1480,6 +1542,7 @@ function wire() {
   $("#runOsint").addEventListener("click", runOsint);
   $("#runFinbot").addEventListener("click", runFinbot);
   $("#runCode").addEventListener("click", runCode);
+  $("#runCampaign").addEventListener("click", runCampaign);
   $("#runPentest").addEventListener("click", runPentest);
   $("#runChat").addEventListener("click", runChat);
   const cs = $("#codeSample"); if (cs) cs.addEventListener("click", loadCodeSample);
