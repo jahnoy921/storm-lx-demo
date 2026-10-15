@@ -181,6 +181,8 @@
     <div class="tabs" role="tablist" id="demoTabs">
       <button class="tab active" role="tab" data-tab="council" data-i18n="demo.tab1">AI Council</button>
       <button class="tab" role="tab" data-tab="research" data-i18n="demo.tab2">Deep research</button>
+      <button class="tab" role="tab" data-tab="campaign" data-i18n="demo.tab_campaign">Research campaign</button>
+      <button class="tab" role="tab" data-tab="campaign" data-i18n="demo.tab_campaign">Research campaign</button>
       <button class="tab" role="tab" data-tab="osint" data-i18n="demo.tab_osint">OSINT tools</button>
       <button class="tab" role="tab" data-tab="media" data-i18n="demo.tab3">Media analysis</button>
       <button class="tab" role="tab" data-tab="forge" data-i18n="demo.tab4">Tool forge</button>
@@ -465,6 +467,68 @@
         </div>
         <div class="panel-main">
           <div class="chat-out" id="chatOut"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---- RESEARCH CAMPAIGN ---- -->
+    <div class="panel" id="panel-campaign">
+      <div class="panel-grid">
+        <div class="panel-side">
+          <h3 data-i18n="camp.h3">One campaign, many outputs</h3>
+          <p class="muted" data-i18n="camp.p">A campaign is not just a report. It classifies your domain, plans queries in 17+ languages, crawls up to 500 sources, scores authority, strips duplicates, then reads its own gaps: whatever nobody was tracking becomes a reusable skill you can call again next month.</p>
+          <label class="field">
+            <span data-i18n="camp.label">Campaign topic</span>
+            <input type="text" id="campTarget" value="renewable energy subsidies France 2026" spellcheck="false">
+          </label>
+          <label class="field">
+            <span data-i18n="camp.ex">Example campaign</span>
+            <select id="campExample">
+              <option value="reg" data-i18n="camp.e1">Regulatory watch</option>
+              <option value="doc" data-i18n="camp.e2">Document intake</option>
+              <option value="elig" data-i18n="camp.e3">Eligibility screening</option>
+              <option value="digest" data-i18n="camp.e4">Cross-language digest</option>
+            </select>
+          </label>
+          <button class="btn btn-primary btn-block" id="runCampaign" data-i18n="camp.run">Launch campaign</button>
+          <div class="note note-info">
+            <strong data-i18n="camp.noteTitle">Real pipeline, simulated crawl</strong>
+            <span data-i18n="camp.note">The query plan and the gap analysis below are computed for real in this page. The crawl counters run on a fixed seed so the demo stays offline.</span>
+          </div>
+        </div>
+        <div class="panel-main">
+          <div class="camp-out" id="campOut"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---- RESEARCH CAMPAIGN ---- -->
+    <div class="panel" id="panel-campaign">
+      <div class="panel-grid">
+        <div class="panel-side">
+          <h3 data-i18n="camp.h3">One campaign, many outputs</h3>
+          <p class="muted" data-i18n="camp.p">A campaign is not just a report. It classifies your domain, plans queries in 17+ languages, crawls up to 500 sources, scores authority, strips duplicates, then reads its own gaps: whatever nobody was tracking becomes a reusable skill you can call again next month.</p>
+          <label class="field">
+            <span data-i18n="camp.label">Campaign topic</span>
+            <input type="text" id="campTarget" value="renewable energy subsidies France 2026" spellcheck="false">
+          </label>
+          <label class="field">
+            <span data-i18n="camp.ex">Example campaign</span>
+            <select id="campExample">
+              <option value="reg" data-i18n="camp.e1">Regulatory watch</option>
+              <option value="doc" data-i18n="camp.e2">Document intake</option>
+              <option value="elig" data-i18n="camp.e3">Eligibility screening</option>
+              <option value="digest" data-i18n="camp.e4">Cross-language digest</option>
+            </select>
+          </label>
+          <button class="btn btn-primary btn-block" id="runCampaign" data-i18n="camp.run">Launch campaign</button>
+          <div class="note note-info">
+            <strong data-i18n="camp.noteTitle">Real pipeline, simulated crawl</strong>
+            <span data-i18n="camp.note">The query plan and the gap analysis below are computed for real in this page. The crawl counters run on a fixed seed so the demo stays offline.</span>
+          </div>
+        </div>
+        <div class="panel-main">
+          <div class="camp-out" id="campOut"></div>
         </div>
       </div>
     </div>
