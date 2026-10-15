@@ -137,7 +137,7 @@
   <div class="wrap trust-inner">
     <div class="trust-item"><strong>14</strong><span data-i18n="trust.langs">interface languages</span></div>
     <div class="trust-item"><strong>17+</strong><span data-i18n="trust.query">research query languages</span></div>
-    <div class="trust-item"><strong>9</strong><span data-i18n="trust.mods">demo modules</span></div>
+    <div class="trust-item"><strong>10</strong><span data-i18n="trust.mods">demo modules</span></div>
     <div class="trust-item"><strong>4</strong><span data-i18n="trust.os">Windows · Linux · Android</span></div>
   </div>
 </section>
@@ -175,7 +175,7 @@
     <header class="section-head">
       <span class="kicker" data-i18n="demo.kicker">Interactive</span>
       <h2 data-i18n="demo.title">Try Storm-LX right now — nothing to install</h2>
-      <p data-i18n="demo.sub">Nine modules running entirely in your browser. The same engine and the same reasoning loop, with zero risk to your machine.</p>
+      <p data-i18n="demo.sub">Ten modules running entirely in your browser. The same engine and the same reasoning loop, with zero risk to your machine.</p>
     </header>
 
     <div class="tabs" role="tablist" id="demoTabs">
@@ -188,6 +188,7 @@
       <button class="tab" role="tab" data-tab="finbot" data-i18n="demo.tab_finbot">FinBot</button>
       <button class="tab" role="tab" data-tab="autoresearch" data-i18n="demo.tab_autoresearch">AutoResearch</button>
       <button class="tab" role="tab" data-tab="pentest" data-i18n="demo.tab_pentest">Pentest Trainer</button>
+      <button class="tab" role="tab" data-tab="chatbot" data-i18n="demo.tab_chatbot">AI Chatbot</button>
     </div>
 
     <!-- ---- AI COUNCIL ---- -->
@@ -346,7 +347,7 @@
     <div class="panel" id="panel-finbot">
       <div class="panel-grid">
         <div class="panel-side">
-          <h3 data-i18n="finbot.h3">Markets, on autopilot, safely</h3>
+          <h3 data-i18n="finbot.h3">FinBot — everything mathematical</h3>
           <p class="muted" data-i18n="finbot.p">Paper-trade a strategy, size positions with hard risk limits, detect regime changes and get a full audit trail. Built for research, not for YOLO trading.</p>
           <label class="field">
             <span data-i18n="finbot.label">Strategy</span>
@@ -356,7 +357,7 @@
               <option value="arbitrage" data-i18n="finbot.o3">Cross-exchange arbitrage</option>
             </select>
           </label>
-          <button class="btn btn-primary btn-block" id="runFinbot" data-i18n="finbot.run">Run paper session</button>
+          <button class="btn btn-primary btn-block" id="runFinbot" data-i18n="finbot.run">Run backtest</button>
           <div class="note note-warn">
             <strong data-i18n="finbot.noteTitle">Paper only</strong>
             <span data-i18n="finbot.note">No real orders are ever sent. Educational research tool.</span>
@@ -372,7 +373,7 @@
     <div class="panel" id="panel-autoresearch">
       <div class="panel-grid">
         <div class="panel-side">
-          <h3 data-i18n="code.h3">AutoResearch Code — improve any code you can access</h3>
+          <h3 data-i18n="code.h3">AutoResearch Code — experimental auto-improvement</h3>
           <p class="muted" data-i18n="code.p">Like the Karpati auto-improvement idea: point it at any code you have access to — your own software, a library you may modify, a fork you own — and it studies the codebase, proposes better versions, rewrites them and re-tests them. This is still an experimental module, which is exactly why it is offered as its own option.</p>
           <label class="field">
             <span data-i18n="code.label">Repository path</span>
@@ -382,7 +383,12 @@
             <span data-i18n="code.label2">Question</span>
             <input type="text" id="codeQ" value="Where is the plugin loader?" spellcheck="false">
           </label>
-          <button class="btn btn-primary btn-block" id="runCode" data-i18n="code.run">Search codebase</button>
+          <label class="field">
+            <span data-i18n="code.input">Paste the code to improve</span>
+            <textarea id="codeInput" rows="8" spellcheck="false"></textarea>
+          </label>
+          <button class="btn btn-primary btn-block" id="runCode" data-i18n="code.run">Analyse and propose a patch</button>
+          <button class="btn btn-ghost btn-block" id="codeSample" data-i18n="code.sample">Load sample</button>
           <div class="note note-info">
             <strong data-i18n="code.noteTitle">Experimental — local only</strong>
             <span data-i18n="code.note">Experimental module. Nothing is uploaded: the analysis runs locally, on code you already have the right to read.</span>
@@ -398,8 +404,8 @@
     <div class="panel" id="panel-pentest">
       <div class="panel-grid">
         <div class="panel-side">
-          <h3 data-i18n="pt.h3">Train safely, on your own lab</h3>
-          <p class="muted" data-i18n="pt.p">Step-by-step attack and defence drills against a sandbox you own. Scoring, hints and the debrief are pre-configured: no fine-tuning and no dataset to prepare. No live targeting.</p>
+          <h3 data-i18n="pt.h3">Pentest Trainer — no fine-tuning, ever</h3>
+          <p class="muted" data-i18n="pt.p">No fine-tuning needed: the model self-trains on whatever subject you want. Run a research campaign to forge a skill, or drop your own file into the RAG below — and it builds itself exercises on your subject. Drills run against your own sandbox. No live targeting.</p>
           <label class="field">
             <span data-i18n="pt.label">Drill</span>
             <select id="pentestSelect">
@@ -408,10 +414,22 @@
               <option value="privesc" data-i18n="pt.o3">Privilege escalation in a VM</option>
             </select>
           </label>
+          <label class="field">
+            <span data-i18n="pt.mode">Mode</span>
+            <select id="pentestMode">
+              <option value="drill" data-i18n="pt.m_drill">Guided drill</option>
+              <option value="custom" data-i18n="pt.m_custom">My own subject (RAG)</option>
+            </select>
+          </label>
+          <label class="field" id="ragField" style="display:none">
+            <span data-i18n="pt.ragLabel">Your subject — paste notes or drop a .txt / .md file</span>
+            <textarea id="ragInput" rows="6" spellcheck="false" placeholder="Paste course notes, a man page, a CVE write-up..."></textarea>
+          </label>
+          <label class="file-btn" id="ragFileBtn" style="display:none"><span data-i18n="pt.fileBtn">Drop a file instead</span><input type="file" id="ragFile" accept=".txt,.md,.markdown,.log" hidden></label>
           <button class="btn btn-primary btn-block" id="runPentest" data-i18n="pt.run">Start drill</button>
           <div class="note note-info">
-            <strong data-i18n="pt.fine">No fine-tuning needed</strong>
-            <span data-i18n="pt.fineNote">Drills, scoring, hints and the debrief are pre-configured: nothing to train, no dataset to prepare.</span>
+            <strong data-i18n="pt.fine">The LLM trains itself on your subject</strong>
+            <span data-i18n="pt.fineNote">Two ways in: forge a skill with a research campaign, or paste / drop your own file above — the trainer generates exercises from your content.</span>
           </div>
           <div class="note note-safe">
             <strong data-i18n="pt.noteTitle">Authorised use only</strong>
@@ -424,6 +442,28 @@
       </div>
     </div>
 
+    <!-- ---- AI CHATBOT (RLM) ---- -->
+    <div class="panel" id="panel-chatbot">
+      <div class="panel-grid">
+        <div class="panel-side">
+          <h3 data-i18n="chat.h3">Ask complex questions, get elucidated answers</h3>
+          <p class="muted" data-i18n="chat.p">Powered by RLM — Recursive Language Model (Alexander Zhang et al.): instead of answering in one shot, the model recursively breaks your problem into sub-problems, solves each one, and merges everything. The decomposition below runs for real, locally.</p>
+          <label class="field">
+            <span data-i18n="chat.label">Your complex problem</span>
+            <textarea id="chatInput" rows="6" spellcheck="false">Cut cloud costs 30% without losing reliability, keep the team fast, and stay compliant with EU data rules.</textarea>
+          </label>
+          <button class="btn btn-primary btn-block" id="runChat" data-i18n="chat.run">Elucidate</button>
+          <div class="note note-info">
+            <strong data-i18n="chat.noteTitle">Real local reasoning</strong>
+            <span data-i18n="chat.note">No network, no API key: the recursive breakdown runs entirely in this page.</span>
+          </div>
+        </div>
+        <div class="panel-main">
+          <div class="chat-out" id="chatOut"></div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -432,7 +472,7 @@
   <div class="wrap">
     <header class="section-head">
       <span class="kicker" data-i18n="mod.kicker">What's inside</span>
-      <h2 data-i18n="mod.title">Nine autonomous modules, one licence</h2>
+      <h2 data-i18n="mod.title">Ten autonomous modules, one licence</h2>
       <p data-i18n="mod.sub">Every module ships complete. Bring your own plugins and build your own interface.</p>
     </header>
     <div class="mod-grid" id="modGrid"></div>
@@ -477,7 +517,13 @@
     </header>
 
     <div class="cus-grid">
-      <figure class="cus-shot">
+      <div class="theme-row">
+        <span data-i18n="cus.theme">Interface theme:</span>
+        <button class="theme-btn on" data-theme="light" data-i18n="cus.t_light">Light</button>
+        <button class="theme-btn" data-theme="dark" data-i18n="cus.t_dark">Dark</button>
+        <button class="theme-btn" data-theme="matrix" data-i18n="cus.t_matrix">Matrix</button>
+      </div>
+      <figure class="cus-shot" id="cusShot" data-theme="light">
         <img src="assets/img/storm-cowork.png" alt="STORM Cowork GUI — official plugin example" width="1600" height="900">
         <figcaption>
           <strong data-i18n="cus.shot.t">STORM Cowork GUI</strong>
