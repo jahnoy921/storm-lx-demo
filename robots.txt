@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://jahnoy921.github.io/storm-lx-demo/sitemap.xml
+Sitemap: https://storm-lx-demo.fdxc322.workers.dev/sitemap.xml
 
 # Ne pas indexer les artefacts de demo streaming lourds s'il y en a
 User-agent: *
