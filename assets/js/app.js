@@ -86,7 +86,7 @@ const MODULES = [
 const FAQ_KEYS = [
   ["faq.q1", "faq.a.lic"], ["faq.q2", "faq.a.req"], ["faq.q3", "faq.a.lang"],
   ["faq.q4", "faq.a.priv"], ["faq.q5", "faq.a.src"], ["faq.q6", "faq.a.trial"],
-  ["faq.q7", "faq.a.legal"], ["faq.q8", "faq.a.upd"],
+  ["faq.q7", "faq.a.legal"],
   ["faq.q_ar", "faq.a_ar"], ["faq.q_pt", "faq.a_pt"],
   ["faq.q_rlm", "faq.a_rlm"], ["faq.q_audit", "faq.a_audit"]
 ];
