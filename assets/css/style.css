@@ -529,3 +529,27 @@ p{margin:0 0 1rem}
 /* ---------- RTL ---------- */
 [dir="rtl"] .nav,[dir="rtl"] .ticks li{padding-inline-start:1.6rem}
 [dir="rtl"] .modal-box{text-align:right}
+/* ============ LANGUAGES ============ */
+.lang-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 12px;
+  margin-top: 32px;
+}
+.lang-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  transition: border-color .2s, transform .2s;
+}
+.lang-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+.lang-flag { font-size: 24px; }
+.lang-native { font-size: 15px; font-weight: 500; color: var(--txt); }
+
